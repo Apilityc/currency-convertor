@@ -1,5 +1,7 @@
 package org.apilytc.domain;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -27,9 +29,7 @@ public class CurrencyIntegrationTest {
 
 	@Test
 	public void testRedisAddLink() {
-
-		listOpts.leftPush("left", "right");
-		valueOpts.set("sah", "bah");
-
+		valueOpts.set("link", "apilytic.org");
+		assertEquals("apilytic.org", valueOpts.get("link"));
 	}
 }
