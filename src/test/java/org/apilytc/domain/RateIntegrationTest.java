@@ -3,44 +3,67 @@ package org.apilytc.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.PostConstruct;
 
 import org.apilytc.service.RateService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.roo.addon.configurable.RooConfigurable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.roo.addon.test.RooIntegrationTest;
 
-@RooConfigurable
+@RooIntegrationTest(entity = Rate.class, transactional = false)
 public class RateIntegrationTest {
+
+	// template.getConnectionFactory().getConnection().flushDb();
+
+	@Autowired
+	private RedisTemplate<String, String> template;
 
 	@Autowired
 	private RateService rateService;
 
+	@Autowired
+	private RateDataOnDemand dod;
+
+	@PostConstruct
+	public void init() {
+		template.getConnectionFactory().getConnection().flushDb();
+	}
+
 	@Test
 	public void testSave() {
-		Rate rate = new Rate();
-		rate.setKey(Rate.key("USD"));
+		assertNotNull(
+				"Data on demand for 'Rate' failed to initialize correctly",
+				dod.getRandomRate());
 
-		Map<String, String> rates = new HashMap<String, String>();
-		rates.put("EUR", "1.24324");
-		rates.put("GBP", "2.44435");
+		Rate obj = dod.getNewTransientRate(Integer.MAX_VALUE);
+		Assert.assertNotNull(
+				"Data on demand for 'Rate' failed to provide a new transient entity",
+				obj);
 
-		rate.setValue(rates);
+		Rate actual = rateService.save(obj);
 
-		Rate entry = rateService.save(rate);
-
-		assertNotNull(entry);
-		assertEquals(2, entry.getValue().size());
-		assertEquals("rate:USD", entry.getKey());
+		assertEquals(obj.getKey(), actual.getKey());
+		assertEquals(obj.getValue().size(), actual.getValue().size());
 	}
 
 	@Test
 	public void testFindOne() {
-		Rate rate = rateService.findOne(Rate.key("USD"));
-		assertNotNull(rate);
-		assertEquals(2, rate.getValue().size());
-		assertEquals("rate:USD", rate.getKey());
+		Rate obj = dod.getRandomRate();
+		Assert.assertNotNull(
+				"Data on demand for 'Rate' failed to initialize correctly", obj);
+		String key = obj.getKey();
+		Assert.assertNotNull(
+				"Data on demand for 'Rate' failed to provide an identifier",
+				key);
+		obj = rateService.findOne(key);
+		Assert.assertNotNull(
+				"Find method for 'Rate' illegally returned null for id '" + key
+						+ "'", obj);
+		Assert.assertEquals(
+				"Find method for 'Rate' returned the incorrect identifier",
+				key, obj.getKey());
 	}
 
 	@Test

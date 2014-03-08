@@ -5,15 +5,12 @@ import org.springframework.data.annotation.Persistent;
 
 public privileged aspect Rate_Redis_Entity {
 
-	declare @type: Rate: @Persistent;
-
 	public static String Rate.KEY = "rate:%s";
 
 	public static String Rate.key(String key) {
 		return String.format(Rate.KEY, key);
 	}
 
-	@Id
 	private String Rate.key;
 
 	public String Rate.getKey() {
