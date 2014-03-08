@@ -2,9 +2,6 @@ package org.apilytc.domain;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.junit.Before;
@@ -16,12 +13,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.roo.addon.test.RooIntegrationTest;
 
+//XXX Excluded from test suite
 @RooIntegrationTest(entity = Currency.class, transactional = false)
 public class CurrencyIntegrationTest {
 
 	@Before
 	public void setup() {
-		template.getConnectionFactory().getConnection().flushDb();
+
 	}
 
 	@Autowired
@@ -42,20 +40,8 @@ public class CurrencyIntegrationTest {
 
 	@Test
 	public void testRedisAddLink() {
+		template.getConnectionFactory().getConnection().flushDb();
 		valueOpts.set("link", "apilytic.org");
 		assertEquals("apilytic.org", valueOpts.get("link"));
-	}
-
-	@Test
-	public void testRateKeyStorate() {
-		Map<String, String> exchangeRate = new HashMap<String, String>();
-		exchangeRate.put("EUR", "1.24455");
-		exchangeRate.put("GBP", "12.0023");
-
-		Rate r = new Rate();
-		r.setKey("USD");
-		r.setValue(exchangeRate);
-
-		hashOpts.putAll(r.getKey(), r.getValue());
 	}
 }
