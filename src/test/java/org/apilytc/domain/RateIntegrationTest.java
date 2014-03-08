@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.PostConstruct;
 
-import org.apilytc.service.RateService;
+import org.apilytc.repository.RateRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class RateIntegrationTest {
 	private RedisTemplate<String, String> template;
 
 	@Autowired
-	private RateService rateService;
+	private RateRepository rateRepo;
 
 	@Autowired
 	private RateDataOnDemand dod;
@@ -42,7 +42,7 @@ public class RateIntegrationTest {
 				"Data on demand for 'Rate' failed to provide a new transient entity",
 				obj);
 
-		Rate actual = rateService.save(obj);
+		Rate actual = rateRepo.save(obj);
 
 		assertEquals(obj.getKey(), actual.getKey());
 		assertEquals(obj.getValue().size(), actual.getValue().size());
@@ -57,7 +57,7 @@ public class RateIntegrationTest {
 		Assert.assertNotNull(
 				"Data on demand for 'Rate' failed to provide an identifier",
 				key);
-		obj = rateService.findOne(key);
+		obj = rateRepo.findOne(key);
 		Assert.assertNotNull(
 				"Find method for 'Rate' illegally returned null for id '" + key
 						+ "'", obj);

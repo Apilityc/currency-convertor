@@ -5,6 +5,7 @@ import java.util.List;
 import org.apilytc.domain.Rate;
 import org.apilytc.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
+@Primary
 public class RateService implements RateRepository {
 
 	@Autowired
