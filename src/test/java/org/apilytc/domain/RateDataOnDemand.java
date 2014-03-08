@@ -3,13 +3,9 @@ package org.apilytc.domain;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,24 +79,7 @@ public class RateDataOnDemand {
 
 		for (int i = from; i < to; i++) {
 			Rate obj = getNewTransientRate(i);
-			try {
-				template.opsForHash().putAll(obj.getKey(), obj.getValue());
-			} catch (final ConstraintViolationException e) {
-				final StringBuilder msg = new StringBuilder();
-				for (Iterator<ConstraintViolation<?>> iter = e
-						.getConstraintViolations().iterator(); iter.hasNext();) {
-					final ConstraintViolation<?> cv = iter.next();
-					msg.append("[")
-							.append(cv.getRootBean().getClass().getName())
-							.append(".").append(cv.getPropertyPath())
-							.append(": ").append(cv.getMessage())
-							.append(" (invalid value = ")
-							.append(cv.getInvalidValue()).append(")")
-							.append("]");
-				}
-				throw new IllegalStateException(msg.toString(), e);
-			}
-
+			template.opsForHash().putAll(obj.getKey(), obj.getValue());
 			data.add(obj);
 		}
 	}

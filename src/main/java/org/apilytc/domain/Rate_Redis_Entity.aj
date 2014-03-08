@@ -1,9 +1,6 @@
 package org.apilytc.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Persistent;
-
-public privileged aspect Rate_Redis_Entity {
+privileged aspect Rate_Redis_Entity {
 
 	public static String Rate.KEY = "rate:%s";
 
