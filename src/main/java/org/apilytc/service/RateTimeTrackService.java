@@ -1,10 +1,10 @@
 package org.apilytc.service;
 
+import javax.annotation.Resource;
+
 import org.apilytc.domain.RateTimeTrack;
 import org.apilytc.repository.RateTimeTrackRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +12,12 @@ import org.springframework.stereotype.Service;
 @Primary
 public class RateTimeTrackService implements RateTimeTrackRepository {
 
-	@Autowired
-	private RedisTemplate<String, RateTimeTrack> template;
+	@Resource(name = "redisTemplate")
+	ValueOperations<String, RateTimeTrack> opsForValue;
 
 	@Override
 	public RateTimeTrack save(RateTimeTrack entity) {
-		ValueOperations<String, RateTimeTrack> opsForValue = template
-				.opsForValue();
-
-		opsForValue.set(entity.getKey(), entity);
+		this.opsForValue.set(entity.getKey(), entity);
 		return entity;
 	}
 
@@ -33,8 +30,7 @@ public class RateTimeTrackService implements RateTimeTrackRepository {
 
 	@Override
 	public RateTimeTrack findOne(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.opsForValue.get(id);
 	}
 
 	@Override
@@ -57,14 +53,12 @@ public class RateTimeTrackService implements RateTimeTrackRepository {
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
-
+		this.opsForValue.getOperations().delete(id);
 	}
 
 	@Override
 	public void delete(RateTimeTrack entity) {
-		// TODO Auto-generated method stub
-
+		this.opsForValue.getOperations().delete(entity.getKey());
 	}
 
 	@Override
@@ -76,7 +70,6 @@ public class RateTimeTrackService implements RateTimeTrackRepository {
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-
 	}
 
 }
