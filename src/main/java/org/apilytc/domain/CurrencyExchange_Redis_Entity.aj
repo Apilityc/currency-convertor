@@ -1,5 +1,6 @@
 package org.apilytc.domain;
 
+
 privileged aspect CurrencyExchange_Redis_Entity {
 
 	public static final String CurrencyExchange.KEY = "currency:list";
@@ -8,13 +9,22 @@ privileged aspect CurrencyExchange_Redis_Entity {
 		return KEY;
 	}
 
+	public static final String CurrencyExchange.key(String id) {
+		String pattern = KEY + ":%s";
+		return String.format(pattern, id);
+	}
+
+	public static final String CurrencyExchange.Key(String id) {
+		return KEY + ":" + id;
+	}
+
 	private String CurrencyExchange.key;
 
-	private String CurrencyExchange.getKey() {
+	public String CurrencyExchange.getKey() {
 		return key;
 	}
 
-	private void CurrencyExchange.setKey(String key) {
+	public void CurrencyExchange.setKey(String key) {
 		this.key = key;
 	}
 }
