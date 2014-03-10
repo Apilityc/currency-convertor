@@ -6,6 +6,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
 import org.springframework.roo.addon.tostring.RooToString;
 
+// HashMap in redis
 @RooJavaBean
 @RooMongoEntity
 @RooToString

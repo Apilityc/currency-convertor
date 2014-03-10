@@ -272,6 +272,7 @@
 				<configuration>
 					<printSummary>false</printSummary>
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<parallel>true</parallel>
 					<excludes>
 						<exclude>**/*_Roo_*</exclude>
 						<exclude>**/CurrencyIntegrationTest*</exclude>

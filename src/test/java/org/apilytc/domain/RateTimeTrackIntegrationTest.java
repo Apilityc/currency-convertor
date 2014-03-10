@@ -3,8 +3,6 @@ package org.apilytc.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.PostConstruct;
-
 import org.apilytc.repository.RateTimeTrackRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,8 +24,15 @@ public class RateTimeTrackIntegrationTest {
 	@Autowired
 	private RedisTemplate<String, RateTimeTrack> template;
 
-	@PostConstruct
+	private boolean runOnce = false;
+
+	@Before
 	public void init() {
+		if (runOnce) {
+			return;
+		}
+
+		runOnce = true;
 		template.getConnectionFactory().getConnection().flushDb();
 	}
 

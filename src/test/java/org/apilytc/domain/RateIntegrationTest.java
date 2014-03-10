@@ -3,10 +3,9 @@ package org.apilytc.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.PostConstruct;
-
 import org.apilytc.repository.RateRepository;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -26,8 +25,15 @@ public class RateIntegrationTest {
 	@Autowired
 	private RateDataOnDemand dod;
 
-	@PostConstruct
+	private boolean runOnce = false;
+
+	@Before
 	public void init() {
+		if (runOnce) {
+			return;
+		}
+
+		runOnce = true;
 		template.getConnectionFactory().getConnection().flushDb();
 	}
 
