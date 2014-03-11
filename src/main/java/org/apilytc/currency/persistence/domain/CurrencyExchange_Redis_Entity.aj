@@ -1,11 +1,6 @@
 package org.apilytc.currency.persistence.domain;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.annotation.Id;
-
-
-
-
 
 privileged aspect CurrencyExchange_Redis_Entity {
 
