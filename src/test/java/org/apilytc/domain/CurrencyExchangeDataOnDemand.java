@@ -37,7 +37,7 @@ public class CurrencyExchangeDataOnDemand {
 		return obj;
 	}
 
-	public CurrencyExchange getRandomRate() {
+	public CurrencyExchange getRandomCurrencyExchange() {
 		init();
 
 		CurrencyExchange obj = data.get(rnd.nextInt(data.size()));
@@ -55,15 +55,14 @@ public class CurrencyExchangeDataOnDemand {
 
 		// FIXME provide findAllImplementation
 		for (int i = from; i < to; i++) {
+			String key = CurrencyExchange.key(String.valueOf(i));
 
-			if (opsForSet.members(String.valueOf(i)).size() == 0) {
+			if (opsForSet.members(key).size() == 0) {
 				continue;
 			}
 
 			// FIXME work with multiple
-			CurrencyExchange next = opsForSet.members(String.valueOf(i))
-					.iterator().next();
-			next.setKey(CurrencyExchange.key(String.valueOf(i)));
+			CurrencyExchange next = opsForSet.members(key).iterator().next();
 			data.add(next);
 		}
 

@@ -30,18 +30,19 @@ public class CurrencyExchangeIntegrationTest {
 		}
 
 		template.getConnectionFactory().getConnection().flushDb();
+		runOnce = true;
 	}
 
 	@Test
 	public void testSave() {
 		assertNotNull(
-				"Data on demand for 'Rate' failed to initialize correctly",
-				dod.getRandomRate());
+				"Data on demand for 'CurrencyExchange failed to initialize correctly",
+				dod.getRandomCurrencyExchange());
 
 		CurrencyExchange obj = dod
 				.getNewTransientCurrencyExchange(Integer.MAX_VALUE);
 		Assert.assertNotNull(
-				"Data on demand for 'Rate' failed to provide a new transient entity",
+				"Data on demand for 'CurrencyExchange failed to provide a new transient entity",
 				obj);
 
 		CurrencyExchange actual = currencyExchangeRepo.save(obj);
@@ -52,18 +53,20 @@ public class CurrencyExchangeIntegrationTest {
 
 	@Test
 	public void testFindOne() {
-		CurrencyExchange obj = dod.getRandomRate();
+		CurrencyExchange obj = dod.getRandomCurrencyExchange();
 		Assert.assertNotNull(
-				"Data on demand for 'Rate' failed to initialize correctly", obj);
+				"Data on demand for 'CurrencyExchange failed to initialize correctly",
+				obj);
 		String key = obj.getKey();
 		assertNotNull(
-				"Data on demand for 'Rate' failed to provide an identifier",
+				"Data on demand for 'CurrencyExchange failed to provide an identifier",
 				key);
 		obj = currencyExchangeRepo.findOne(key);
-		assertNotNull("Find method for 'Rate' illegally returned null for id '"
-				+ key + "'", obj);
+		assertNotNull(
+				"Find method for 'CurrencyExchange illegally returned null for id '"
+						+ key + "'", obj);
 		assertEquals(
-				"Find method for 'Rate' returned the incorrect identifier",
+				"Find method for 'CurrencyExchange returned the incorrect identifier",
 				key, obj.getKey());
 	}
 }
