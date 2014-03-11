@@ -1,5 +1,11 @@
 package org.apilytc.domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.data.annotation.Id;
+
+
+
+
 
 privileged aspect CurrencyExchange_Redis_Entity {
 
@@ -18,6 +24,7 @@ privileged aspect CurrencyExchange_Redis_Entity {
 		return KEY + ":" + id;
 	}
 
+	@Id
 	private String CurrencyExchange.key;
 
 	public String CurrencyExchange.getKey() {
