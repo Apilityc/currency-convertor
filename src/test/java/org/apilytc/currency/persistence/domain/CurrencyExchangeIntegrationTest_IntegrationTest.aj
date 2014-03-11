@@ -1,4 +1,4 @@
-package org.apilytc.persistence.domain;
+package org.apilytc.currency.persistence.domain;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

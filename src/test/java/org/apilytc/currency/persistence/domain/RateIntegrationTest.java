@@ -1,4 +1,4 @@
-package org.apilytc.persistence.domain;
+package org.apilytc.currency.persistence.domain;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
