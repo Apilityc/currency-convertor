@@ -41,12 +41,9 @@ public class RateDataOnDemand {
 		init();
 
 		Rate obj = data.get(rnd.nextInt(data.size()));
-		// FIXME remove saving
 		Rate rate = new Rate();
 		rate.setKey(obj.getKey());
-		HashOperations<String, String, String> opsForHash = template
-				.opsForHash();
-		rate.setValue(opsForHash.entries(obj.getKey()));
+		rate.setValue(obj.getValue());
 
 		return rate;
 	}

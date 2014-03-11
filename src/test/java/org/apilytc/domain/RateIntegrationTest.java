@@ -34,7 +34,7 @@ public class RateIntegrationTest {
 		}
 
 		runOnce = true;
-		template.getConnectionFactory().getConnection().flushDb();
+		// template.getConnectionFactory().getConnection().flushDb();
 	}
 
 	@Test
