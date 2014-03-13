@@ -3,6 +3,7 @@
  */
 package org.apilytc.currency.persistence.service;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -59,8 +60,23 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 	@Override
 	public Iterable<CurrencyExchange> save(
 			Iterable<? extends CurrencyExchange> entities) {
-		// TODO Auto-generated method stub
-		return null;
+
+		CurrencyExchange[] values = new CurrencyExchange[] {};
+
+		for (CurrencyExchange entity : entities) {
+			// TODO create with annotation - postUpdate preUpdate kind of
+			if (entity.getKey() == null) {
+				entity.setKey(CurrencyExchange.KEY);
+			}
+
+			CurrencyExchange[] updateValues = Arrays.copyOf(values,
+					values.length + 1);
+			updateValues[values.length] = entity;
+			values = updateValues;
+		}
+
+		setOps.add(CurrencyExchange.KEY, values);
+		return Arrays.asList(values);
 	}
 
 	/*
@@ -157,5 +173,4 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 		// TODO Auto-generated method stub
 
 	}
-
 }

@@ -3,7 +3,9 @@ package org.apilytc.currency.persistence.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.apilytc.currency.persistence.domain.CurrencyExchange;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apilytc.currency.persistence.repository.CurrencyExchangeRepository;
 import org.junit.After;
 import org.junit.Assert;
@@ -50,6 +52,33 @@ public class CurrencyExchangeIntegrationTest {
 
 		assertEquals(obj.getKey(), actual.getKey());
 		assertEquals(obj.getTitle(), actual.getTitle());
+	}
+
+	@Test
+	public void testSaveWithArray() {
+		assertNotNull(
+				"Data on demand for 'CurrencyExchange failed to initialize correctly",
+				dod.getRandomCurrencyExchange());
+
+		CurrencyExchange obj1 = dod.getNewTransientCurrencyExchange(11);
+		Assert.assertNotNull(
+				"Data on demand for 'CurrencyExchange failed to provide a new transient entity",
+				obj1);
+
+		CurrencyExchange obj2 = dod.getNewTransientCurrencyExchange(12);
+		Assert.assertNotNull(
+				"Data on demand for 'CurrencyExchange failed to provide a new transient entity",
+				obj2);
+
+		List<CurrencyExchange> asList = Arrays.asList(obj1, obj2);
+		Iterable<CurrencyExchange> actual = currencyExchangeRepo.save(asList);
+
+		int i = 0;
+		for (CurrencyExchange entity : actual) {
+			assertEquals(asList.get(i).getKey(), entity.getKey());
+			assertEquals(asList.get(i).getTitle(), entity.getTitle());
+			++i;
+		}
 	}
 
 	@Test

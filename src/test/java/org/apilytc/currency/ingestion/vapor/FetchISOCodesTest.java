@@ -12,6 +12,7 @@ public class FetchISOCodesTest {
 	@Autowired
 	private FetchISOCodes fetchISOCodes;
 
+	// TODO move as integration test
 	@Test
 	public void testFetch() {
 		ISO4217Bean isoCodes = fetchISOCodes.fetch();
@@ -19,5 +20,8 @@ public class FetchISOCodesTest {
 		assertNotNull(isoCodes);
 		assertNotNull(isoCodes.getCurrencyTable());
 		assertTrue(isoCodes.getCurrencyTable().getCurrencyCodes().size() > 1);
+
+		System.out.println(isoCodes.getCurrencyTable().getCurrencyCodes()
+				.size());
 	}
 }

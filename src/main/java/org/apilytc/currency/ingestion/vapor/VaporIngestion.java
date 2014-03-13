@@ -8,5 +8,8 @@ package org.apilytc.currency.ingestion.vapor;
  */
 public interface VaporIngestion {
 
-	public void execute();
+	/**
+	 * Imports currency ISO codes.
+	 */
+	public void sync();
 }
