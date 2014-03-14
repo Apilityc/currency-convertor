@@ -66,6 +66,7 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 		for (CurrencyExchange entity : entities) {
 			// TODO create with annotation - postUpdate preUpdate kind of
 			if (entity.getKey() == null) {
+				// TODO: should we remove keystorage from DB.
 				entity.setKey(CurrencyExchange.KEY);
 			}
 

@@ -1,6 +1,6 @@
 package org.apilytc.currency.ingestion.vapor.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -33,13 +33,13 @@ public class ISO4217Bean {
 	public static class CurrencyTable {
 
 		@XmlElement(name = "CcyNtry")
-		private List<CurrencyCode> currencyCodes;
+		private Set<CurrencyCode> currencyCodes;
 
-		public List<CurrencyCode> getCurrencyCodes() {
+		public Set<CurrencyCode> getCurrencyCodes() {
 			return currencyCodes;
 		}
 
-		public void setCurrencyCodes(List<CurrencyCode> currencyCodes) {
+		public void setCurrencyCodes(Set<CurrencyCode> currencyCodes) {
 			this.currencyCodes = currencyCodes;
 		}
 
@@ -52,6 +52,32 @@ public class ISO4217Bean {
 		@XmlAccessorType(XmlAccessType.FIELD)
 		@RooJavaBean
 		public static class CurrencyCode {
+
+			@Override
+			public int hashCode() {
+				final int prime = 31;
+				int result = 1;
+				result = prime * result
+						+ ((isoCode == null) ? 0 : isoCode.hashCode());
+				return result;
+			}
+
+			@Override
+			public boolean equals(Object obj) {
+				if (this == obj)
+					return true;
+				if (obj == null)
+					return false;
+				if (getClass() != obj.getClass())
+					return false;
+				CurrencyCode other = (CurrencyCode) obj;
+				if (isoCode == null) {
+					if (other.isoCode != null)
+						return false;
+				} else if (!isoCode.equals(other.isoCode))
+					return false;
+				return true;
+			}
 
 			@XmlElement(name = "Ccy")
 			private String isoCode;

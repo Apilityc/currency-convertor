@@ -7,6 +7,11 @@ import org.apilytc.currency.ingestion.vapor.model.ISO4217Bean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * 
+ * @author Georgi Lambov
+ * 
+ */
 public class FetchISOCodesTest {
 
 	@Autowired

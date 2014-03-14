@@ -1,7 +1,7 @@
 package org.apilytc.currency.ingestion.vapor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apilytc.currency.ingestion.vapor.model.ISO4217Bean;
 import org.apilytc.currency.ingestion.vapor.model.ISO4217Bean.CurrencyTable.CurrencyCode;
@@ -34,11 +34,10 @@ public class ISOCodesFromISOdotComSyncer implements VaporIngestion {
 	public void sync() {
 		ISO4217Bean isoCode = fetchISOCodes.fetch();
 
-		List<CurrencyCode> currencyCodes = isoCode.getCurrencyTable()
+		Set<CurrencyCode> currencyCodes = isoCode.getCurrencyTable()
 				.getCurrencyCodes();
 
-		// FIXME why 181 records are only saved instead all 211
-		List<CurrencyExchange> entities = new ArrayList<CurrencyExchange>();
+		Set<CurrencyExchange> entities = new HashSet<CurrencyExchange>();
 		for (CurrencyCode currencyCode : currencyCodes) {
 			CurrencyExchange entity = new CurrencyExchange();
 			entity.setTitle(currencyCode.getIsoCode());

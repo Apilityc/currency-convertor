@@ -10,7 +10,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.SetOperations;
 
-public class ISOCodesFromISOdotComSyncerTest {
+/**
+ * 
+ * @author Georgi Lambov
+ * 
+ */
+public class ISOCodesFromISOdotComSyncerIntegrationTest {
 
 	@Autowired
 	private ISOCodesFromISOdotComSyncer syncer;
@@ -24,10 +29,8 @@ public class ISOCodesFromISOdotComSyncerTest {
 	@Resource(name = "redisTemplate")
 	private SetOperations<String, CurrencyExchange> setOps;
 
-	// TODO create unit test and remove integration test from here
 	@Test
-	public void test() {
-
+	public void testSyncWithCorrectValues() {
 		Integer initialSize = fetchISOCodes.fetch().getCurrencyTable()
 				.getCurrencyCodes().size();
 
@@ -35,6 +38,6 @@ public class ISOCodesFromISOdotComSyncerTest {
 
 		Long actualSize = setOps.size(CurrencyExchange.KEY);
 
-		assertEquals(initialSize, actualSize);
+		assertEquals(Long.valueOf(initialSize), actualSize);
 	}
 }
