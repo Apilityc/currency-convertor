@@ -3,8 +3,9 @@ package org.apilytc.currency.ingestion.vapor;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apilytc.currency.ingestion.vapor.model.CurrencyCode;
 import org.apilytc.currency.ingestion.vapor.model.ISO4217Bean;
-import org.apilytc.currency.ingestion.vapor.model.ISO4217Bean.CurrencyTable.CurrencyCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -29,8 +30,8 @@ public class FetchISOCodes {
 
 		Set<CurrencyCode> cleanCodes = new HashSet<CurrencyCode>();
 		for (CurrencyCode c : bean.getCurrencyTable().getCurrencyCodes()) {
-			if (c.getIsoCode() == null || c.getIsoCode() != null
-					&& c.getIsoCode().isEmpty()) {
+
+			if (StringUtils.isBlank(c.getIsoCode())) {
 				continue;
 			}
 

@@ -1,6 +1,14 @@
 package org.apilytc.currency.ingestion.rate;
 
+/**
+ * 
+ * @author Georgi Lambov
+ * 
+ */
 public interface RateIngestion {
 
-	public void execute();
+	/**
+	 * Sync currency rates from different providers.
+	 */
+	public void sync();
 }

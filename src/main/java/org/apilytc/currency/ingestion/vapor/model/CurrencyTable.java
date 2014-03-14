@@ -1,5 +1,7 @@
 package org.apilytc.currency.ingestion.vapor.model;
 
+import java.util.Set;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -12,12 +14,13 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
  * @author Georgi Lambov
  * 
  */
-@XmlRootElement(name = "ISO_4217")
+@XmlRootElement(name = "CcyTbl")
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJavaBean
-public class ISO4217Bean {
+// FIXME exclude this class within mapping - with xpath or oder way.
+public class CurrencyTable {
 
-	@XmlElement(name = "CcyTbl")
-	private CurrencyTable currencyTable;
+	@XmlElement(name = "CcyNtry")
+	private Set<CurrencyCode> currencyCodes;
 
 }

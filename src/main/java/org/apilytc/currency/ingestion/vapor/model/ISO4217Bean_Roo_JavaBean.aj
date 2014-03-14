@@ -3,6 +3,7 @@
 
 package org.apilytc.currency.ingestion.vapor.model;
 
+import org.apilytc.currency.ingestion.vapor.model.CurrencyTable;
 import org.apilytc.currency.ingestion.vapor.model.ISO4217Bean;
 
 privileged aspect ISO4217Bean_Roo_JavaBean {
