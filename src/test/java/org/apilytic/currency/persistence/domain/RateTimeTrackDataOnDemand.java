@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
-import org.apilytc.currency.persistence.domain.RateTimeTrack;
+import org.apilytic.currency.persistence.domain.RateTimeTrack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;

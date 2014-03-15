@@ -82,7 +82,7 @@
 		</property>
 	</bean>
 
-	<bean class="org.apilytc.currency.ingestion.rate.provider.YahooFinance">
+	<bean class="org.apilytic.currency.ingestion.rate.provider.YahooFinance">
 		<qualifier value="YahooFiananceProvider" />
 	</bean>
 

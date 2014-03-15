@@ -8,7 +8,7 @@ import java.util.Random;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apilytc.currency.persistence.domain.CurrencyExchange;
+import org.apilytic.currency.persistence.domain.CurrencyExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;

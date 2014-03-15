@@ -10,10 +10,10 @@ import java.util.List;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import org.apilytc.currency.persistence.domain.Currency;
-import org.apilytc.currency.persistence.repository.CurrencyRepository;
+import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.CurrencyDataOnDemand;
 import org.apilytic.currency.persistence.domain.CurrencyIntegrationTest;
+import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

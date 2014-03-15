@@ -6,8 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apilytc.currency.persistence.domain.CurrencyExchange;
-import org.apilytc.currency.persistence.repository.CurrencyExchangeRepository;
+import org.apilytic.currency.persistence.domain.CurrencyExchange;
+import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;

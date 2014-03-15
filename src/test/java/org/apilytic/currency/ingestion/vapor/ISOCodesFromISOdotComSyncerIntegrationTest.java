@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import javax.annotation.Resource;
 
-import org.apilytc.currency.ingestion.vapor.FetchISOCodes;
-import org.apilytc.currency.ingestion.vapor.ISOCodesFromISOdotComSyncer;
-import org.apilytc.currency.persistence.domain.CurrencyExchange;
-import org.apilytc.currency.persistence.repository.CurrencyExchangeRepository;
+import org.apilytic.currency.ingestion.vapor.FetchISOCodes;
+import org.apilytic.currency.ingestion.vapor.ISOCodesFromISOdotComSyncer;
+import org.apilytic.currency.persistence.domain.CurrencyExchange;
+import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.SetOperations;

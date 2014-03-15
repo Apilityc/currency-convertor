@@ -2,7 +2,7 @@ package org.apilytic.currency.ingestion.rate.provider;
 
 import static org.junit.Assert.assertTrue;
 
-import org.apilytc.currency.ingestion.rate.provider.FinancialProvider;
+import org.apilytic.currency.ingestion.rate.provider.FinancialProvider;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

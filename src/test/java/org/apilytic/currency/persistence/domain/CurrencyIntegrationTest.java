@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import javax.annotation.Resource;
 
-import org.apilytc.currency.persistence.domain.Currency;
+import org.apilytic.currency.persistence.domain.Currency;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

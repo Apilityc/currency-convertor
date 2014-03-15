@@ -3,8 +3,8 @@ package org.apilytic.currency.persistence.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.apilytc.currency.persistence.domain.Rate;
-import org.apilytc.currency.persistence.repository.RateRepository;
+import org.apilytic.currency.persistence.domain.Rate;
+import org.apilytic.currency.persistence.repository.RateRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

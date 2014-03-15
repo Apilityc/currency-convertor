@@ -13,9 +13,9 @@ import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import org.apilytc.currency.persistence.domain.Currency;
-import org.apilytc.currency.persistence.repository.CurrencyRepository;
+import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.CurrencyDataOnDemand;
+import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
