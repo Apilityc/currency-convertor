@@ -1,8 +1,9 @@
-package org.apilytc.currency.ingestion.vapor;
+package org.apilytic.currency.ingestion.vapor;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.apilytc.currency.ingestion.vapor.FetchISOCodes;
 import org.apilytc.currency.ingestion.vapor.model.ISO4217Bean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

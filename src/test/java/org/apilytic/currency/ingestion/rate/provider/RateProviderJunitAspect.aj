@@ -1,4 +1,4 @@
-package org.apilytc.currency.ingestion.rate.provider;
+package org.apilytic.currency.ingestion.rate.provider;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

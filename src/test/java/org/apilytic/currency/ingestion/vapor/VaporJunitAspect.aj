@@ -1,4 +1,4 @@
-package org.apilytc.currency.ingestion.vapor;
+package org.apilytic.currency.ingestion.vapor;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

@@ -1,9 +1,11 @@
-package org.apilytc.currency.ingestion.vapor;
+package org.apilytic.currency.ingestion.vapor;
 
 import static org.junit.Assert.assertEquals;
 
 import javax.annotation.Resource;
 
+import org.apilytc.currency.ingestion.vapor.FetchISOCodes;
+import org.apilytc.currency.ingestion.vapor.ISOCodesFromISOdotComSyncer;
 import org.apilytc.currency.persistence.domain.CurrencyExchange;
 import org.apilytc.currency.persistence.repository.CurrencyExchangeRepository;
 import org.junit.Test;
