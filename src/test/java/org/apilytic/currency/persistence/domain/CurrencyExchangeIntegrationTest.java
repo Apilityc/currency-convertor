@@ -1,4 +1,4 @@
-package org.apilytc.currency.persistence.domain;
+package org.apilytic.currency.persistence.domain;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apilytc.currency.persistence.domain.CurrencyExchange;
 import org.apilytc.currency.persistence.repository.CurrencyExchangeRepository;
 import org.junit.After;
 import org.junit.Assert;

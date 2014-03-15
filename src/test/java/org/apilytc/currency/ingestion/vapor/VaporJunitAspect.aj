@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 privileged aspect VaporJunitAspect {
 
-	declare @type: org.apilytc.currency.ingestion.vapor.*Test* : @RunWith(SpringJUnit4ClassRunner.class);
+	declare @type: org.apilytic.currency.ingestion.vapor.*Test* : @RunWith(SpringJUnit4ClassRunner.class);
 
-	declare @type: org.apilytc.currency.ingestion.vapor.*Test* : @ContextConfiguration(locations = "classpath*:/META-INF/spring/applicationContext*.xml");
+	declare @type: org.apilytic.currency.ingestion.vapor.*Test* : @ContextConfiguration(locations = "classpath*:/META-INF/spring/applicationContext*.xml");
 }

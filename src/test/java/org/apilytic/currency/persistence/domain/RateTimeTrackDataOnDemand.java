@@ -1,4 +1,4 @@
-package org.apilytc.currency.persistence.domain;
+package org.apilytic.currency.persistence.domain;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;

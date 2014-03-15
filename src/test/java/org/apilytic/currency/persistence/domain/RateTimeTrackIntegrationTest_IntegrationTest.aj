@@ -1,4 +1,4 @@
-package org.apilytc.currency.persistence.domain;
+package org.apilytic.currency.persistence.domain;
 
 
 import org.junit.runner.RunWith;
