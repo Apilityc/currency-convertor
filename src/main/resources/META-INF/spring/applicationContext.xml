@@ -83,8 +83,24 @@
 		</property>
 	</bean>
 
-	<bean class="org.apilytic.currency.ingestion.rate.provider.YahooFinance">
+	<bean class="org.apilytic.currency.ingestion.rate.provider.YahooFinanceManager"
+		primary="true">
 		<qualifier value="YahooFiananceProvider" />
 	</bean>
 
+	<bean id="csvReaderAdapter" class="org.apilytic.currency.csv.CsvReaderAdapter"
+		scope="prototype" />
+	<bean id="yahooCSVMappingStrategy"
+		class="au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy"
+		scope="prototype">
+		<property name="type"
+			value="#{ T(org.apilytic.currency.ingestion.rate.provider.YahooCSVBean)}" />
+		<property name="columnMapping">
+			<list value-type="java.lang.String">
+				<value>currency</value>
+				<value>rate</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="au.com.bytecode.opencsv.bean.CsvToBean" scope="prototype" />
 </beans>

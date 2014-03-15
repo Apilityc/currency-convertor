@@ -4,7 +4,6 @@
 package org.apilytic.currency.persistence.domain;
 
 import java.util.Map;
-
 import org.apilytic.currency.persistence.domain.Rate;
 
 privileged aspect Rate_Roo_JavaBean {

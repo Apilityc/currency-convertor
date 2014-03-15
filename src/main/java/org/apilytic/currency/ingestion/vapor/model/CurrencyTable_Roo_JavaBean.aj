@@ -4,7 +4,6 @@
 package org.apilytic.currency.ingestion.vapor.model;
 
 import java.util.Set;
-
 import org.apilytic.currency.ingestion.vapor.model.CurrencyCode;
 import org.apilytic.currency.ingestion.vapor.model.CurrencyTable;
 

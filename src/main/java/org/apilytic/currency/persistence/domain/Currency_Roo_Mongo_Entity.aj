@@ -4,7 +4,6 @@
 package org.apilytic.currency.persistence.domain;
 
 import java.math.BigInteger;
-
 import org.apilytic.currency.persistence.domain.Currency;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Persistent;

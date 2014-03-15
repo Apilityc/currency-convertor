@@ -4,7 +4,6 @@
 package org.apilytic.currency.persistence.repository;
 
 import java.math.BigInteger;
-
 import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;

@@ -9,10 +9,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
 import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.CurrencyDataOnDemand;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;

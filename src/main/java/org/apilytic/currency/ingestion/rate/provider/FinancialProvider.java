@@ -1,5 +1,7 @@
 package org.apilytic.currency.ingestion.rate.provider;
 
+import java.util.List;
+
 /**
  * Provide currency rates.
  * 
@@ -13,7 +15,7 @@ public interface FinancialProvider {
 	 * 
 	 * @return
 	 */
-	public String provideRate();
+	public List<? extends ExchangeRate> provideRate();
 
 	/**
 	 * Sets exchange query string for currency services

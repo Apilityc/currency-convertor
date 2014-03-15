@@ -6,11 +6,8 @@ package org.apilytic.currency.persistence.domain;
 import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
-import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.CurrencyDataOnDemand;
 import org.apilytic.currency.persistence.domain.CurrencyIntegrationTest;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;

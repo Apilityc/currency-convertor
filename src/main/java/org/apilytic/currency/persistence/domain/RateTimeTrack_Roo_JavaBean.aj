@@ -4,7 +4,6 @@
 package org.apilytic.currency.persistence.domain;
 
 import java.util.Calendar;
-
 import org.apilytic.currency.persistence.domain.RateTimeTrack;
 
 privileged aspect RateTimeTrack_Roo_JavaBean {
