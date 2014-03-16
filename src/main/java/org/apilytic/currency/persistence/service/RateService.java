@@ -33,7 +33,7 @@ public class RateService implements RateRepository {
 	}
 
 	@Override
-	public Rate save(Rate entity) {
+	public <S extends Rate> S save(S entity) {
 		HashOperations<String, Object, Object> opsForHash = template
 				.opsForHash();
 		opsForHash.putAll(entity.getKey(), entity.getValue());
@@ -42,7 +42,7 @@ public class RateService implements RateRepository {
 	}
 
 	@Override
-	public Iterable<Rate> save(Iterable<? extends Rate> entities) {
+	public <S extends Rate> Iterable<S> save(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -63,6 +63,12 @@ public class RateService implements RateRepository {
 	public boolean exists(String id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Iterable<Rate> findAll(Iterable<String> ids) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

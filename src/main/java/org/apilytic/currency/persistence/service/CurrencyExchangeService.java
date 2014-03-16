@@ -38,29 +38,15 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 				CurrencyExchange.class));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.data.repository.CrudRepository#save(java.lang.Object)
-	 */
 	@Override
-	public CurrencyExchange save(CurrencyExchange entity) {
+	public <S extends CurrencyExchange> S save(S entity) {
 		setOps.add(entity.getKey(), entity);
 		return entity;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.data.repository.CrudRepository#save(java.lang.Iterable
-	 * )
-	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Iterable<CurrencyExchange> save(
-			Iterable<? extends CurrencyExchange> entities) {
-
+	public <S extends CurrencyExchange> Iterable<S> save(Iterable<S> entities) {
 		CurrencyExchange[] values = new CurrencyExchange[] {};
 
 		for (CurrencyExchange entity : entities) {
@@ -74,104 +60,66 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 					values.length + 1);
 			updateValues[values.length] = entity;
 			values = updateValues;
+
 		}
 
 		setOps.add(CurrencyExchange.KEY, values);
-		return Arrays.asList(values);
+
+		return (Iterable<S>) Arrays.asList(values);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.repository.CrudRepository#findOne(java.io.
-	 * Serializable)
-	 */
 	@Override
 	public CurrencyExchange findOne(String id) {
 		Set<CurrencyExchange> members = setOps.members(id);
 		return members.iterator().next();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.repository.CrudRepository#exists(java.io.
-	 * Serializable)
-	 */
 	@Override
 	public boolean exists(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.repository.CrudRepository#findAll()
-	 */
 	@Override
 	public Iterable<CurrencyExchange> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.repository.CrudRepository#count()
-	 */
+	@Override
+	public Iterable<CurrencyExchange> findAll(Iterable<String> ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public long count() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.repository.CrudRepository#delete(java.io.
-	 * Serializable)
-	 */
 	@Override
 	public void delete(String id) {
 		// TODO Auto-generated method stub
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.data.repository.CrudRepository#delete(java.lang.Object
-	 * )
-	 */
 	@Override
 	public void delete(CurrencyExchange entity) {
 		// TODO Auto-generated method stub
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.data.repository.CrudRepository#delete(java.lang.Iterable
-	 * )
-	 */
 	@Override
 	public void delete(Iterable<? extends CurrencyExchange> entities) {
 		// TODO Auto-generated method stub
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.repository.CrudRepository#deleteAll()
-	 */
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
 
 	}
+
 }

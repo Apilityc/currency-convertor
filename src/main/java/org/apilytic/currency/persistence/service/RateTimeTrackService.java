@@ -16,14 +16,13 @@ public class RateTimeTrackService implements RateTimeTrackRepository {
 	ValueOperations<String, RateTimeTrack> opsForValue;
 
 	@Override
-	public RateTimeTrack save(RateTimeTrack entity) {
+	public <S extends RateTimeTrack> S save(S entity) {
 		this.opsForValue.set(entity.getKey(), entity);
 		return entity;
 	}
 
 	@Override
-	public Iterable<RateTimeTrack> save(
-			Iterable<? extends RateTimeTrack> entities) {
+	public <S extends RateTimeTrack> Iterable<S> save(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -46,6 +45,12 @@ public class RateTimeTrackService implements RateTimeTrackRepository {
 	}
 
 	@Override
+	public Iterable<RateTimeTrack> findAll(Iterable<String> ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public long count() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -54,6 +59,7 @@ public class RateTimeTrackService implements RateTimeTrackRepository {
 	@Override
 	public void delete(String id) {
 		this.opsForValue.getOperations().delete(id);
+
 	}
 
 	@Override
@@ -70,6 +76,7 @@ public class RateTimeTrackService implements RateTimeTrackRepository {
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
+
 	}
 
 }
