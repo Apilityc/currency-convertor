@@ -3,7 +3,6 @@ package org.apilytic.currency.persistence.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,8 +13,6 @@ import org.springframework.roo.addon.test.RooIntegrationTest;
 
 @RooIntegrationTest(entity = Rate.class, transactional = false)
 public class RateIntegrationTest {
-
-	// template.getConnectionFactory().getConnection().flushDb();
 
 	@Autowired
 	private RedisTemplate<String, String> template;
@@ -30,12 +27,12 @@ public class RateIntegrationTest {
 
 	@Before
 	public void init() {
-		if (runOnce) {
+		if (runOnce == true) {
 			return;
 		}
 
-		runOnce = true;
 		template.getConnectionFactory().getConnection().flushDb();
+		runOnce = true;
 	}
 
 	@Test
@@ -73,8 +70,4 @@ public class RateIntegrationTest {
 				key, obj.getKey());
 	}
 
-	@Test
-	public void testDelete() {
-
-	}
 }

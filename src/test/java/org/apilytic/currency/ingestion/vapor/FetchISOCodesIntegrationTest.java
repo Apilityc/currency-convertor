@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Georgi Lambov
  * 
  */
-public class FetchISOCodesTest {
+public class FetchISOCodesIntegrationTest {
 
 	@Autowired
 	private FetchISOCodes fetchISOCodes;
