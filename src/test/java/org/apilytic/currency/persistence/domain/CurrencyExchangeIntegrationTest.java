@@ -35,6 +35,7 @@ public class CurrencyExchangeIntegrationTest {
 		// integration tests are running - database should be not modified with
 		// flushdb
 		// template.getConnectionFactory().getConnection().flushDb();
+
 		runOnce = true;
 	}
 
@@ -86,7 +87,7 @@ public class CurrencyExchangeIntegrationTest {
 	@Test
 	public void testFindOne() {
 		CurrencyExchange obj = dod.getRandomCurrencyExchange();
-		Assert.assertNotNull(
+		assertNotNull(
 				"Data on demand for 'CurrencyExchange failed to initialize correctly",
 				obj);
 		String key = obj.getKey();

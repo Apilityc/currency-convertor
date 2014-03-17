@@ -122,4 +122,16 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.apilytic.currency.persistence.repository.CurrencyExchangeRepository
+	 * #findAllCurencyExchanges()
+	 */
+	@Override
+	public Set<CurrencyExchange> findAllCurencyExchanges() {
+		return setOps.members(CurrencyExchange.KEY);
+	}
+
 }
