@@ -4,7 +4,7 @@ public privileged aspect RateTimeTrack_Redis_Entity {
 
 	private String RateTimeTrack.key;
 	
-	public static String RateTimeTrack.KEY = "rate:time-track";
+	public static String RateTimeTrack.KEY = "rate:timetrack";
 	
 	public static String RateTimeTrack.key() {
 		return  KEY;

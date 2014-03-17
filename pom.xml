@@ -291,7 +291,6 @@
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
 					<excludes>
 						<exclude>**/*_Roo_*</exclude>
-						<exclude>**/*RateIntegrationTest*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

@@ -8,7 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
-import org.apilytic.currency.persistence.domain.RateTimeTrack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -68,13 +67,7 @@ public class RateTimeTrackDataOnDemand {
 				continue;
 			}
 
-			RateTimeTrack rateTimeTrack = new RateTimeTrack();
-			rateTimeTrack.setKey(RateTimeTrack.KEY);
-			final Calendar modifiedAt = new GregorianCalendar();
-			modifiedAt.setTime(new Date());
-			rateTimeTrack.setModifiedAt(modifiedAt);
-
-			data.add(rateTimeTrack);
+			data.add(opsForValue.get(RateTimeTrack.KEY));
 		}
 
 		if (!data.isEmpty()) {

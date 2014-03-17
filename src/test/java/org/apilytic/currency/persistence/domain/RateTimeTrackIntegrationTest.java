@@ -3,7 +3,6 @@ package org.apilytic.currency.persistence.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.apilytic.currency.persistence.domain.RateTimeTrack;
 import org.apilytic.currency.persistence.repository.RateTimeTrackRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,7 +33,7 @@ public class RateTimeTrackIntegrationTest {
 		}
 
 		runOnce = true;
-		template.getConnectionFactory().getConnection().flushDb();
+		// template.getConnectionFactory().getConnection().flushDb();
 	}
 
 	@Before

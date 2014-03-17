@@ -6,10 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apilytic.currency.persistence.domain.CurrencyExchange;
 import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
-import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,13 +26,15 @@ public class CurrencyExchangeIntegrationTest {
 	private CurrencyExchangeDataOnDemand dod;
 	private boolean runOnce = false;
 
-	@After
+	@Before
 	public void init() {
 		if (runOnce == true) {
 			return;
 		}
-
-		template.getConnectionFactory().getConnection().flushDb();
+		// TODO proper database manage when integration test and continues
+		// integration tests are running - database should be not modified with
+		// flushdb
+		// template.getConnectionFactory().getConnection().flushDb();
 		runOnce = true;
 	}
 
