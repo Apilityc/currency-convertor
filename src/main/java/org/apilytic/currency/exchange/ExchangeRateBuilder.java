@@ -1,5 +1,6 @@
 package org.apilytic.currency.exchange;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -25,9 +26,12 @@ public class ExchangeRateBuilder {
 	/**
 	 * Creates cross reference rates for currencies.
 	 */
-	public void buildRates() {
+	protected void buildRates() {
 		Set<CurrencyExchange> currencies = currencyExchangeRepo
 				.findAllCurencyExchanges();
+
+		rates = new HashMap<String, Set<CurrencyExchange>>();
+
 		for (CurrencyExchange currency : currencies) {
 			Set<CurrencyExchange> providedCurrencies = new HashSet<CurrencyExchange>(
 					currencies);
