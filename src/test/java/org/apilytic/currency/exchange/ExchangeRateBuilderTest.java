@@ -57,7 +57,6 @@ public class ExchangeRateBuilderTest {
 		assertEquals(2, rates.get("GBP").size());
 
 		for (String key : rates.keySet()) {
-
 			if (key.equals("USD")) {
 				for (CurrencyExchange c : rates.get("USD")) {
 					assertTrue(c.getTitle().equals("EUR")
@@ -77,7 +76,6 @@ public class ExchangeRateBuilderTest {
 					assertTrue(c.getTitle().equals("EUR")
 							|| c.getTitle().equals("USD"));
 				}
-
 			}
 		}
 

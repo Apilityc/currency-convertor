@@ -31,7 +31,6 @@ public class ExchangeRateBuilder {
 				.findAllCurencyExchanges();
 
 		rates = new HashMap<String, Set<CurrencyExchange>>();
-
 		for (CurrencyExchange currency : currencies) {
 			Set<CurrencyExchange> providedCurrencies = new HashSet<CurrencyExchange>(
 					currencies);
