@@ -3,7 +3,9 @@ package org.apilytic.currency.ingestion.rate;
 import java.util.List;
 
 import org.apilytic.currency.ingestion.rate.provider.ExchangeRate;
-import org.apilytic.currency.ingestion.rate.provider.FinancialProvider;
+import org.apilytic.currency.ingestion.rate.provider.YahooFinanceManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Sync currencies to database.
@@ -11,9 +13,11 @@ import org.apilytic.currency.ingestion.rate.provider.FinancialProvider;
  * @author Georgi Lambov
  * 
  */
+@Service
 public class YahooExchangeService implements RateIngestion {
 
-	private FinancialProvider financialProvider;
+	@Autowired
+	private YahooFinanceManager financialProvider;
 
 	/*
 	 * (non-Javadoc)
@@ -26,9 +30,5 @@ public class YahooExchangeService implements RateIngestion {
 		List<? extends ExchangeRate> providedRates = financialProvider
 				.provideRate();
 
-	}
-
-	public void setFinancialProvider(FinancialProvider financialProvider) {
-		this.financialProvider = financialProvider;
 	}
 }

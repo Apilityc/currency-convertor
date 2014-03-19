@@ -1,5 +1,7 @@
 package org.apilytic.currency.ingestion.rate.provider;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Create yahoo query rate from exchange rates.
@@ -8,9 +10,11 @@ package org.apilytic.currency.ingestion.rate.provider;
  * @param <ExchangeRate>
  * 
  */
+@Service
 public class YahooQueryRateBuilder {
 
-	private FinancialProvider financialProvider;
+	@Autowired
+	private YahooFinanceManager financialProvider;
 
 	/**
 	 * Builds yahoo query rate builder
@@ -20,10 +24,6 @@ public class YahooQueryRateBuilder {
 	public String createQueryRate() {
 
 		return null;
-	}
-
-	public void setFinancialProvider(FinancialProvider financialProvider) {
-		this.financialProvider = financialProvider;
 	}
 
 }
