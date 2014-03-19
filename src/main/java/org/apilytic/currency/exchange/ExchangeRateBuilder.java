@@ -51,6 +51,10 @@ public class ExchangeRateBuilder {
 		buildRates();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ExchangeRate getExchangeRate() {
 		return exchangeRate;
 	}

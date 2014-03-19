@@ -1,10 +1,13 @@
 package org.apilytic.currency.ingestion.rate;
 
+import org.springframework.stereotype.Service;
+
 /**
  * 
  * @author Georgi Lambov
  * 
  */
+@Service
 public interface RateIngestion {
 
 	/**

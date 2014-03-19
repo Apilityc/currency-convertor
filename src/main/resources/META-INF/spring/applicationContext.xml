@@ -83,9 +83,16 @@
 		</property>
 	</bean>
 
-	<bean class="org.apilytic.currency.ingestion.rate.provider.YahooFinanceManager"
-		primary="true">
-		<qualifier value="YahooFiananceProvider" />
+	<bean id="yahooFiananceProvider"
+		class="org.apilytic.currency.ingestion.rate.provider.YahooFinanceManager"
+		primary="true" />
+
+	<bean class="org.apilytic.currency.ingestion.rate.YahooExchangeService">
+		<property name="financialProvider" ref="yahooFiananceProvider" />
+	</bean>
+	
+	<bean class="org.apilytic.currency.ingestion.rate.provider.YahooQueryRateBuilder">
+		<property name="financialProvider" ref="yahooFiananceProvider"/>
 	</bean>
 
 	<bean id="csvReaderAdapter" class="org.apilytic.currency.csv.CsvReaderAdapter"
