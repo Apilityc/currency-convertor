@@ -30,5 +30,7 @@ public class YahooExchangeService implements RateIngestion {
 		List<? extends ExchangeRate> providedRates = financialProvider
 				.provideRate();
 
+		providedRates.size();
+
 	}
 }
