@@ -21,7 +21,7 @@ public class YahooQueryRateBuilder {
 	@Autowired
 	private ExchangeRateBuilder exchangeRateBuilder;
 
-	private static final String queryRatePattern = "&s=%s%s=X";
+	public static final String queryRatePattern = "&s=%s%s=X";
 
 	/**
 	 * Builds yahoo query rate builder
