@@ -22,7 +22,8 @@ public class YahooCSVBeanTest {
 	@Test
 	public void testToCurrencyValidCurrencyFromYahoo() {
 
-		csvBean.setCurrency("USDEUR=X");
+		csvBean.setCurrency(String.format(
+				YahooQueryRateBuilder.queryRatePattern, "USD", "EUR"));
 		assertEquals("USD", csvBean.fromCurrency());
 		assertEquals("EUR", csvBean.toCurrency());
 	}

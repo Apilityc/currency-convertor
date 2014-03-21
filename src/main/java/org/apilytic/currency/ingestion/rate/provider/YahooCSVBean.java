@@ -9,7 +9,7 @@ package org.apilytic.currency.ingestion.rate.provider;
 public class YahooCSVBean implements ExchangeRate {
 
 	public static final String FIELD_CURRENCY = "currency";
-	public static final String FIELD_RATE = "rete";
+	public static final String FIELD_RATE = "rate";
 
 	private String fromCurrency;
 	private String toCurrency;
@@ -22,8 +22,8 @@ public class YahooCSVBean implements ExchangeRate {
 	 * @param currency
 	 */
 	public void setCurrency(String currency) {
-		fromCurrency = currency.substring(0, 3);
-		toCurrency = currency.substring(3, 6);
+		fromCurrency = currency.substring(3, 6);
+		toCurrency = currency.substring(6, 9);
 	}
 
 	/**
