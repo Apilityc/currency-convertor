@@ -1,5 +1,10 @@
 package org.apilytic.currency.ingestion.rate.provider;
 
+import java.util.Map;
+import java.util.Set;
+
+import org.apilytic.currency.exchange.ExchangeRateBuilder;
+import org.apilytic.currency.persistence.domain.CurrencyExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +19,9 @@ import org.springframework.stereotype.Service;
 public class YahooQueryRateBuilder {
 
 	@Autowired
-	private YahooFinanceManager financialProvider;
+	private ExchangeRateBuilder exchangeRateBuilder;
+
+	private static final String queryRatePattern = "&s=%s%s=X";
 
 	/**
 	 * Builds yahoo query rate builder
@@ -22,8 +29,18 @@ public class YahooQueryRateBuilder {
 	 * @return
 	 */
 	public String createQueryRate() {
+		exchangeRateBuilder.constructExchageRate();
+		Map<String, Set<CurrencyExchange>> rates = exchangeRateBuilder
+				.getExchangeRate().getRates();
 
-		return null;
+		StringBuilder sb = new StringBuilder();
+		for (String fromCurrency : rates.keySet()) {
+			for (CurrencyExchange toCurrency : rates.get(fromCurrency)) {
+				sb.append(String.format(queryRatePattern, fromCurrency,
+						toCurrency.getTitle()));
+			}
+		}
+
+		return sb.toString();
 	}
-
 }

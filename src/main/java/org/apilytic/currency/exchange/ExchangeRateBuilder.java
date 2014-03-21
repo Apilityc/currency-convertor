@@ -8,6 +8,7 @@ import java.util.Set;
 import org.apilytic.currency.persistence.domain.CurrencyExchange;
 import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Build cross-reference exchange rates.
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Georgi Lambov
  * 
  */
+@Service
 public class ExchangeRateBuilder {
 
 	@Autowired

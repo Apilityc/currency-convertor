@@ -1,15 +1,18 @@
 package org.apilytic.currency.ingestion.rate.provider;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 import org.apilytic.currency.exchange.ExchangeRate;
+import org.apilytic.currency.exchange.ExchangeRateBuilder;
 import org.apilytic.currency.persistence.domain.CurrencyExchange;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +26,10 @@ import org.springframework.test.util.ReflectionTestUtils;
  * 
  */
 public class YahooQueryRateBuilderTest {
-
 	private YahooQueryRateBuilder queryRateBuilder;
+
+	@Mock
+	private ExchangeRateBuilder exchangeRateBuilder;
 
 	@Mock
 	private ExchangeRate exchangeRate;
@@ -33,34 +38,47 @@ public class YahooQueryRateBuilderTest {
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 		queryRateBuilder = new YahooQueryRateBuilder();
-		ReflectionTestUtils.setField(queryRateBuilder, "exchangeRate",
-				exchangeRate);
+		ReflectionTestUtils.setField(queryRateBuilder, "exchangeRateBuilder",
+				exchangeRateBuilder);
 	}
 
 	@Test
-	public void buildQueryRate() {
-		when(exchangeRate.getRates()).thenReturn(dataProviderForRates());
+	public void buildQueryRateWithOneExchangeRate() {
+		when(exchangeRateBuilder.getExchangeRate()).thenReturn(
+				dataProviderForRates(1));
 
-		queryRateBuilder.createQueryRate();
+		String queryRate = queryRateBuilder.createQueryRate();
+		assertEquals("&s=USDEUR=X&s=USDGBP=X", queryRate);
 
-		verify(exchangeRate.getRates());
+		verify(exchangeRateBuilder).constructExchageRate();
 	}
 
-	private Map<String, Set<CurrencyExchange>> dataProviderForRates() {
+	private ExchangeRate dataProviderForRates(int numberOfRates) {
 		CurrencyExchange usd = new CurrencyExchange();
 		usd.setTitle("USD");
 
 		CurrencyExchange eur = new CurrencyExchange();
-		usd.setTitle("EUR");
+		eur.setTitle("EUR");
 
 		CurrencyExchange gbp = new CurrencyExchange();
-		usd.setTitle("GBP");
+		gbp.setTitle("GBP");
 
 		Map<String, Set<CurrencyExchange>> rates = new HashMap<String, Set<CurrencyExchange>>();
-		rates.put("USD", new HashSet<CurrencyExchange>(Arrays.asList(eur, gbp)));
+		rates.put("USD",
+				new LinkedHashSet<CurrencyExchange>(Arrays.asList(eur, gbp)));
+
+		ExchangeRate exchageRate = new ExchangeRate();
+		if (numberOfRates == 1) {
+			exchageRate.setRates(rates);
+
+			return exchageRate;
+		}
+
 		rates.put("GBP", new HashSet<CurrencyExchange>(Arrays.asList(usd, eur)));
 		rates.put("EUR", new HashSet<CurrencyExchange>(Arrays.asList(usd, gbp)));
 
-		return rates;
+		exchageRate.setRates(rates);
+
+		return exchageRate;
 	}
 }
