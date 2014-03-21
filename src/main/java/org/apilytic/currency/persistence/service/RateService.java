@@ -34,7 +34,7 @@ public class RateService implements RateRepository {
 
 	@Override
 	public <S extends Rate> S save(S entity) {
-		HashOperations<String, Object, Object> opsForHash = template
+		HashOperations<String, String, String> opsForHash = template
 				.opsForHash();
 		opsForHash.putAll(entity.getKey(), entity.getValue());
 
