@@ -297,6 +297,7 @@
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
 					<excludes>
 						<exclude>**/*_Roo_*</exclude>
+						<exclude>**/*YahooFinanceManagerIntegrationTest*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
