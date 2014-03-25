@@ -2,6 +2,7 @@ package org.apilytic.currency.ingestion.rate.provider;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collection;
 import java.util.Set;
 
 import org.junit.Before;
@@ -27,7 +28,7 @@ public class YahooQueryRateParserTest {
 		String dataProvider = dataProviderForQueryRateLessThanDefaultStep();
 		parser.setQueryRate(dataProvider);
 
-		Set<Set<String>> expectedRates = parser.splitInChunks();
+		Set<Collection<String>> expectedRates = parser.splitInChunks();
 
 		System.out.println(expectedRates);
 		assertEquals(1, expectedRates.size());
@@ -39,7 +40,7 @@ public class YahooQueryRateParserTest {
 		parser.setStep(2);
 		parser.setQueryRate(dataProvider);
 
-		Set<Set<String>> expectedRates = parser.splitInChunks();
+		Set<Collection<String>> expectedRates = parser.splitInChunks();
 
 		System.out.println(expectedRates);
 		assertEquals(2, expectedRates.size());
@@ -51,7 +52,7 @@ public class YahooQueryRateParserTest {
 		parser.setStep(3);
 		parser.setQueryRate(dataProvider);
 
-		Set<Set<String>> expectedRates = parser.splitInChunks();
+		Set<Collection<String>> expectedRates = parser.splitInChunks();
 
 		System.out.println(expectedRates);
 		assertEquals(1, expectedRates.size());

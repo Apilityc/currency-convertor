@@ -1,6 +1,9 @@
 package org.apilytic.currency.ingestion.rate.provider;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +29,7 @@ public class YahooQueryRateParser {
 	 * 
 	 * @return
 	 */
-	public Set<Set<String>> splitInChunks() {
+	public Set<Collection<String>> splitInChunks() {
 
 		if (StringUtils.isBlank(queryRate)) {
 			throw new IllegalArgumentException("queryRate can't be empty");
@@ -35,29 +38,29 @@ public class YahooQueryRateParser {
 		int entryLength = String.format(YahooQueryRateBuilder.queryRatePattern,
 				"USD", "GBP").length();
 
-		Set<Set<String>> rateChunks = new HashSet<Set<String>>();
-		Set<String> rates = new HashSet<String>();
+		Set<Collection<String>> rateChunks = new HashSet<Collection<String>>();
+		List<String> rates = new ArrayList<String>();
+
 		for (int i = 0; i < queryRate.length(); i = i + entryLength) {
 			rates.add(queryRate.substring(i, i + entryLength));
 
-			// FIXME not working
 			if (rates.size() == (queryRate.length() / entryLength)) {
 				rateChunks.clear();
-				rateChunks.add(new HashSet<String>(rates));
+				rateChunks.add(new ArrayList<String>(rates));
 			}
-			if (i > 0) {
-				if (queryRate.length() % (i) < entryLength) {
-					rateChunks.add(new HashSet<String>(rates));
-				}
-				if (rates.size() > step) {
-					rates.clear();
-					rates.add(queryRate.substring(i, i + entryLength));
-					rateChunks.add(new HashSet<String>(rates));
-				}
-			}
-			if (rates.size() > 1 && rates.size() < step) {
+
+			if (i > 0 && rates.size() > step) {
+				// remove last element initial list to have proper chunk splits
+				rates.remove(queryRate.substring(i, i + entryLength));
+				List<String> section = new ArrayList<String>(rates);
+
+				rates.clear();
 				rateChunks.clear();
-				rateChunks.add(new HashSet<String>(rates));
+
+				rates.add(queryRate.substring(i, i + entryLength));
+
+				rateChunks.add(section);
+				rateChunks.add(new ArrayList<String>(rates));
 			}
 		}
 		rates.clear();
