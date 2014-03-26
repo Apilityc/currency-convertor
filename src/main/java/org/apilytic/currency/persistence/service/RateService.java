@@ -2,6 +2,8 @@ package org.apilytic.currency.persistence.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class RateService implements RateRepository {
 
 	@Autowired
 	private RedisTemplate<String, String> template;
+
+	@Resource(name = "redisTemplate")
+	private HashOperations<String, String, String> hashOps;
 
 	@Override
 	public Iterable<Rate> findAll(Sort sort) {
@@ -43,8 +48,12 @@ public class RateService implements RateRepository {
 
 	@Override
 	public <S extends Rate> Iterable<S> save(Iterable<S> entities) {
-		// TODO Auto-generated method stub
-		return null;
+		// FIXME create with transaction
+		for (S entity : entities) {
+			hashOps.putAll(entity.getKey(), entity.getValue());
+		}
+
+		return entities;
 	}
 
 	@Override

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apilytic.currency.ingestion.rate.provider.ExchangeRate;
 import org.apilytic.currency.ingestion.rate.provider.YahooFinanceManager;
 import org.apilytic.currency.ingestion.rate.provider.YahooQueryRateBuilder;
+import org.apilytic.currency.ingestion.rate.provider.YahooQueryRateParser;
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class YahooExchangeService implements RateIngestion {
 	@Autowired
 	private RateRepository rateRepo;
 
+	@Autowired
+	private YahooQueryRateParser rateParser;
+
 	private List<Rate> rates;
 
 	/*
@@ -40,27 +45,32 @@ public class YahooExchangeService implements RateIngestion {
 	 */
 	@Override
 	public void sync() {
-		String createQueryRate = queryRateBuilder.createQueryRate();
 
-		// TODO split query rate and execute it in batch
-		yahooFinanaceManager.setExchangeQuery(createQueryRate);
-		List<? extends ExchangeRate> providedRates = yahooFinanaceManager
-				.provideRate();
+		System.out.println(queryRateBuilder.createQueryRate());
+
+		rateParser.setQueryRate(queryRateBuilder.createQueryRate());
+		Set<String> rateQueryChunks = rateParser.splitInChunks();
 
 		rates = new ArrayList<Rate>();
 
-		for (ExchangeRate exchangeRate : providedRates) {
-			Map<String, String> values = new HashMap<String, String>();
-			values.put(exchangeRate.toCurrency(), exchangeRate.rate());
+		for (String rateQuery : rateQueryChunks) {
+			yahooFinanaceManager.setExchangeQuery(rateQuery);
+			List<? extends ExchangeRate> providedRates = yahooFinanaceManager
+					.provideRate();
 
-			Rate r = new Rate();
-			r.setKey(exchangeRate.fromCurrency());
-			r.setValue(values);
+			for (ExchangeRate exchangeRate : providedRates) {
+				Map<String, String> values = new HashMap<String, String>();
+				values.put(exchangeRate.toCurrency(), exchangeRate.rate());
 
-			rates.add(r);
+				Rate r = new Rate();
+				r.setKey(Rate.key(exchangeRate.fromCurrency()));
+				r.setValue(values);
+
+				rates.add(r);
+			}
 		}
 
-		// FIXME implementaiton of repo save
+		// FIXME save rates implementation
 		rateRepo.save(rates);
 	}
 }

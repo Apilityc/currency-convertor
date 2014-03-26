@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.roo.addon.javabean.RooJavaBean;
+import org.springframework.stereotype.Service;
 
 /**
  * Parse in chunks Yahoo query rate.
@@ -13,6 +14,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
  * 
  */
 @RooJavaBean
+@Service
 public class YahooQueryRateParser {
 
 	public static final int DEFAULT_STEP = 10;

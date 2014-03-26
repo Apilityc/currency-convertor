@@ -3,6 +3,10 @@ package org.apilytic.currency.persistence.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -70,4 +74,32 @@ public class RateIntegrationTest {
 				key, obj.getKey());
 	}
 
+	@Test
+	public void testSaveMixedCurrencies() {
+		Rate usdGbp = new Rate();
+		usdGbp.setKey(Rate.key("USD"));
+		Map<String, String> value = new HashMap<String, String>();
+		value.put("GBP", "12.10");
+		usdGbp.setValue(value);
+
+		Rate eurGbp = new Rate();
+		eurGbp.setKey(Rate.key("EUR"));
+		value = new HashMap<String, String>();
+		value.put("GBP", "11.23");
+		eurGbp.setValue(value);
+
+		Rate usdJpy = new Rate();
+		usdJpy.setKey(Rate.key("USD"));
+		value = new HashMap<String, String>();
+		value.put("JPY", "1.44");
+		usdJpy.setValue(value);
+
+		rateRepo.save(Arrays.asList(usdGbp, eurGbp, usdJpy));
+
+		Rate actualUsdGbpRate = rateRepo.findOne(Rate.key("USD"));
+		assertEquals(2, actualUsdGbpRate.getValue().values().size());
+
+		Rate actualEurRate = rateRepo.findOne(Rate.key("EUR"));
+		assertEquals(1, actualEurRate.getValue().values().size());
+	}
 }
