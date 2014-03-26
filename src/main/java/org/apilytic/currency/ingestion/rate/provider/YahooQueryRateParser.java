@@ -1,9 +1,6 @@
 package org.apilytic.currency.ingestion.rate.provider;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +16,8 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 public class YahooQueryRateParser {
 
 	public static final int DEFAULT_STEP = 10;
+	public static final int ENTRY_LENGTH = String.format(
+			YahooQueryRateBuilder.queryRatePattern, "USD", "GBP").length();
 
 	private int step = DEFAULT_STEP;
 
@@ -29,41 +28,39 @@ public class YahooQueryRateParser {
 	 * 
 	 * @return
 	 */
-	public Set<Collection<String>> splitInChunks() {
+	public Set<String> splitInChunks() {
 
 		if (StringUtils.isBlank(queryRate)) {
 			throw new IllegalArgumentException("queryRate can't be empty");
 		}
 
-		int entryLength = String.format(YahooQueryRateBuilder.queryRatePattern,
-				"USD", "GBP").length();
+		Set<String> rateChunks = new LinkedHashSet<String>();
+		String rates = "";
 
-		Set<Collection<String>> rateChunks = new HashSet<Collection<String>>();
-		List<String> rates = new ArrayList<String>();
+		// TODO simplify
+		for (int i = 0; i < queryRate.length(); i = i + ENTRY_LENGTH) {
+			rates += queryRate.substring(i, i + ENTRY_LENGTH);
 
-		for (int i = 0; i < queryRate.length(); i = i + entryLength) {
-			rates.add(queryRate.substring(i, i + entryLength));
-
-			if (rates.size() == (queryRate.length() / entryLength)) {
-				rateChunks.clear();
-				rateChunks.add(new ArrayList<String>(rates));
+			// at bring of section - save to chunks
+			if ((rates.length() / ENTRY_LENGTH) == (queryRate.length() / ENTRY_LENGTH)) {
+				rateChunks.add(rates);
 			}
 
-			if (i > 0 && rates.size() > step) {
-				// remove last element initial list to have proper chunk splits
-				rates.remove(queryRate.substring(i, i + entryLength));
-				List<String> section = new ArrayList<String>(rates);
+			// remove last element from the previous section and put it in new
+			// section
+			if (i > 0 && (rates.length() / ENTRY_LENGTH) > step) {
 
-				rates.clear();
+				String section = rates.substring(0, rates.length()
+						- ENTRY_LENGTH);
+
+				rates = (queryRate.substring(i, i + ENTRY_LENGTH));
 				rateChunks.clear();
-
-				rates.add(queryRate.substring(i, i + entryLength));
-
 				rateChunks.add(section);
-				rateChunks.add(new ArrayList<String>(rates));
+				rateChunks.add(rates);
+
 			}
 		}
-		rates.clear();
+		rates = "";
 
 		return rateChunks;
 	}
