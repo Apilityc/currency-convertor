@@ -41,13 +41,12 @@ public class YahooQueryRateParserTest {
 	}
 
 	@Test
-	public void parseWithMoreThanDefaultStep() {
+	public void parseWithMoreThanSetStepAndNotEquallyDevitedToStep() {
 		String dataProvider = dataProviderForQueryRateLessThanDefaultStep();
 		parser.setStep(2);
 		parser.setQueryRate(dataProvider);
 
 		Set<String> rates = parser.splitInChunks();
-
 		assertEquals(2, rates.size());
 
 		rates.contains(dataProvider.substring(0,
@@ -81,6 +80,34 @@ public class YahooQueryRateParserTest {
 		assertEquals(1, expectedRates.size());
 		String[] actualRates = expectedRates.toArray(new String[] { "0" });
 		assertEquals(dataProvider, actualRates[0]);
+	}
+
+	@Test
+	public void parseWith2CyclesAboveDefaultStep() {
+		String dataProvider = dataProviderFor2CyclesAboveDefaultStep();
+		parser.setStep(2);
+		parser.setQueryRate(dataProvider);
+
+		Set<String> rates = parser.splitInChunks();
+		assertEquals(3, rates.size());
+
+		List<String> actualRates = new ArrayList<String>();
+		Iterator<String> iterator = rates.iterator();
+		while (iterator.hasNext()) {
+			String el = iterator.next();
+			actualRates.add(el);
+		}
+
+		String firstSection = String.format(queryRatePattern, "USD", "GBP");
+		firstSection += String.format(queryRatePattern, "USD", "EUR");
+		assertEquals(firstSection, actualRates.get(0));
+
+		String secondSEction = String.format(queryRatePattern, "USD", "JPY");
+		secondSEction += String.format(queryRatePattern, "USD", "AUD");
+		assertEquals(secondSEction, actualRates.get(1));
+		String thirdSection = String.format(queryRatePattern, "USD", "CAD");
+		thirdSection += String.format(queryRatePattern, "USD", "CHF");
+		assertEquals(thirdSection, actualRates.get(2));
 	}
 
 	private String dataProviderForQueryRateLessThanDefaultStep() {

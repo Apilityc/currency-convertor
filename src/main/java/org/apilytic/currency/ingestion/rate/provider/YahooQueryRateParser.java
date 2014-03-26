@@ -37,7 +37,8 @@ public class YahooQueryRateParser {
 		Set<String> rateChunks = new LinkedHashSet<String>();
 		String rates = "";
 
-		// TODO simplify
+		// TODO check what will be results if logic is inverted - remove put all
+		// elements to list at start
 		for (int i = 0; i < queryRate.length(); i = i + ENTRY_LENGTH) {
 			rates += queryRate.substring(i, i + ENTRY_LENGTH);
 
@@ -46,17 +47,26 @@ public class YahooQueryRateParser {
 				rateChunks.add(rates);
 			}
 
-			// remove last element from the previous section and put it in new
-			// section
-			if (i > 0 && (rates.length() / ENTRY_LENGTH) > step) {
-
-				String section = rates.substring(0, rates.length()
-						- ENTRY_LENGTH);
-
-				rates = (queryRate.substring(i, i + ENTRY_LENGTH));
+			if (rateChunks.size() > 0 && (rates.length() / ENTRY_LENGTH) > step) {
 				rateChunks.clear();
+				String section = rates.substring(0, step * ENTRY_LENGTH);
 				rateChunks.add(section);
-				rateChunks.add(rates);
+
+				for (int j = 0; j < queryRate.length(); j = j + ENTRY_LENGTH) {
+
+					if (j % step != 0) {
+						continue;
+					}
+
+					int endPosition = j + j;
+					if (j + j > queryRate.length()) {
+						endPosition = queryRate.length();
+					}
+
+					if (endPosition > 0) {
+						rateChunks.add(queryRate.substring(j, endPosition));
+					}
+				}
 
 			}
 		}
