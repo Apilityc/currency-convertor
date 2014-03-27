@@ -15,7 +15,6 @@ public class YahooExchangeServiceIntegrationTest extends YahooExchangeService {
 
 	@Test
 	public void testSyncInBatch() {
-		// FIXME integration is not workikng.
 		rateIngestion.sync();
 	}
 

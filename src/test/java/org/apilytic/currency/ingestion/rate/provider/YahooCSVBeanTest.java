@@ -20,16 +20,15 @@ public class YahooCSVBeanTest {
 	}
 
 	@Test
-	public void testToCurrencyValidCurrencyFromYahoo() {
-
-		csvBean.setCurrency(String.format(
-				YahooQueryRateBuilder.queryRatePattern, "USD", "EUR"));
-		assertEquals("USD", csvBean.fromCurrency());
-		assertEquals("EUR", csvBean.toCurrency());
+	public void toCurrencyParsingWithCSVRow() {
+		String csvRow = "SLLETB=X,0.0045,\"3/27/2014\",\"5:50am\"";
+		csvBean.setCurrency(csvRow);
+		assertEquals("SLL", csvBean.fromCurrency());
+		assertEquals("ETB", csvBean.toCurrency());
 	}
 
 	@Test
-	public void testRate() {
+	public void rateParsing() {
 		csvBean.setRate("12.02");
 		assertEquals("12.02", csvBean.rate());
 	}

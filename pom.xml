@@ -304,6 +304,7 @@
 						<exclude>**/*_Roo_*</exclude>
 						<exclude>**/*YahooFinanceManagerIntegration*</exclude>
 						<exclude>**/*CurrencyExchangeIntegration*</exclude>
+						<exclude>**/*ExchangeServiceIntegration*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

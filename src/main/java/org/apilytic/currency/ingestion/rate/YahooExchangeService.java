@@ -46,8 +46,6 @@ public class YahooExchangeService implements RateIngestion {
 	@Override
 	public void sync() {
 
-		System.out.println(queryRateBuilder.createQueryRate());
-
 		rateParser.setQueryRate(queryRateBuilder.createQueryRate());
 		Set<String> rateQueryChunks = rateParser.splitInChunks();
 
@@ -59,8 +57,11 @@ public class YahooExchangeService implements RateIngestion {
 					.provideRate();
 
 			for (ExchangeRate exchangeRate : providedRates) {
+
 				Map<String, String> values = new HashMap<String, String>();
 				values.put(exchangeRate.toCurrency(), exchangeRate.rate());
+
+				System.out.println(exchangeRate.fromCurrency());
 
 				Rate r = new Rate();
 				r.setKey(Rate.key(exchangeRate.fromCurrency()));

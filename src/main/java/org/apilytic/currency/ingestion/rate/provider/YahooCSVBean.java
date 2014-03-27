@@ -22,8 +22,8 @@ public class YahooCSVBean implements ExchangeRate {
 	 * @param currency
 	 */
 	public void setCurrency(String currency) {
-		fromCurrency = currency.substring(3, 6);
-		toCurrency = currency.substring(6, 9);
+		fromCurrency = currency.substring(0, 3);
+		toCurrency = currency.substring(3, 6);
 	}
 
 	/**
