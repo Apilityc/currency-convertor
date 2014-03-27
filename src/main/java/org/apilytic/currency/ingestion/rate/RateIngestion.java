@@ -12,6 +12,8 @@ public interface RateIngestion {
 
 	/**
 	 * Sync currency rates from different providers.
+	 * 
+	 * @throws InterruptedException
 	 */
-	public void sync();
+	public void sync() throws InterruptedException;
 }

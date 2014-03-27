@@ -14,7 +14,7 @@ public class YahooExchangeServiceIntegrationTest extends YahooExchangeService {
 	private YahooExchangeService rateIngestion;
 
 	@Test
-	public void testSyncInBatch() {
+	public void testSyncInBatch() throws InterruptedException {
 		rateIngestion.sync();
 	}
 

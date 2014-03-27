@@ -59,7 +59,7 @@ public class YahooExchangeServiceTest {
 	}
 
 	@Test
-	public void provideRate() {
+	public void provideRate() throws InterruptedException {
 
 		when(rateParser.splitInChunks())
 				.thenReturn(dataProviderForRateParser());

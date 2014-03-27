@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apilytic.currency.ingestion.rate.provider.ExchangeRate;
 import org.apilytic.currency.ingestion.rate.provider.YahooFinanceManager;
@@ -44,34 +47,43 @@ public class YahooExchangeService implements RateIngestion {
 	 * @see org.apilytic.currency.ingestion.rate.RateIngestion#sync()
 	 */
 	@Override
-	public void sync() {
-
+	public void sync() throws InterruptedException {
 		rateParser.setQueryRate(queryRateBuilder.createQueryRate());
 		Set<String> rateQueryChunks = rateParser.splitInChunks();
 
 		rates = new ArrayList<Rate>();
 
-		for (String rateQuery : rateQueryChunks) {
-			yahooFinanaceManager.setExchangeQuery(rateQuery);
-			List<? extends ExchangeRate> providedRates = yahooFinanaceManager
-					.provideRate();
+		ExecutorService threadExecutor = Executors.newFixedThreadPool(5);
 
-			for (ExchangeRate exchangeRate : providedRates) {
+		for (final String rateQuery : rateQueryChunks) {
 
-				Map<String, String> values = new HashMap<String, String>();
-				values.put(exchangeRate.toCurrency(), exchangeRate.rate());
+			threadExecutor.execute(new Runnable() {
 
-				System.out.println(exchangeRate.fromCurrency());
+				@Override
+				public void run() {
+					yahooFinanaceManager.setExchangeQuery(rateQuery);
+					final List<? extends ExchangeRate> providedRates = yahooFinanaceManager
+							.provideRate();
 
-				Rate r = new Rate();
-				r.setKey(Rate.key(exchangeRate.fromCurrency()));
-				r.setValue(values);
+					for (ExchangeRate exchangeRate : providedRates) {
 
-				rates.add(r);
-			}
+						Map<String, String> values = new HashMap<String, String>();
+						values.put(exchangeRate.toCurrency(),
+								exchangeRate.rate());
+
+						Rate r = new Rate();
+						r.setKey(Rate.key(exchangeRate.fromCurrency()));
+						r.setValue(values);
+
+						rates.add(r);
+					}
+				}
+			});
 		}
 
-		// FIXME save rates implementation
+		threadExecutor.shutdown();
+		threadExecutor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
+
 		rateRepo.save(rates);
 	}
 }
