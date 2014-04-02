@@ -123,4 +123,50 @@
 			<artifactId>spring-boot-starter-redis</artifactId>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>unitTest</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<printSummary>false</printSummary>
+							<redirectTestOutputToFile>true</redirectTestOutputToFile>
+							<excludes>
+								<exclude>**/*_Roo_*</exclude>
+								<exclude>**/*Integration*</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>domainIntegrationTest</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<printSummary>false</printSummary>
+							<redirectTestOutputToFile>true</redirectTestOutputToFile>
+							<includes>
+								<include>**/persistence/domain/*Integration*</include>
+							</includes>
+							<excludes>
+								<exclude>**/*_Roo_*</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>serviceIntegrationTest</id>
+			<!-- TODO: must be declared -->
+		</profile>
+	</profiles>
 </project>
