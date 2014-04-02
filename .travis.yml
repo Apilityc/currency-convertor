@@ -3,6 +3,6 @@ jdk:
   - oraclejdk7
 services:
   - redis-server
-env:
-  - -P domainIntegrationTest
-  - -P unitTest
+script:
+  - mvn test -P unitTest
+  - mvn test -P domainIntegrationTest
