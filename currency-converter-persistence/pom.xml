@@ -139,6 +139,7 @@
 						<configuration>
 							<printSummary>false</printSummary>
 							<redirectTestOutputToFile>true</redirectTestOutputToFile>
+							<testNGArtifactName>none:none</testNGArtifactName>
 							<excludes>
 								<exclude>**/*_Roo_*</exclude>
 								<exclude>**/*Integration*</exclude>
@@ -158,6 +159,7 @@
 						<configuration>
 							<printSummary>false</printSummary>
 							<redirectTestOutputToFile>true</redirectTestOutputToFile>
+							<testNGArtifactName>none:none</testNGArtifactName>
 							<includes>
 								<include>**/persistence/domain/*Integration*</include>
 							</includes>
