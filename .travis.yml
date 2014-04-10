@@ -4,5 +4,6 @@ jdk:
 services:
   - redis-server
 script:
-  - mvn test -P unitTest
-  - mvn test -P domainIntegrationTest
+  - mvn test -P unitTest -pl currency-converter-persistence
+  - mvn test -P domainIntegrationTest -pl currency-converter-persistence
+  - mvn test -pl currency-converter-sync
