@@ -1,12 +1,8 @@
 package org.apilytic.currency.ingestion.vapor;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.apilytic.currency.ingestion.vapor.FetchISOCodes;
 import org.apilytic.currency.ingestion.vapor.model.ISO4217Bean;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.testng.annotations.Test;
 
 /**
  * 

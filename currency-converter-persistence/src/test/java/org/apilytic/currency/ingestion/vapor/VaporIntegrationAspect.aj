@@ -9,9 +9,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Georgi Lambov
  *
  */
-privileged aspect VaporJunitAspect {
+privileged aspect VaporIntegrationAspect {
 
-	declare @type: org.apilytic.currency.ingestion.vapor.*Test* : @RunWith(SpringJUnit4ClassRunner.class);
+	//declare @type: org.apilytic.currency.ingestion.vapor.*Test* : @RunWith(SpringJUnit4ClassRunner.class);
 
 	declare @type: org.apilytic.currency.ingestion.vapor.*Test* : @ContextConfiguration(locations = "classpath*:/META-INF/spring/applicationContext*.xml");
 }
