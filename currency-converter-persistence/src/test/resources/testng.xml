@@ -6,6 +6,10 @@
 		<packages>
 			<package name="org.apilytic.currency.ingestion.vapor.*" />
 		</packages>
+		<classes>
+			<class
+				name="org.apilytic.currency.ingestion.rate.provider.YahooFinanceManagerIntegrationTest" />
+		</classes>
 	</test>
 
 </suite>
