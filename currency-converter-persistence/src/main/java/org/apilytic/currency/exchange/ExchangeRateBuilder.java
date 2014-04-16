@@ -26,7 +26,8 @@ public class ExchangeRateBuilder {
 	private ExchangeRate exchangeRate;
 
 	/**
-	 * Creates cross reference rates for currencies.
+	 * Creates cross reference rates for currencies from currency ISO codes
+	 * persisted entities.
 	 */
 	protected void buildRates() {
 		Set<CurrencyExchange> currencies = currencyExchangeRepo
