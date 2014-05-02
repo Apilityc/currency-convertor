@@ -1,9 +1,9 @@
 package org.apilytic.currency.exchange;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,11 +12,12 @@ import java.util.Set;
 
 import org.apilytic.currency.persistence.domain.CurrencyExchange;
 import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class ExchangeRateBuilderTest {
 
@@ -25,27 +26,23 @@ public class ExchangeRateBuilderTest {
 	@Mock
 	private CurrencyExchangeRepository currencyExchangeRepo;
 
-	private boolean runOnce = false;
-
-	@Before
+	@BeforeTest
 	public void init() {
-		MockitoAnnotations.initMocks(this);
-
-		if (runOnce) {
-			return;
-		}
-
-		runOnce = true;
-
 		builder = new ExchangeRateBuilder();
+
+	}
+
+	@BeforeTest
+	public void initMethod() {
+		MockitoAnnotations.initMocks(this);
 		ReflectionTestUtils.setField(builder, "currencyExchangeRepo",
 				currencyExchangeRepo);
 	}
 
-	@Test
-	public void testBuildOfExchangeRate() {
+	@Test(dataProvider = "currencyData")
+	public void testBuildOfExchangeRate(Set<CurrencyExchange> currencies) {
 		when(currencyExchangeRepo.findAllCurencyExchanges()).thenReturn(
-				currencyData());
+				currencies);
 
 		builder.constructExchageRate();
 
@@ -82,7 +79,8 @@ public class ExchangeRateBuilderTest {
 		verify(currencyExchangeRepo).findAllCurencyExchanges();
 	}
 
-	public static Set<CurrencyExchange> currencyData() {
+	@DataProvider
+	public Object[][] currencyData() {
 		CurrencyExchange usd = new CurrencyExchange();
 		usd.setTitle("USD");
 		usd.setKey("a");
@@ -98,6 +96,6 @@ public class ExchangeRateBuilderTest {
 		Set<CurrencyExchange> currencies = new HashSet<CurrencyExchange>();
 		currencies.addAll(Arrays.asList(usd, gbp, eur));
 
-		return currencies;
+		return new Object[][] { { currencies } };
 	}
 }

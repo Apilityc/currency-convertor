@@ -11,5 +11,11 @@
 				name="org.apilytic.currency.ingestion.rate.provider.YahooFinanceManagerIntegrationTest" />
 		</classes>
 	</test>
+	
+	<test name="exchange-rate">
+		<packages>
+			<package name="org.apilytic.currency.exchange.*" />
+		</packages>
+	</test>
 
 </suite>

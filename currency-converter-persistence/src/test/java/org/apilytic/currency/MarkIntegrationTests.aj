@@ -15,8 +15,6 @@ import org.testng.annotations.DataProvider;
  */
 privileged aspect MarkIntegrationTests {
 
-	declare @type: org.apilytic.currency.csv.*IntegrationTest* : @RunWith(SpringJUnit4ClassRunner.class);
-	declare @type: org.apilytic.currency.csv.*IntegrationTest* : @ContextConfiguration(locations = "classpath*:/META-INF/spring/applicationContext*.xml");
 	declare @type: org.apilytic.currency.persistence.domain.*IntegrationTest* : @RunWith(SpringJUnit4ClassRunner.class);
 	declare @type: org.apilytic.currency.persistence.domain.*IntegrationTest* : @ContextConfiguration(locations = "classpath*:/META-INF/spring/applicationContext*.xml");
 	declare parents: org.apilytic.currency.ingestion.rate.*IntegrationTest* extends AbstractTestNGSpringContextTests;
