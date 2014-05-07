@@ -25,6 +25,10 @@ Alternatively, you can also pass in those properties using system properties via
 
 The keys can be setup at [http://dev.twitter.com/](http://dev.twitter.com/).
 
+## Install dependencies
+
+	mvn install
+
 ## Command Line using Tomcat 7
 
 	mvn tomcat7:run
