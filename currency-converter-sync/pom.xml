@@ -171,6 +171,12 @@
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apilytic</groupId>
+			<artifactId>currency-converter</artifactId>
+			<version>0.1.1.BUILD-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 	<parent>

@@ -39,7 +39,7 @@
 	<int:service-activator id="twitterServiceActivator"
 		ref="twitterService" input-channel="twitterChannel" method="addTwitterMessages" />
 
-	<bean id="twitterService" class="org.apilytic.service.impl.RateIngestionService" />
+	<bean id="twitterService" class="org.apilytic.service.impl.DefaultTwitterService" />
 
 	<int:logging-channel-adapter id="logger"
 		level="INFO"
