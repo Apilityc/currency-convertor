@@ -21,22 +21,24 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Customized Jackson {@link ObjectMapper} to add Jaxb annoation support using the
- * {@link JaxbAnnotationIntrospector}.
- *
+ * Customized Jackson {@link ObjectMapper} to add Jaxb annoation support using
+ * the {@link JaxbAnnotationIntrospector}.
+ * 
  * @author Georgi Lambov
- * @since  1.0
- *
+ * @since 1.0
+ * 
  */
 public class SpringIntegrationTest {
 
 	@Test
-	public void testSpringIntegrationContextStartup() throws Exception{
+	public void testSpringIntegrationContextStartup() throws Exception {
 
-		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml", SpringIntegrationTest.class);
+		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext(
+
+		"/META-INF/spring/integration/spring-integration-context.xml",
+				"classpath*:/META-INF/spring/applicationContext*.xml");
 		Thread.sleep(4000);
 		classPathXmlApplicationContext.close();
 
 	}
-
 }
