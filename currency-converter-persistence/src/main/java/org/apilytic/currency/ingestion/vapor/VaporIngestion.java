@@ -6,6 +6,7 @@ package org.apilytic.currency.ingestion.vapor;
  * @author Georgi Lambov
  * 
  */
+// TODO rename to something like ContryCurrencyIngestion
 public interface VaporIngestion {
 
 	/**
