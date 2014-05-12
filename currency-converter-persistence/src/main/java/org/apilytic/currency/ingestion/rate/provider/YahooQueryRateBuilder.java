@@ -28,7 +28,7 @@ public class YahooQueryRateBuilder {
 	 * 
 	 * @return
 	 */
-	public String createQueryRate() {
+	public StringBuilder createQueryRate() {
 		exchangeRateBuilder.constructExchageRate();
 		Map<String, Set<CurrencyExchange>> rates = exchangeRateBuilder
 				.getExchangeRate().getRates();
@@ -41,6 +41,6 @@ public class YahooQueryRateBuilder {
 			}
 		}
 
-		return sb.toString();
+		return sb;
 	}
 }

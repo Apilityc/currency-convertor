@@ -23,7 +23,7 @@ public class YahooQueryRateParser {
 
 	private int step = DEFAULT_STEP;
 
-	private String queryRate;
+	private StringBuilder queryRate;
 
 	/**
 	 * Splits in query rate in chunks.
@@ -37,39 +37,65 @@ public class YahooQueryRateParser {
 		}
 
 		Set<String> rateChunks = new LinkedHashSet<String>();
+		//TODO String buffer
 		String rates = "";
 
-		// TODO check what will be results if logic is inverted - remove put all
-		// elements to list at start
+		
+		// used in NEXT CHUNK string last position of each chunk
+		int lastChunkPosition = 0;
 		for (int i = 0; i < queryRate.length(); i = i + ENTRY_LENGTH) {
-			rates += queryRate.substring(i, i + ENTRY_LENGTH);
 
-			// at bring of section - save to chunks
-			if ((rates.length() / ENTRY_LENGTH) == (queryRate.length() / ENTRY_LENGTH)) {
+			// FIRST CHUNK
+			if (i == 0) {
+				
+				
+				//TODO Use one for statement.
+				for (int stepIteration = 0; stepIteration < step; stepIteration++) {
+					//assign only first chunk with size of the ``step``
+					int endPos = (stepIteration * ENTRY_LENGTH) + ENTRY_LENGTH;
+					int startPos = stepIteration * ENTRY_LENGTH;
+
+					if (endPos > queryRate.length()) {
+						break;
+					}
+					rates += queryRate.substring(startPos, endPos);
+				}
 				rateChunks.add(rates);
 			}
 
-			if (rateChunks.size() > 0 && (rates.length() / ENTRY_LENGTH) > step) {
-				rateChunks.clear();
-				String section = rates.substring(0, step * ENTRY_LENGTH);
-				rateChunks.add(section);
-
-				for (int j = 0; j < queryRate.length(); j = j + ENTRY_LENGTH) {
-
-					if (j % step != 0) {
-						continue;
+			// NEXT CHUNK
+			if (i > step * ENTRY_LENGTH) {
+				rates = "";
+				for (int stepIteration = 0; stepIteration < step; stepIteration++) {
+					// stepSection valid value executed once.
+					int stepSection = i + (ENTRY_LENGTH * stepIteration);
+					// first iteration after initial load doesn't have chunk
+					// last position
+					if (lastChunkPosition > 0) {
+						stepSection = lastChunkPosition
+								+ (ENTRY_LENGTH * (stepIteration + 1));
 					}
 
-					int endPosition = j + j;
-					if (j + j > queryRate.length()) {
-						endPosition = queryRate.length();
+					int startPos = stepSection - ENTRY_LENGTH;
+					int endPos = stepSection;
+
+					if (endPos > queryRate.length()) {
+						break;
 					}
 
-					if (endPosition > 0) {
-						rateChunks.add(queryRate.substring(j, endPosition));
+					rates += queryRate.substring(startPos, endPos);
+
+					// retrieve last position of the read string
+					if (stepIteration + 1 == step) {
+						lastChunkPosition = endPos;
 					}
 				}
 
+				if (rates == "") {
+					break;
+				}
+
+				rateChunks.add(rates);
 			}
 		}
 		rates = "";
