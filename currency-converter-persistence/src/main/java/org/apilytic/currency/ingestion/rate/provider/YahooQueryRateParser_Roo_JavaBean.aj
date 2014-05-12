@@ -15,11 +15,11 @@ privileged aspect YahooQueryRateParser_Roo_JavaBean {
         this.step = step;
     }
     
-    public String YahooQueryRateParser.getQueryRate() {
+    public StringBuilder YahooQueryRateParser.getQueryRate() {
         return this.queryRate;
     }
     
-    public void YahooQueryRateParser.setQueryRate(String queryRate) {
+    public void YahooQueryRateParser.setQueryRate(StringBuilder queryRate) {
         this.queryRate = queryRate;
     }
     

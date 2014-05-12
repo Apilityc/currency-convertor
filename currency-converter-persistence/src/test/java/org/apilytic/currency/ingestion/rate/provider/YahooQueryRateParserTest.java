@@ -28,7 +28,7 @@ public class YahooQueryRateParserTest {
 	@Test
 	public void parseWithLessThanDefaultStep() {
 
-		String dataProvider = dataProviderForQueryRateLessThanDefaultStep();
+		StringBuilder dataProvider = dataProviderForQueryRateLessThanDefaultStep();
 		parser.setQueryRate(dataProvider);
 
 		Set<String> expectedRates = parser.splitInChunks();
@@ -37,12 +37,12 @@ public class YahooQueryRateParserTest {
 
 		assertEquals(1, expectedRates.size());
 		String[] actualRates = expectedRates.toArray(new String[] { "0" });
-		assertEquals(dataProvider, actualRates[0]);
+		assertEquals(dataProvider.toString(), actualRates[0]);
 	}
 
 	@Test
 	public void parseWithMoreThanSetStepAndNotEquallyDevitedToStep() {
-		String dataProvider = dataProviderForQueryRateLessThanDefaultStep();
+		StringBuilder dataProvider = dataProviderForQueryRateLessThanDefaultStep();
 		parser.setStep(2);
 		parser.setQueryRate(dataProvider);
 
@@ -71,7 +71,7 @@ public class YahooQueryRateParserTest {
 
 	@Test
 	public void parseWithEqualOfDefaultStep() {
-		String dataProvider = dataProviderForQueryRateLessThanDefaultStep();
+		StringBuilder dataProvider = dataProviderForQueryRateLessThanDefaultStep();
 		parser.setStep(3);
 		parser.setQueryRate(dataProvider);
 
@@ -79,12 +79,12 @@ public class YahooQueryRateParserTest {
 
 		assertEquals(1, expectedRates.size());
 		String[] actualRates = expectedRates.toArray(new String[] { "0" });
-		assertEquals(dataProvider, actualRates[0]);
+		assertEquals(dataProvider.toString(), actualRates[0]);
 	}
 
 	@Test
 	public void parseWith2CyclesAboveDefaultStep() {
-		String dataProvider = dataProviderFor2CyclesAboveDefaultStep();
+		StringBuilder dataProvider = dataProviderFor2CyclesAboveDefaultStep();
 		parser.setStep(2);
 		parser.setQueryRate(dataProvider);
 
@@ -110,24 +110,24 @@ public class YahooQueryRateParserTest {
 		assertEquals(thirdSection, actualRates.get(2));
 	}
 
-	private String dataProviderForQueryRateLessThanDefaultStep() {
+	private StringBuilder dataProviderForQueryRateLessThanDefaultStep() {
 		String[] currencies = { "GBP", "EUR", "JPY" };
 
-		String queryRate = "";
+		StringBuilder queryRate = new StringBuilder();
 		for (String currency : currencies) {
-			queryRate += String.format(queryRatePattern, "USD", currency);
+			queryRate.append(String.format(queryRatePattern, "USD", currency));
 		}
 
 		return queryRate;
 	}
 
-	private String dataProviderFor2CyclesAboveDefaultStep() {
+	private StringBuilder dataProviderFor2CyclesAboveDefaultStep() {
 
 		String[] currencies = { "GBP", "EUR", "JPY", "AUD", "CAD", "CHF" };
 
-		String queryRate = "";
+		StringBuilder queryRate = new StringBuilder();
 		for (String currency : currencies) {
-			queryRate += String.format(queryRatePattern, "USD", currency);
+			queryRate.append(String.format(queryRatePattern, "USD", currency));
 		}
 
 		return queryRate;

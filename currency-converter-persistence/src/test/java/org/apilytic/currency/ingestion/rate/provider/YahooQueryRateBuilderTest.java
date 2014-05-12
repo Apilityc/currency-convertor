@@ -47,8 +47,8 @@ public class YahooQueryRateBuilderTest {
 		when(exchangeRateBuilder.getExchangeRate()).thenReturn(
 				dataProviderForRates(1));
 
-		String queryRate = queryRateBuilder.createQueryRate();
-		assertEquals("&s=USDEUR=X&s=USDGBP=X", queryRate);
+		StringBuilder queryRate = queryRateBuilder.createQueryRate();
+		assertEquals("&s=USDEUR=X&s=USDGBP=X", queryRate.toString());
 
 		verify(exchangeRateBuilder).constructExchageRate();
 	}
