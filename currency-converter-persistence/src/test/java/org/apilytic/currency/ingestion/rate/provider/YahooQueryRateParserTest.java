@@ -43,10 +43,11 @@ public class YahooQueryRateParserTest {
 	@Test
 	public void parseWithMoreThanSetStepAndNotEquallyDevitedToStep() {
 		StringBuilder dataProvider = dataProviderForQueryRateLessThanDefaultStep();
-		parser.setStep(2);
+		parser.setStep(3);
 		parser.setQueryRate(dataProvider);
 
 		Set<String> rates = parser.splitInChunks();
+		System.out.println(rates);
 		assertEquals(2, rates.size());
 
 		rates.contains(dataProvider.substring(0,
@@ -85,7 +86,7 @@ public class YahooQueryRateParserTest {
 	@Test
 	public void parseWith2CyclesAboveDefaultStep() {
 		StringBuilder dataProvider = dataProviderFor2CyclesAboveDefaultStep();
-		parser.setStep(2);
+		parser.setStep(3);
 		parser.setQueryRate(dataProvider);
 
 		Set<String> rates = parser.splitInChunks();
@@ -116,6 +117,10 @@ public class YahooQueryRateParserTest {
 		StringBuilder queryRate = new StringBuilder();
 		for (String currency : currencies) {
 			queryRate.append(String.format(queryRatePattern, "USD", currency));
+			queryRate.append(String.format(queryRatePattern, "CHF", currency));
+			queryRate.append(String.format(queryRatePattern, "CAD", currency));
+			// queryRate.append(String.format(queryRatePattern, "MXN",
+			// currency));
 		}
 
 		return queryRate;
