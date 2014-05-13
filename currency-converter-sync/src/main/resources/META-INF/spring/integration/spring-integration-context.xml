@@ -32,7 +32,7 @@
 		<int:poller fixed-rate="20000" max-messages-per-poll="3" />
 	</int-twitter:search-inbound-channel-adapter>
 
-	
+
 
 	<!-- See also: http://static.springsource.org/spring-integration/reference/htmlsingle/#service-activator 
 		http://www.eaipatterns.com/MessagingAdapter.html -->
@@ -40,6 +40,8 @@
 		ref="twitterService" input-channel="twitterChannel" method="addTwitterMessages" />
 
 	<bean id="twitterService" class="org.apilytic.service.impl.DefaultTwitterService" />
+
+	<bean id="rateIngestionService" class="org.apilytic.service.CurrencyRateIngestionService" />
 
 	<int:logging-channel-adapter id="logger"
 		level="INFO"
@@ -59,4 +61,12 @@
 		http://www.eaipatterns.com/ControlBus.html -->
 	<int:control-bus id="controlBus" input-channel="controlBusChannel" />
 
+	<int:channel id="rateInputChannel" />
+
+	<int:channel id="rateOutputChannel">
+		<int:queue capacity="10" />
+	</int:channel>
+
+	<int:service-activator input-channel="rateInputChannel"
+		output-channel="rateOutputChannel" ref="rateIngestionService" method="syncCountryCurrenciesAndRates" />
 </beans>

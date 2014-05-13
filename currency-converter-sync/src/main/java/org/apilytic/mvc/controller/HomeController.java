@@ -18,6 +18,12 @@ package org.apilytic.mvc.controller;
 import java.util.SortedSet;
 
 import org.apache.log4j.Logger;
+import org.apilytic.model.TwitterAdapterStatus;
+import org.apilytic.model.TwitterMessage;
+import org.apilytic.model.TwitterMessages;
+import org.apilytic.service.CurrencyRateIngestionService;
+import org.apilytic.service.TwitterService;
+import org.apilytic.support.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,18 +32,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.apilytic.model.TwitterAdapterStatus;
-import org.apilytic.model.TwitterMessage;
-import org.apilytic.model.TwitterMessages;
-import org.apilytic.service.TwitterService;
-import org.apilytic.support.SortOrder;
-
 /**
  * Handles requests for the application home page.
- *
+ * 
  * @author Georgi Lambov
- * @since  1.0
- *
+ * @since 1.0
+ * 
  */
 @Controller
 @RequestMapping
@@ -48,18 +48,31 @@ public class HomeController {
 	@Autowired
 	private TwitterService twitterService;
 
+	@Autowired
+	private CurrencyRateIngestionService rateIngestionService;
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value={"/", "/tweets"})
-	public String home(Model model, @RequestParam(required=false) Long latestTweetId,
-			@RequestParam(defaultValue="DESCENDING", required=false) SortOrder sortOrder) {
+	@RequestMapping(value = { "/", "/tweets" })
+	public String home(
+			Model model,
+			@RequestParam(required = false) Long latestTweetId,
+			@RequestParam(defaultValue = "DESCENDING", required = false) SortOrder sortOrder) {
 
 		if (latestTweetId == null) {
 			latestTweetId = 0L;
 		}
 
-		final SortedSet<TwitterMessage> twitterMessages = twitterService.getTwitterMessages(latestTweetId, sortOrder);
+		try {
+			rateIngestionService.syncCountryCurrenciesAndRates();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		final SortedSet<TwitterMessage> twitterMessages = twitterService
+				.getTwitterMessages(latestTweetId, sortOrder);
 
 		TwitterMessages twitterMessagesWrapper = new TwitterMessages();
 
@@ -69,10 +82,12 @@ public class HomeController {
 			twitterMessagesWrapper.setTwitterMessages(twitterMessages);
 		}
 
-		twitterMessagesWrapper.setAdapterRunning(twitterService.isTwitterAdapterRunning());
+		twitterMessagesWrapper.setAdapterRunning(twitterService
+				.isTwitterAdapterRunning());
 
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug(String.format("Latest Tweet ID: '%s'; Adapter running: %s",
+			LOGGER.debug(String.format(
+					"Latest Tweet ID: '%s'; Adapter running: %s",
 					twitterMessagesWrapper.getLatestTweetId(),
 					twitterMessagesWrapper.isAdapterRunning()));
 		}
@@ -83,23 +98,22 @@ public class HomeController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value={"/adapter/{state}"})
+	@RequestMapping(value = { "/adapter/{state}" })
 	public void state(@PathVariable String state) {
 
 		if ("start".equalsIgnoreCase(state)) {
 			twitterService.startTwitterAdapter();
-		}
-		else if ("stop".equalsIgnoreCase(state)) {
+		} else if ("stop".equalsIgnoreCase(state)) {
 			twitterService.stopTwitterAdapter();
 		}
 
 	}
 
 	@ResponseBody
-	@RequestMapping(value={"/adapter-running"})
+	@RequestMapping(value = { "/adapter-running" })
 	public TwitterAdapterStatus isRunning() {
-		TwitterAdapterStatus status = new TwitterAdapterStatus(twitterService.isTwitterAdapterRunning());
+		TwitterAdapterStatus status = new TwitterAdapterStatus(
+				twitterService.isTwitterAdapterRunning());
 		return status;
 	}
 }
-

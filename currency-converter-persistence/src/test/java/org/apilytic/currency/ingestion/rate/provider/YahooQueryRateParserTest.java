@@ -43,11 +43,12 @@ public class YahooQueryRateParserTest {
 	@Test
 	public void parseWithMoreThanSetStepAndNotEquallyDevitedToStep() {
 		StringBuilder dataProvider = dataProviderForQueryRateLessThanDefaultStep();
-		parser.setStep(2);
+		parser.setStep(3);
 		parser.setQueryRate(dataProvider);
 
 		Set<String> rates = parser.splitInChunks();
-		assertEquals(2, rates.size());
+		System.out.println(rates);
+		assertEquals(3, rates.size());
 
 		rates.contains(dataProvider.substring(0,
 				YahooQueryRateParser.ENTRY_LENGTH * 2));
@@ -62,11 +63,14 @@ public class YahooQueryRateParserTest {
 		}
 
 		String firstSection = String.format(queryRatePattern, "USD", "GBP");
-		firstSection += String.format(queryRatePattern, "USD", "EUR");
+		firstSection += String.format(queryRatePattern, "CHF", "GBP");
+		firstSection += String.format(queryRatePattern, "CAD", "GBP");
 		assertEquals(firstSection, actualRates.get(0));
 
-		String secondSEction = String.format(queryRatePattern, "USD", "JPY");
-		assertEquals(secondSEction, actualRates.get(1));
+		String secondSection = String.format(queryRatePattern, "USD", "EUR");
+		secondSection += String.format(queryRatePattern, "CHF", "EUR");
+		secondSection += String.format(queryRatePattern, "CAD", "EUR");
+		assertEquals(secondSection, actualRates.get(1));
 	}
 
 	@Test
@@ -75,21 +79,20 @@ public class YahooQueryRateParserTest {
 		parser.setStep(3);
 		parser.setQueryRate(dataProvider);
 
-		Set<String> expectedRates = parser.splitInChunks();
-
-		assertEquals(1, expectedRates.size());
-		String[] actualRates = expectedRates.toArray(new String[] { "0" });
-		assertEquals(dataProvider.toString(), actualRates[0]);
+		Set<String> actualRates = parser.splitInChunks();
+		assertEquals(3, actualRates.size());
+		String[] rates = actualRates.toArray(new String[] { "0" });
+		assertEquals(dataProvider.toString(), rates[0] + rates[1] + rates[2]);
 	}
 
 	@Test
-	public void parseWith2CyclesAboveDefaultStep() {
+	public void parseWithOneCyclesAboveDefaultStep() {
 		StringBuilder dataProvider = dataProviderFor2CyclesAboveDefaultStep();
-		parser.setStep(2);
+		parser.setStep(3);
 		parser.setQueryRate(dataProvider);
 
 		Set<String> rates = parser.splitInChunks();
-		assertEquals(3, rates.size());
+		assertEquals(2, rates.size());
 
 		List<String> actualRates = new ArrayList<String>();
 		Iterator<String> iterator = rates.iterator();
@@ -100,14 +103,13 @@ public class YahooQueryRateParserTest {
 
 		String firstSection = String.format(queryRatePattern, "USD", "GBP");
 		firstSection += String.format(queryRatePattern, "USD", "EUR");
-		assertEquals(firstSection, actualRates.get(0));
+		firstSection += String.format(queryRatePattern, "USD", "JPY");
+		assertEquals(firstSection, actualRates.get(0).toString());
 
-		String secondSEction = String.format(queryRatePattern, "USD", "JPY");
-		secondSEction += String.format(queryRatePattern, "USD", "AUD");
-		assertEquals(secondSEction, actualRates.get(1));
-		String thirdSection = String.format(queryRatePattern, "USD", "CAD");
-		thirdSection += String.format(queryRatePattern, "USD", "CHF");
-		assertEquals(thirdSection, actualRates.get(2));
+		String secondSection = String.format(queryRatePattern, "USD", "AUD");
+		secondSection += String.format(queryRatePattern, "USD", "CAD");
+		secondSection += String.format(queryRatePattern, "USD", "CHF");
+		assertEquals(secondSection, actualRates.get(1));
 	}
 
 	private StringBuilder dataProviderForQueryRateLessThanDefaultStep() {
@@ -116,6 +118,10 @@ public class YahooQueryRateParserTest {
 		StringBuilder queryRate = new StringBuilder();
 		for (String currency : currencies) {
 			queryRate.append(String.format(queryRatePattern, "USD", currency));
+			queryRate.append(String.format(queryRatePattern, "CHF", currency));
+			queryRate.append(String.format(queryRatePattern, "CAD", currency));
+			// queryRate.append(String.format(queryRatePattern, "MXN",
+			// currency));
 		}
 
 		return queryRate;

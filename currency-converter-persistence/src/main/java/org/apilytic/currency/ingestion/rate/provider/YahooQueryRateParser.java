@@ -48,7 +48,6 @@ public class YahooQueryRateParser {
 			// FIRST CHUNK
 			if (i == 0) {
 				
-				
 				//TODO Use one for statement.
 				for (int stepIteration = 0; stepIteration < step; stepIteration++) {
 					//assign only first chunk with size of the ``step``
