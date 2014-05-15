@@ -47,7 +47,6 @@ public class YahooQueryRateParserTest {
 		parser.setQueryRate(dataProvider);
 
 		Set<String> rates = parser.splitInChunks();
-		System.out.println(rates);
 		assertEquals(3, rates.size());
 
 		rates.contains(dataProvider.substring(0,
