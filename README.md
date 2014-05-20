@@ -12,6 +12,7 @@ You can find specification in project's [Apilytic Wiki][].
 # Running
 
 	mvn install
+	mvn jetty:run
 
 [Apilytic Wiki]: https://github.com/Apilytic/currency-converter/wiki
 
