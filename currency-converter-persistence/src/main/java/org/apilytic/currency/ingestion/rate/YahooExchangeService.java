@@ -1,6 +1,5 @@
 package org.apilytic.currency.ingestion.rate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +38,6 @@ public class YahooExchangeService implements RateIngestion {
 	@Autowired
 	private YahooQueryRateParser rateParser;
 
-	private List<Rate> rates;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -51,12 +48,9 @@ public class YahooExchangeService implements RateIngestion {
 		rateParser.setQueryRate(queryRateBuilder.createQueryRate());
 		Set<String> rateQueryChunks = rateParser.splitInChunks();
 
-		rates = new ArrayList<Rate>();
-
 		ExecutorService threadExecutor = Executors.newFixedThreadPool(5);
 
 		for (final String rateQuery : rateQueryChunks) {
-
 			threadExecutor.execute(new Runnable() {
 
 				@Override
@@ -74,16 +68,15 @@ public class YahooExchangeService implements RateIngestion {
 						Rate r = new Rate();
 						r.setKey(Rate.key(exchangeRate.fromCurrency()));
 						r.setValue(values);
-
-						rates.add(r);
+						//FIXME Saving of list of rates is not working
+						rateRepo.save(r);
 					}
 				}
 			});
+
 		}
 
 		threadExecutor.shutdown();
 		threadExecutor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
-
-		rateRepo.save(rates);
 	}
 }

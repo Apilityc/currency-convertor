@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class YahooQueryRateParser {
 
-	public static final int DEFAULT_STEP = 10;
+	public static final int DEFAULT_STEP = 200;
 	public static final int ENTRY_LENGTH = String.format(
 			YahooQueryRateBuilder.queryRatePattern, "USD", "GBP").length();
 
