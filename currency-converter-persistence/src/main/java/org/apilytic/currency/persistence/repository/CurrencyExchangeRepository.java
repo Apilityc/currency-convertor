@@ -20,6 +20,6 @@ public interface CurrencyExchangeRepository extends
 	 * 
 	 * @return
 	 */
-	public Set<CurrencyExchange> findAllCurencyExchanges();
+	Set<CurrencyExchange> findAllCurencyExchanges();
 
 }

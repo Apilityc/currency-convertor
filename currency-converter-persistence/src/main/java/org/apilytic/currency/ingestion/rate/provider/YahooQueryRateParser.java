@@ -38,8 +38,7 @@ public class YahooQueryRateParser {
 
 		Set<String> rateChunks = new LinkedHashSet<String>();
 		//TODO String buffer
-		String rates = "";
-
+		StringBuilder rates = new StringBuilder();
 		
 		// used in NEXT CHUNK string last position of each chunk
 		int lastChunkPosition = 0;
@@ -57,14 +56,15 @@ public class YahooQueryRateParser {
 					if (endPos > queryRate.length()) {
 						break;
 					}
-					rates += queryRate.substring(startPos, endPos);
+					rates.append(queryRate.substring(startPos, endPos));
 				}
-				rateChunks.add(rates);
+				rateChunks.add(rates.toString());
 			}
 
 			// NEXT CHUNK
 			if (i > step * ENTRY_LENGTH) {
-				rates = "";
+				// clear rates query
+				rates = new StringBuilder();
 				for (int stepIteration = 0; stepIteration < step; stepIteration++) {
 					// stepSection valid value executed once.
 					int stepSection = i + (ENTRY_LENGTH * stepIteration);
@@ -82,7 +82,7 @@ public class YahooQueryRateParser {
 						break;
 					}
 
-					rates += queryRate.substring(startPos, endPos);
+					rates.append(queryRate.substring(startPos, endPos));
 
 					// retrieve last position of the read string
 					if (stepIteration + 1 == step) {
@@ -90,14 +90,14 @@ public class YahooQueryRateParser {
 					}
 				}
 
-				if (rates == "") {
+				if (rates.length() == 0) {
 					break;
 				}
 
-				rateChunks.add(rates);
+				rateChunks.add(rates.toString());
 			}
 		}
-		rates = "";
+		rates = new StringBuilder();;
 
 		return rateChunks;
 	}
