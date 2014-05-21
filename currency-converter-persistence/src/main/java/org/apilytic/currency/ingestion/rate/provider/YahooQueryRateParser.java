@@ -37,7 +37,6 @@ public class YahooQueryRateParser {
 		}
 
 		Set<String> rateChunks = new LinkedHashSet<String>();
-		//TODO String buffer
 		StringBuilder rates = new StringBuilder();
 		
 		// used in NEXT CHUNK string last position of each chunk
