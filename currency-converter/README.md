@@ -1,4 +1,4 @@
-Currency Converter - core
+Currency Converter
 =================================
 
 # Introduction

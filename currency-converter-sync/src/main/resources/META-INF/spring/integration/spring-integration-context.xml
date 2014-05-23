@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
 		http://www.springframework.org/schema/context             http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="org.apilytic" />
+	<context:component-scan base-package="org.apilytic.currency" />
 
 	<context:property-placeholder location="classpath:oauth.properties" />
 
@@ -39,9 +39,9 @@
 	<int:service-activator id="twitterServiceActivator"
 		ref="twitterService" input-channel="twitterChannel" method="addTwitterMessages" />
 
-	<bean id="twitterService" class="org.apilytic.service.impl.DefaultTwitterService" />
+	<bean id="twitterService" class="org.apilytic.currency.service.impl.DefaultTwitterService" />
 
-	<bean id="rateIngestionService" class="org.apilytic.service.CurrencyRateIngestionService" />
+	<bean id="rateIngestionService" class="org.apilytic.currency.service.CurrencyRateIngestionService" />
 
 	<int:logging-channel-adapter id="logger"
 		level="INFO"

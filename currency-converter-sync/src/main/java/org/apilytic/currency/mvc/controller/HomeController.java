@@ -13,17 +13,17 @@
  *     See the License for the specific language governing permissions and
  *     limitations under the License.
  */
-package org.apilytic.mvc.controller;
+package org.apilytic.currency.mvc.controller;
 
 import java.util.SortedSet;
 
 import org.apache.log4j.Logger;
-import org.apilytic.model.TwitterAdapterStatus;
-import org.apilytic.model.TwitterMessage;
-import org.apilytic.model.TwitterMessages;
-import org.apilytic.service.CurrencyRateIngestionService;
-import org.apilytic.service.TwitterService;
-import org.apilytic.support.SortOrder;
+import org.apilytic.currency.model.TwitterAdapterStatus;
+import org.apilytic.currency.model.TwitterMessage;
+import org.apilytic.currency.model.TwitterMessages;
+import org.apilytic.currency.service.CurrencyRateIngestionService;
+import org.apilytic.currency.service.TwitterService;
+import org.apilytic.currency.support.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

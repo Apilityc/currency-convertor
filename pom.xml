@@ -388,7 +388,7 @@
 		</plugins>
 	</build>
 	<modules>
-		<module>currency-converter-persistence</module>
+		<module>currency-converter</module>
 		<module>currency-converter-sync</module>
 	</modules>
 </project>

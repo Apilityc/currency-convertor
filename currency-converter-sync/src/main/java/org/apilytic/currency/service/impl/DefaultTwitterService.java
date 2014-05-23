@@ -13,7 +13,7 @@
  *     See the License for the specific language governing permissions and
  *     limitations under the License.
  */
-package org.apilytic.service.impl;
+package org.apilytic.currency.service.impl;
 
 import java.util.Map;
 import java.util.SortedSet;
@@ -27,10 +27,9 @@ import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Service;
-
-import org.apilytic.model.TwitterMessage;
-import org.apilytic.service.TwitterService;
-import org.apilytic.support.SortOrder;
+import org.apilytic.currency.model.TwitterMessage;
+import org.apilytic.currency.service.TwitterService;
+import org.apilytic.currency.support.SortOrder;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;

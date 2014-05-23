@@ -13,12 +13,12 @@
  *     See the License for the specific language governing permissions and
  *     limitations under the License.
  */
-package org.apilytic.service;
+package org.apilytic.currency.service;
 
 import java.util.SortedSet;
 
-import org.apilytic.model.TwitterMessage;
-import org.apilytic.support.SortOrder;
+import org.apilytic.currency.model.TwitterMessage;
+import org.apilytic.currency.support.SortOrder;
 
 /**
  * Provides some basic methods for controlling the flow of Twitter messages.

@@ -13,32 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apilytic;
+package org.apilytic.currency.support;
 
+import org.codehaus.jackson.map.AnnotationIntrospector;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
-import org.junit.Test;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Customized Jackson {@link ObjectMapper} to add Jaxb annoation support using
- * the {@link JaxbAnnotationIntrospector}.
- * 
+ * Customized Jackson {@link ObjectMapper} to add Jaxb annoation support using the
+ * {@link JaxbAnnotationIntrospector}.
+ *
  * @author Georgi Lambov
- * @since 1.0
- * 
+ * @since  1.0
+ *
  */
-public class SpringIntegrationTest {
+public class JaxbJacksonObjectMapper extends ObjectMapper {
 
-	@Test
-	public void testSpringIntegrationContextStartup() throws Exception {
-
-		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext(
-
-		"/META-INF/spring/integration/spring-integration-context.xml",
-				"classpath*:/META-INF/spring/applicationContext*.xml");
-		Thread.sleep(4000);
-		classPathXmlApplicationContext.close();
-
+	public JaxbJacksonObjectMapper() {
+		final AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
+		super.getDeserializationConfig().withAnnotationIntrospector(introspector);
+		super.getSerializationConfig().withAnnotationIntrospector(introspector);
 	}
+
 }

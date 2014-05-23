@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apilytic;
+package org.apilytic.currency;
 
 import java.util.Date;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apilytic.model.TwitterMessage;
-import org.apilytic.model.TwitterMessages;
-import org.apilytic.support.JaxbJacksonObjectMapper;
+import org.apilytic.currency.model.TwitterMessage;
+import org.apilytic.currency.model.TwitterMessages;
+import org.apilytic.currency.support.JaxbJacksonObjectMapper;
 
 /**
  *

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>currency-converter-sync</artifactId>
-	<version>1.0.0.BUILD-SNAPSHOT</version>
+	<version>0.1.1.BUILD-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>currency-converter-sync</name>
@@ -171,7 +171,7 @@
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apilytic</groupId>
 			<artifactId>currency-converter</artifactId>

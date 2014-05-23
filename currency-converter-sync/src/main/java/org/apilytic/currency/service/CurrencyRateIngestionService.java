@@ -1,4 +1,4 @@
-package org.apilytic.service;
+package org.apilytic.currency.service;
 
 import org.apilytic.currency.ingestion.rate.RateIngestion;
 import org.apilytic.currency.ingestion.vapor.VaporIngestion;
