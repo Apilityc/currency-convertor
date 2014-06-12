@@ -19,17 +19,17 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.integration.Message;
-import org.springframework.integration.channel.DirectChannel;
-import org.springframework.integration.core.MessagingTemplate;
-import org.springframework.integration.support.MessageBuilder;
-import org.springframework.social.twitter.api.Tweet;
-import org.springframework.stereotype.Service;
 import org.apilytic.currency.model.TwitterMessage;
 import org.apilytic.currency.service.TwitterService;
 import org.apilytic.currency.support.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.core.MessagingTemplate;
+import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
+import org.springframework.social.twitter.api.Tweet;
+import org.springframework.stereotype.Service;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
