@@ -36,7 +36,6 @@ public class CurrencyExchangeIntegrationTest {
 		// TODO proper database manage when integration test and continues
 		// integration tests are running - database should be not modified with
 		// flushdb
-
 		runOnce = true;
 	}
 
