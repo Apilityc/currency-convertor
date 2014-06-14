@@ -34,7 +34,7 @@ public class CurrencyExchangeIntegrationTest {
 		// TODO proper database manage when integration test and continues
 		// integration tests are running - database should be not modified with
 		// flushdb
-		// template.getConnectionFactory().getConnection().flushDb();
+		template.getConnectionFactory().getConnection().flushDb();
 
 		runOnce = true;
 	}
