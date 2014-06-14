@@ -28,13 +28,14 @@ public class CurrencyExchangeIntegrationTest {
 
 	@Before
 	public void init() {
+		template.getConnectionFactory().getConnection().flushDb();
+		
 		if (runOnce == true) {
 			return;
 		}
 		// TODO proper database manage when integration test and continues
 		// integration tests are running - database should be not modified with
 		// flushdb
-		// template.getConnectionFactory().getConnection().flushDb();
 
 		runOnce = true;
 	}
