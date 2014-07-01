@@ -12,5 +12,5 @@
 		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
-		p:connection-factory-ref="jedisConnectionFactory" p:defaultSerializer-ref="stringRedisSerializer"/>
+		p:connectionFactory-ref="jedisConnectionFactory" p:defaultSerializer-ref="stringRedisSerializer"/>
 </beans>
