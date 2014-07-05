@@ -37,7 +37,7 @@ public class ISOCodesFromISOdotComSyncerIntegrationTest {
 
 		syncer.sync();
 
-		Long actualSize = setOps.size(CurrencyExchange.KEY);
+ 		Long actualSize = setOps.size(CurrencyExchange.KEY);
 
 		assertEquals(Long.valueOf(initialSize), actualSize);
 	}
