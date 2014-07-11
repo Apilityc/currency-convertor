@@ -4,7 +4,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 
 /**
  * Request exchange rate for currency.
- *
+ * <p>
  * Created by g on 7/5/14.
  */
 @RooJavaBean

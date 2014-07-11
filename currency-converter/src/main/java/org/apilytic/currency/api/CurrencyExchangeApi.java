@@ -22,17 +22,5 @@ public interface CurrencyExchangeApi {
      * @param exchangeRates
      * @return
      */
-    CurrencyRate exchangeMultipleRates(List<ExchangeRate> exchangeRates);
-
-    /**
-     * @param exchangeRate
-     * @return
-     */
-    CurrencyRate exchangeSingleRateWithoutCache(ExchangeRate exchangeRate);
-
-    /**
-     * @param exchangeRate
-     * @return
-     */
-    CurrencyRate exchangeMultipleRatesWithoutCache(ExchangeRate exchangeRate);
+    List<CurrencyRate> exchangeMultipleRates(List<ExchangeRate> exchangeRates);
 }
