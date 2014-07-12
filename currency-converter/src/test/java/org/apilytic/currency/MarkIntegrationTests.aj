@@ -2,6 +2,7 @@ package org.apilytic.currency;
 
 import static org.apilytic.currency.ingestion.rate.provider.YahooQueryRateBuilder.queryRatePattern;
 
+import org.apilytic.currency.ingestion.rate.provider.YahooQueryRateBuilder;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -29,7 +30,7 @@ privileged aspect MarkIntegrationTests {
 
 		String queryRate = "";
 		for (String currency : currencies) {
-			queryRate += String.format(queryRatePattern, "USD", currency);
+			queryRate += String.format(YahooQueryRateBuilder.queryRatePattern, "USD", currency);
 		}
 
 		return new Object[][] { { queryRate } };

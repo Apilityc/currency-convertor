@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * Created by g on 7/11/14.
  */
 public class KeyStoreExchangeApi implements CurrencyExchangeApi {
+
     @Override
     public CurrencyRate exchangeSingleRate(ExchangeRate exchangeRate) {
         CurrencyRate rate = new CurrencyRate();
