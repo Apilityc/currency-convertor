@@ -2,8 +2,6 @@ package org.apilytic.currency.api;
 
 import org.apilytic.currency.api.model.CurrencyRate;
 import org.apilytic.currency.api.model.ExchangeRate;
-import org.mockito.MockitoAnnotations;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -17,11 +15,6 @@ import static org.testng.Assert.assertEquals;
 public abstract class CurrencyExchangeApiTest {
 
     protected CurrencyExchangeApi exchangeApi;
-
-    @BeforeMethod
-    public void initMethod() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test(dataProvider = "exchangeRates")
     public void exchangeSingleRate(ExchangeRate rate) {

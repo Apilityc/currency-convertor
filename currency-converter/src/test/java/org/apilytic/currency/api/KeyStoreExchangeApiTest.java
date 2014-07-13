@@ -1,10 +1,13 @@
 package org.apilytic.currency.api;
 
+import org.apilytic.currency.persistence.repository.RateRepository;
+import org.mockito.Mock;
 import org.testng.annotations.BeforeClass;
 
-import static org.testng.Assert.*;
-
 public class KeyStoreExchangeApiTest extends CurrencyExchangeApiTest {
+
+    @Mock
+    private RateRepository rateRepo;
 
     @BeforeClass
     public void init() {
