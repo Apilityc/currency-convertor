@@ -7,7 +7,6 @@ import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,15 +30,16 @@ public class KeyStoreExchangeApi implements CurrencyExchangeApi {
     @Override
     public CurrencyRate exchangeSingleRate(ExchangeRate exchangeRate) {
         Rate rate = rateRepo.findOne(Rate.key(exchangeRate.getFromCurrency()));
-//        String rawRatio = rate.getValue().get(exchangeRate.getToCurrency());
-//
-//        BigDecimal ratio = new BigDecimal(rawRatio);
-//        BigDecimal convertedAmount = ratio.multiply(new BigDecimal(exchangeRate.getAmount()));
-//
-//        String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
+
+        String rawRatio = rate.getValue().get(exchangeRate.getToCurrency());
+
+        BigDecimal ratio = new BigDecimal(rawRatio);
+        BigDecimal convertedAmount = ratio.multiply(new BigDecimal(exchangeRate.getAmount()));
+
+        String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
 
         CurrencyRate currencyRate = new CurrencyRate();
-        currencyRate.setExchange(exchangeRate.getAmount());
+        currencyRate.setExchange(exchange);
         return currencyRate;
     }
 

@@ -7,8 +7,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -16,12 +18,22 @@ import org.testng.annotations.BeforeMethod;
  */
 privileged aspect KeyStoreExchangeApiTestMock {
 
+    @Mock
+    RateRepository KeyStoreExchangeApiTest.rateRepo;
+    private Map<String, String> exchangeRate = Mockito.spy(new HashMap<>());
+
     /**
      * Stubs mocked data in test abstraction.
      */
     before(KeyStoreExchangeApiTest p, ExchangeRate rate): target(p) && args(rate) && execution(void exchangeSingleRate(ExchangeRate)) {
         String key = Rate.key(rate.getFromCurrency());
-        Mockito.when(p.rateRepo.findOne(key)).thenReturn(new Rate());
+
+        Rate rateEntity = Mockito.mock(Rate.class);
+
+        Mockito.when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
+        Mockito.when(rateEntity.getValue()).thenReturn(exchangeRate);
+
+        Mockito.doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
     }
 
     /**
@@ -30,20 +42,14 @@ privileged aspect KeyStoreExchangeApiTestMock {
     after(KeyStoreExchangeApiTest p, ExchangeRate rate): target(p) && args(rate) && execution(void exchangeSingleRate(ExchangeRate)) {
         String key = Rate.key(rate.getFromCurrency());
         Mockito.verify(p.rateRepo).findOne(key);
+        Mockito.verify(p.rateRepo.findOne(key)).getValue();
+        Mockito.verify(exchangeRate).get(rate.getToCurrency());
     }
-
-    @Mock
-    RateRepository KeyStoreExchangeApiTest.rateRepo;
 
     @BeforeMethod
     public void KeyStoreExchangeApiTest.initMethod() {
         MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(exchangeApi, "rateRepo", rateRepo);
-    }
-
-    @BeforeClass
-    public void KeyStoreExchangeApiTest.init() {
-        exchangeApi = new KeyStoreExchangeApi();
     }
 
 }

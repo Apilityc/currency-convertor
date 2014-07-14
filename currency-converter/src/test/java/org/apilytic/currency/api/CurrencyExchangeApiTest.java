@@ -19,7 +19,7 @@ public abstract class CurrencyExchangeApiTest {
     @Test(dataProvider = "exchangeRates")
     public void exchangeSingleRate(ExchangeRate rate) {
         CurrencyRate currencyRate = exchangeApi.exchangeSingleRate(rate);
-        assertEquals("12.33", currencyRate.getExchange());
+        assertEquals("9.00", currencyRate.getExchange());
     }
 
     @Test(dataProvider = "exchangeRates")
