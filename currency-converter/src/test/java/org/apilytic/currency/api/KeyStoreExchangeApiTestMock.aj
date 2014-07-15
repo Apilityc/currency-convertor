@@ -84,6 +84,7 @@ privileged aspect KeyStoreExchangeApiTestMock {
     }
 
     //TODO rewrite without annotation
+
     /**
      * Resets aspect mocks on every test run
      */
@@ -92,6 +93,13 @@ privileged aspect KeyStoreExchangeApiTestMock {
         exchangeRate = spy(new HashMap<>());
     }
 
+    /**
+     * Verifies execution of mocks.
+     *
+     * @param rateRepo
+     * @param times
+     * @param rate
+     */
     private void verifyExchangeSingleAndMultipleRates(RateRepository rateRepo, int times, ExchangeRate rate) {
         String key = Rate.key(rate.getFromCurrency());
         verify(rateRepo, times(times)).findOne(key);
