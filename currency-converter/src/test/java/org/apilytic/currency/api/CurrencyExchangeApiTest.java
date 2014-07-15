@@ -25,7 +25,7 @@ public abstract class CurrencyExchangeApiTest {
     @Test(dataProvider = "exchangeRates")
     public void exchangeMultipleRates(ExchangeRate exchangeRate, ExchangeRate rate) {
         List<CurrencyRate> currencyRates = exchangeApi.exchangeMultipleRates(Arrays.asList(exchangeRate, rate));
-        assertEquals("12.33", currencyRates.get(0).getExchange());
-        assertEquals("55.44", currencyRates.get(1).getExchange());
+        assertEquals("9.00", currencyRates.get(0).getExchange());
+        assertEquals("30.49", currencyRates.get(1).getExchange());
     }
 }
