@@ -2,7 +2,7 @@ package org.apilytic.currency.persistence.domain;
 
 privileged aspect Rate_Redis_Entity {
 
-	public static String Rate.KEY = "rate:%s";
+	public static String Rate.KEY = "query:%s";
 
 	public static String Rate.key(String key) {
 		return String.format(Rate.KEY, key);

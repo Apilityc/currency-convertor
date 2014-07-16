@@ -22,7 +22,7 @@ privileged aspect MarkIntegrationTests {
 	declare @type: org.apilytic.currency.ingestion.rate.*IntegrationTest* : @ContextConfiguration(locations = "classpath*:/META-INF/spring/applicationContext*.xml");
 
 	/**
-	 * Provide query rate String (cross-reference) for Yahoo finance service.
+	 * Provide query query String (cross-reference) for Yahoo finance service.
 	 */
 	@DataProvider
 	public Object[][] org.apilytic.currency.ingestion.rate.YahooExchangeServiceIntegrationTest.queryRateProvider() {

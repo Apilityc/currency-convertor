@@ -8,7 +8,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 
 /**
- * Parse in chunks Yahoo query rate.
+ * Parse in chunks Yahoo query query.
  * 
  * @author Georgi Lambov
  * 
@@ -26,7 +26,7 @@ public class YahooQueryRateParser {
 	private StringBuilder queryRate;
 
 	/**
-	 * Splits in query rate in chunks.
+	 * Splits in query query in chunks.
 	 * 
 	 * @return
 	 */

@@ -49,7 +49,7 @@ public class YahooFinanceManager implements FinancialProvider {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.apilytic.currency.ingestion.rate.provider.FinancialProvider#provideRate
+	 * org.apilytic.currency.ingestion.query.provider.FinancialProvider#provideRate
 	 * ()
 	 */
 	@Override

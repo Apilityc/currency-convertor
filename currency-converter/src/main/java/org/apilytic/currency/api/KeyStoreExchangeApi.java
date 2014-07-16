@@ -5,6 +5,7 @@ import org.apilytic.currency.api.model.ExchangeRate;
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Query currency exchange rate from stored rates updated periodically.
+ * Query currency exchange query from stored rates updated periodically.
  * This is fast operation.
  *
  * <ul>
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
  *
  * Created by g on 7/11/14.
  */
+@Service
 public class KeyStoreExchangeApi implements CurrencyExchangeApi {
 
     @Autowired

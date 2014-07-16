@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Create yahoo query rate from exchange rates.
+ * Create yahoo query query from exchange rates.
  * 
  * @author Georgi Lambov
- * @param <ExchangeRate>
- * 
  */
 @Service
 public class YahooQueryRateBuilder {
@@ -24,7 +22,7 @@ public class YahooQueryRateBuilder {
 	public static final String queryRatePattern = "&s=%s%s=X";
 
 	/**
-	 * Builds yahoo query rate builder
+	 * Builds yahoo query query builder
 	 * 
 	 * @return
 	 */

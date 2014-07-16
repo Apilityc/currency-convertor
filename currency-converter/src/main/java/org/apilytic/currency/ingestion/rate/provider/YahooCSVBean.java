@@ -9,7 +9,7 @@ package org.apilytic.currency.ingestion.rate.provider;
 public class YahooCSVBean implements ExchangeRate {
 
 	public static final String FIELD_CURRENCY = "currency";
-	public static final String FIELD_RATE = "rate";
+	public static final String FIELD_RATE = "query";
 
 	private String fromCurrency;
 	private String toCurrency;
@@ -27,7 +27,7 @@ public class YahooCSVBean implements ExchangeRate {
 	}
 
 	/**
-	 * Sets exchange rate between fromCurrency and toCurrency from
+	 * Sets exchange query between fromCurrency and toCurrency from
 	 * {@link YahooCSVBean#FIELD_RATE}.
 	 * 
 	 * @param rate
@@ -39,7 +39,7 @@ public class YahooCSVBean implements ExchangeRate {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apilytic.currency.ingestion.rate.provider.FinancialProviderBean#
+	 * @see org.apilytic.currency.ingestion.query.provider.FinancialProviderBean#
 	 * fromCurrency()
 	 */
 	@Override
@@ -50,7 +50,7 @@ public class YahooCSVBean implements ExchangeRate {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apilytic.currency.ingestion.rate.provider.FinancialProviderBean#
+	 * @see org.apilytic.currency.ingestion.query.provider.FinancialProviderBean#
 	 * toCurrency()
 	 */
 	@Override
@@ -62,7 +62,7 @@ public class YahooCSVBean implements ExchangeRate {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.apilytic.currency.ingestion.rate.provider.FinancialProviderBean#rate
+	 * org.apilytic.currency.ingestion.query.provider.FinancialProviderBean#query
 	 * ()
 	 */
 	@Override

@@ -41,7 +41,7 @@ public class YahooExchangeService implements RateIngestion {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apilytic.currency.ingestion.rate.RateIngestion#sync()
+	 * @see org.apilytic.currency.ingestion.query.RateIngestion#sync()
 	 */
 	@Override
 	public void sync() throws InterruptedException {
