@@ -50,7 +50,7 @@
 		<property name="messageConverters">
 			<list>
 				<ref bean="marshallingHttpMessageConverter" />
-				<ref bean="yahooFinanceMessageConvertor" />
+				<ref bean="yahooFinanceMessageConverter" />
 			</list>
 		</property>
 	</bean>
@@ -62,7 +62,7 @@
 	</bean>
 
 	<!-- TODO add message CSV converter -->
-	<bean id="yahooFinanceMessageConvertor"
+	<bean id="yahooFinanceMessageConverter"
 		class="org.springframework.http.converter.StringHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list value-type="org.springframework.http.MediaType">
