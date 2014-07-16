@@ -3,6 +3,7 @@ package org.apilytic.currency.api;
 import org.apilytic.currency.api.model.ExchangeRate;
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -31,6 +32,8 @@ privileged aspect KeyStoreExchangeApiTestMock {
         ReflectionTestUtils.setField(exchangeApi, "rateRepo", rateRepo);
     }
 
+    //TODO create with method name and if statement there in one aspect.
+
     /**
      * Stubs mocked data in test abstraction {@link org.apilytic.currency.api
      * .KeyStoreExchangeApiTest#exchangeSingleRate(org.apilytic.currency.api.model.ExchangeRate)}.
@@ -46,7 +49,6 @@ privileged aspect KeyStoreExchangeApiTestMock {
 
         doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
     }
-
     /**
      * Verifies execution of the flow {@link org.apilytic.currency.api.KeyStoreExchangeApiTest#exchangeSingleRate(org
      * .apilytic.currency.api.model.ExchangeRate)}
@@ -83,15 +85,15 @@ privileged aspect KeyStoreExchangeApiTestMock {
         verifyExchangeSingleAndMultipleRates(p.rateRepo, 2, rate);
     }
 
-    //TODO rewrite without annotation
-
     /**
      * Resets aspect mocks on every test run
      */
     @After("execution(* org.apilytic.currency.api.CurrencyExchangeApiTest.**(..))")
-    public void resetAopMocks() {
+    public void resetAopMocks(JoinPoint joinPoint) {
         exchangeRate = spy(new HashMap<>());
     }
+
+    //TODO create in aspect by method name in one if statement there.
 
     /**
      * Verifies execution of mocks.
