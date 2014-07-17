@@ -1,30 +1,38 @@
 package org.apilytic.currency.api;
 
 import org.apilytic.currency.api.model.ExchangeRate;
-import org.apilytic.currency.persistence.domain.Rate;
-import org.apilytic.currency.persistence.repository.RateRepository;
-import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.testng.annotations.BeforeMethod;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
 /**
  * Created by g on 7/16/14.
  */
-aspect DirectDealExchangeApiTestMock {
-
-    @Mock
-    RateRepository KeyStoreExchangeApiTest.rateRepo;
+privileged aspect DirectDealExchangeApiTestMock {
 
     private Map<String, String> exchangeRate = spy(new HashMap<>());
 
+    @BeforeMethod
+    public void DirectDealExchangeApiTest.initMethod() {
+        MockitoAnnotations.initMocks(this);
+    }
+
     /**
      * Stubs mocked data in test abstraction {@link org.apilytic.currency.api
-     * .KeyStoreExchangeApiTest#exchangeSingleRate(org.apilytic.currency.api.model.ExchangeRate)}.
+     * .DirectDealExchangeApiTest#exchangeSingleRate(org.apilytic.currency.api.model.ExchangeRate)}.
      */
     before(DirectDealExchangeApiTest p, ExchangeRate rate): target(p) && args(rate) && execution(void
+            exchangeSingleRate(ExchangeRate)) {
+
+        doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
+    }
+
+    after(DirectDealExchangeApiTest p, ExchangeRate rate): target(p) && args(rate) && execution(void
             exchangeSingleRate(ExchangeRate)) {
 
         doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
