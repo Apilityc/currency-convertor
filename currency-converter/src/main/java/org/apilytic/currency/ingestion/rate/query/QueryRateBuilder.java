@@ -6,8 +6,11 @@ package org.apilytic.currency.ingestion.rate.query;
 public interface QueryRateBuilder {
 
     /**
+     * Builds query to retrieve exchange rate from rate provider service.
      *
+     * @param fromCurrency currency from
+     * @param toCurrency currency to
      * @return
      */
-    String createQueryRate(QueryRate rate);
+    String createQueryRate(String fromCurrency, String toCurrency);
 }
