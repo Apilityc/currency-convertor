@@ -37,5 +37,28 @@ privileged aspect DirectDealExchangeApiTestMock {
         ReflectionTestUtils.setField(exchangeApi, "queryRateBuilder", queryRateBuilder);
     }
 
+    /**
+     * Stubs mocked data in test abstraction {@link org.apilytic.currency.api
+     * .DirectDealExchangeApiTest#exchangeSingleRate(org.apilytic.currency.api.model.ExchangeRate)}.
+     */
+    before(DirectDealExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
+            exchangeSingleRate(CurrencyRate)) {
 
+        when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
+        doReturn(rates).when(p.financialProvider).provideRate();
+
+
+        ExchangeRate mock = mock(org.apilytic.currency.ingestion.rate
+                .provider.ExchangeRate.class);
+        when(mock.rate()).thenReturn("0.73");
+        doReturn(mock).when(rates).get(0);
+
+        doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
+    }
+
+    after(DirectDealExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
+            exchangeSingleRate(CurrencyRate)) {
+
+        verify(p.queryRateBuilder).createQueryRate("USD", "EUR");
+    }
 }
