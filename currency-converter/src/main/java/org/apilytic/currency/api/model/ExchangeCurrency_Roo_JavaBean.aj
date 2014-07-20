@@ -3,12 +3,14 @@
 
 package org.apilytic.currency.api.model;
 
-privileged aspect ExchangeCurrency_Roo_JavaBean {
+import org.apilytic.currency.api.model.ExchangeCurrency;
 
+privileged aspect ExchangeCurrency_Roo_JavaBean {
+    
     public String ExchangeCurrency.getExchange() {
         return this.exchange;
     }
-
+    
     public void ExchangeCurrency.setExchange(String exchange) {
         this.exchange = exchange;
     }
