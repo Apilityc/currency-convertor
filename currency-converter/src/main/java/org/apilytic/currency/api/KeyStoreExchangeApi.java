@@ -1,7 +1,7 @@
 package org.apilytic.currency.api;
 
+import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.api.model.CurrencyRate;
-import org.apilytic.currency.api.model.ExchangeRate;
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,23 +30,23 @@ public class KeyStoreExchangeApi implements CurrencyExchangeApi {
     private RateRepository rateRepo;
 
     @Override
-    public CurrencyRate exchangeSingleRate(ExchangeRate exchangeRate) {
-        Rate rate = rateRepo.findOne(Rate.key(exchangeRate.getFromCurrency()));
+    public ExchangeCurrency exchangeSingleRate(CurrencyRate currencyRate) {
+        Rate rate = rateRepo.findOne(Rate.key(currencyRate.getFromCurrency()));
 
-        String rawRatio = rate.getValue().get(exchangeRate.getToCurrency());
+        String rawRatio = rate.getValue().get(currencyRate.getToCurrency());
 
         BigDecimal ratio = new BigDecimal(rawRatio);
-        BigDecimal convertedAmount = ratio.multiply(new BigDecimal(exchangeRate.getAmount()));
+        BigDecimal convertedAmount = ratio.multiply(new BigDecimal(currencyRate.getAmount()));
 
         String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
 
-        CurrencyRate currencyRate = new CurrencyRate();
-        currencyRate.setExchange(exchange);
-        return currencyRate;
+        ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
+        exchangeCurrency.setExchange(exchange);
+        return exchangeCurrency;
     }
 
     @Override
-    public List<CurrencyRate> exchangeMultipleRates(List<ExchangeRate> exchangeRates) {
-        return exchangeRates.stream().map(this::exchangeSingleRate).collect(Collectors.toList());
+    public List<ExchangeCurrency> exchangeMultipleRates(List<CurrencyRate> currencyRates) {
+        return currencyRates.stream().map(this::exchangeSingleRate).collect(Collectors.toList());
     }
 }

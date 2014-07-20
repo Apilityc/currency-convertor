@@ -1,6 +1,6 @@
 package org.apilytic.currency.api;
 
-import org.apilytic.currency.api.model.ExchangeRate;
+import org.apilytic.currency.api.model.CurrencyRate;
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.aspectj.lang.JoinPoint;
@@ -34,78 +34,5 @@ privileged aspect KeyStoreExchangeApiTestMock {
 
     //TODO create with method name and if statement there in one aspect.
 
-    /**
-     * Stubs mocked data in test abstraction {@link org.apilytic.currency.api
-     * .KeyStoreExchangeApiTest#exchangeSingleRate(org.apilytic.currency.api.model.ExchangeRate)}.
-     */
-    before(KeyStoreExchangeApiTest p, ExchangeRate rate): target(p) && args(rate) && execution(void
-            exchangeSingleRate(ExchangeRate)) {
-        String key = Rate.key(rate.getFromCurrency());
 
-        Rate rateEntity = mock(Rate.class);
-
-        when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
-        when(rateEntity.getValue()).thenReturn(exchangeRate);
-
-        doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
-    }
-    /**
-     * Verifies execution of the flow {@link org.apilytic.currency.api.KeyStoreExchangeApiTest#exchangeSingleRate(org
-     * .apilytic.currency.api.model.ExchangeRate)}
-     */
-    after(KeyStoreExchangeApiTest p, ExchangeRate rate): target(p) && args(rate) && execution(void exchangeSingleRate
-            (ExchangeRate)) {
-        verifyExchangeSingleAndMultipleRates(p.rateRepo, 1, rate);
-    }
-
-    /**
-     * Stubs mocked data in test abstraction in {@link org.apilytic.currency.api
-     * .KeyStoreExchangeApiTest#exchangeMultipleRates(org.apilytic.currency.api.model.ExchangeRate,
-     * org.apilytic.currency.api.model.ExchangeRate)}
-     */
-    before(KeyStoreExchangeApiTest p, ExchangeRate rate, ExchangeRate rate1): target(p) && args(rate, rate1)
-            && execution(void exchangeMultipleRates(ExchangeRate, ExchangeRate)) {
-        String key = Rate.key(rate.getFromCurrency());
-
-        Rate rateEntity = mock(Rate.class);
-
-        when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
-        when(rateEntity.getValue()).thenReturn(exchangeRate);
-
-        doReturn("0.73").doReturn("0.55").when(exchangeRate).get(rate.getToCurrency());
-    }
-
-    /**
-     * Verifies execution of the flow in {@link org.apilytic.currency.api
-     * .KeyStoreExchangeApiTest#exchangeMultipleRates(org.apilytic.currency.api.model.ExchangeRate,
-     * org.apilytic.currency.api.model.ExchangeRate)}.
-     */
-    after(KeyStoreExchangeApiTest p, ExchangeRate rate, ExchangeRate rate1): target(p) && args(rate, rate1)
-            && execution(void exchangeMultipleRates(ExchangeRate, ExchangeRate)) {
-        verifyExchangeSingleAndMultipleRates(p.rateRepo, 2, rate);
-    }
-
-    /**
-     * Resets aspect mocks on every test run
-     */
-    @After("execution(* org.apilytic.currency.api.CurrencyExchangeApiTest.**(..))")
-    public void resetAopMocks(JoinPoint joinPoint) {
-        exchangeRate = spy(new HashMap<>());
-    }
-
-    //TODO create in aspect by method name in one if statement there.
-
-    /**
-     * Verifies execution of mocks.
-     *
-     * @param rateRepo
-     * @param times
-     * @param rate
-     */
-    private void verifyExchangeSingleAndMultipleRates(RateRepository rateRepo, int times, ExchangeRate rate) {
-        String key = Rate.key(rate.getFromCurrency());
-        verify(rateRepo, times(times)).findOne(key);
-        verify(rateRepo.findOne(key), times(times)).getValue();
-        verify(exchangeRate, times(times)).get(rate.getToCurrency());
-    }
 }

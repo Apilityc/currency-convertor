@@ -1,7 +1,7 @@
 package org.apilytic.currency.api;
 
+import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.api.model.CurrencyRate;
-import org.apilytic.currency.api.model.ExchangeRate;
 
 import java.util.List;
 
@@ -13,14 +13,14 @@ import java.util.List;
 public interface CurrencyExchangeApi {
 
     /**
-     * @param exchangeRate
+     * @param currencyRate
      * @return
      */
-    CurrencyRate exchangeSingleRate(ExchangeRate exchangeRate);
+    ExchangeCurrency exchangeSingleRate(CurrencyRate currencyRate);
 
     /**
-     * @param exchangeRates
+     * @param currencyRates
      * @return
      */
-    List<CurrencyRate> exchangeMultipleRates(List<ExchangeRate> exchangeRates);
+    List<ExchangeCurrency> exchangeMultipleRates(List<CurrencyRate> currencyRates);
 }

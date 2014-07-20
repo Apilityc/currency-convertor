@@ -1,7 +1,7 @@
 package org.apilytic.currency.api;
 
+import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.api.model.CurrencyRate;
-import org.apilytic.currency.api.model.ExchangeRate;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -17,15 +17,15 @@ public abstract class CurrencyExchangeApiTest {
     protected CurrencyExchangeApi exchangeApi;
 
     @Test(dataProvider = "exchangeRates")
-    public void exchangeSingleRate(ExchangeRate rate) {
-        CurrencyRate currencyRate = exchangeApi.exchangeSingleRate(rate);
-        assertEquals("9.00", currencyRate.getExchange());
+    public void exchangeSingleRate(CurrencyRate rate) {
+        ExchangeCurrency exchangeCurrency = exchangeApi.exchangeSingleRate(rate);
+        assertEquals("9.00", exchangeCurrency.getExchange());
     }
 
     @Test(dataProvider = "exchangeRates")
-    public void exchangeMultipleRates(ExchangeRate exchangeRate, ExchangeRate rate) {
-        List<CurrencyRate> currencyRates = exchangeApi.exchangeMultipleRates(Arrays.asList(exchangeRate, rate));
-        assertEquals("9.00", currencyRates.get(0).getExchange());
-        assertEquals("30.49", currencyRates.get(1).getExchange());
+    public void exchangeMultipleRates(CurrencyRate currencyRate, CurrencyRate rate) {
+        List<ExchangeCurrency> exchangeCurrencies = exchangeApi.exchangeMultipleRates(Arrays.asList(currencyRate, rate));
+        assertEquals("9.00", exchangeCurrencies.get(0).getExchange());
+        assertEquals("30.49", exchangeCurrencies.get(1).getExchange());
     }
 }

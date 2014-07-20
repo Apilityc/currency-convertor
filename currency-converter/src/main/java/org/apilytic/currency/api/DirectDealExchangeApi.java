@@ -1,12 +1,14 @@
 package org.apilytic.currency.api;
 
+import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.api.model.CurrencyRate;
-import org.apilytic.currency.api.model.ExchangeRate;
 import org.apilytic.currency.ingestion.rate.provider.FinancialProvider;
 import org.apilytic.currency.ingestion.rate.query.QueryRateBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,17 +34,27 @@ public class DirectDealExchangeApi implements CurrencyExchangeApi {
     private QueryRateBuilder queryRateBuilder;
 
     @Override
-    public CurrencyRate exchangeSingleRate(ExchangeRate exchangeRate) {
-        financialProvider.setExchangeQuery(queryRateBuilder.createQueryRate(exchangeRate.getFromCurrency(), exchangeRate.getToCurrency()));
-        financialProvider.provideRate();
+    public ExchangeCurrency exchangeSingleRate(CurrencyRate currencyRate) {
+        financialProvider.setExchangeQuery(queryRateBuilder.createQueryRate(currencyRate.getFromCurrency(),
+                currencyRate.getToCurrency()));
+        List<? extends org.apilytic.currency.ingestion.rate.provider.ExchangeRate> providedRates = financialProvider
+                .provideRate();
 
-        CurrencyRate currencyRate = new CurrencyRate();
-        currencyRate.setExchange("9.00");
-        return currencyRate;
+        String rawRatio = providedRates.get(0).rate();
+
+        BigDecimal ratio = new BigDecimal(rawRatio);
+        BigDecimal convertedAmount = ratio.multiply(new BigDecimal(currencyRate.getAmount()));
+
+        String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
+
+        ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
+        exchangeCurrency.setExchange(exchange);
+
+        return exchangeCurrency;
     }
 
     @Override
-    public List<CurrencyRate> exchangeMultipleRates(List<ExchangeRate> exchangeRates) {
-        return exchangeRates.stream().map(this::exchangeSingleRate).collect(Collectors.toList());
+    public List<ExchangeCurrency> exchangeMultipleRates(List<CurrencyRate> currencyRates) {
+        return currencyRates.stream().map(this::exchangeSingleRate).collect(Collectors.toList());
     }
 }

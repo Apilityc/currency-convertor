@@ -1,6 +1,6 @@
 package org.apilytic.currency.api;
 
-import org.apilytic.currency.api.model.ExchangeRate;
+import org.apilytic.currency.api.model.CurrencyRate;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
@@ -15,12 +15,12 @@ privileged aspect ProvisionExchangeApi {
     @DataProvider
     public Object[][] CurrencyExchangeApiTest.exchangeRates(Method method) {
 
-        ExchangeRate usd = new ExchangeRate();
+        CurrencyRate usd = new CurrencyRate();
         usd.setAmount("12.33");
         usd.setFromCurrency("USD");
         usd.setToCurrency("EUR");
 
-        ExchangeRate rate = new ExchangeRate();
+        CurrencyRate rate = new CurrencyRate();
         rate.setAmount("55.44");
         rate.setFromCurrency("USD");
         rate.setToCurrency("EUR");
@@ -31,4 +31,5 @@ privileged aspect ProvisionExchangeApi {
 
         return new Object[][]{{usd, rate}};
     }
+
 }
