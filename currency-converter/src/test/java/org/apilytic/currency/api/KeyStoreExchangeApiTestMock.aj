@@ -81,7 +81,7 @@ privileged aspect KeyStoreExchangeApiTestMock {
      * org.apilytic.currency.api.model.ExchangeRate)}.
      */
     after(KeyStoreExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate, rate1)
-            && execution(void exchangeMultipleRates(ExchangeRate, CurrencyRate)) {
+            && execution(void exchangeMultipleRates(CurrencyRate, CurrencyRate)) {
         verifyExchangeSingleAndMultipleRates(p.rateRepo, 2, rate);
     }
 
