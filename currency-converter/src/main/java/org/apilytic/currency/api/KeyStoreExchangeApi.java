@@ -30,7 +30,7 @@ public class KeyStoreExchangeApi implements CurrencyExchangeApi {
     private RateRepository rateRepo;
 
     @Override
-    public ExchangeCurrency exchangeSingleRate(CurrencyRate currencyRate) {
+    public ExchangeCurrency exchangeSingleCurrency(CurrencyRate currencyRate) {
         Rate rate = rateRepo.findOne(Rate.key(currencyRate.getFromCurrency()));
 
         String rawRatio = rate.getValue().get(currencyRate.getToCurrency());
@@ -46,7 +46,7 @@ public class KeyStoreExchangeApi implements CurrencyExchangeApi {
     }
 
     @Override
-    public List<ExchangeCurrency> exchangeMultipleRates(List<CurrencyRate> currencyRates) {
-        return currencyRates.stream().map(this::exchangeSingleRate).collect(Collectors.toList());
+    public List<ExchangeCurrency> exchangeMultipleCurrencies(List<CurrencyRate> currencyRates) {
+        return currencyRates.stream().map(this::exchangeSingleCurrency).collect(Collectors.toList());
     }
 }

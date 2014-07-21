@@ -16,11 +16,11 @@ public interface CurrencyExchangeApi {
      * @param currencyRate
      * @return
      */
-    ExchangeCurrency exchangeSingleRate(CurrencyRate currencyRate);
+    ExchangeCurrency exchangeSingleCurrency(CurrencyRate currencyRate);
 
     /**
      * @param currencyRates
      * @return
      */
-    List<ExchangeCurrency> exchangeMultipleRates(List<CurrencyRate> currencyRates);
+    List<ExchangeCurrency> exchangeMultipleCurrencies(List<CurrencyRate> currencyRates);
 }

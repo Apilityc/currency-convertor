@@ -17,14 +17,15 @@ public abstract class CurrencyExchangeApiTest {
     protected CurrencyExchangeApi exchangeApi;
 
     @Test(dataProvider = "exchangeRates")
-    public void exchangeSingleRate(CurrencyRate rate) {
-        ExchangeCurrency exchangeCurrency = exchangeApi.exchangeSingleRate(rate);
+    public void exchangeSingleCurrency(CurrencyRate rate) {
+        ExchangeCurrency exchangeCurrency = exchangeApi.exchangeSingleCurrency(rate);
         assertEquals("9.00", exchangeCurrency.getExchange());
     }
 
     @Test(dataProvider = "exchangeRates")
-    public void exchangeMultipleRates(CurrencyRate currencyRate, CurrencyRate rate) {
-        List<ExchangeCurrency> exchangeCurrencies = exchangeApi.exchangeMultipleRates(Arrays.asList(currencyRate, rate));
+    public void exchangeMultipleCurrencies(CurrencyRate currencyRate, CurrencyRate rate) {
+        List<ExchangeCurrency> exchangeCurrencies = exchangeApi.exchangeMultipleCurrencies(Arrays.asList
+                (currencyRate, rate));
         assertEquals("9.00", exchangeCurrencies.get(0).getExchange());
         assertEquals("30.49", exchangeCurrencies.get(1).getExchange());
     }

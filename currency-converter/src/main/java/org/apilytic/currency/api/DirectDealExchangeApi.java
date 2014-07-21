@@ -34,7 +34,7 @@ public class DirectDealExchangeApi implements CurrencyExchangeApi {
     private QueryRateBuilder queryRateBuilder;
 
     @Override
-    public ExchangeCurrency exchangeSingleRate(CurrencyRate currencyRate) {
+    public ExchangeCurrency exchangeSingleCurrency(CurrencyRate currencyRate) {
         financialProvider.setExchangeQuery(queryRateBuilder.createQueryRate(currencyRate.getFromCurrency(),
                 currencyRate.getToCurrency()));
         List<? extends org.apilytic.currency.ingestion.rate.provider.ExchangeRate> providedRates = financialProvider
@@ -54,7 +54,7 @@ public class DirectDealExchangeApi implements CurrencyExchangeApi {
     }
 
     @Override
-    public List<ExchangeCurrency> exchangeMultipleRates(List<CurrencyRate> currencyRates) {
-        return currencyRates.stream().map(this::exchangeSingleRate).collect(Collectors.toList());
+    public List<ExchangeCurrency> exchangeMultipleCurrencies(List<CurrencyRate> currencyRates) {
+        return currencyRates.stream().map(this::exchangeSingleCurrency).collect(Collectors.toList());
     }
 }

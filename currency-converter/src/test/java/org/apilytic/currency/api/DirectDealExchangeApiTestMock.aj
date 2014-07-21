@@ -39,10 +39,10 @@ privileged aspect DirectDealExchangeApiTestMock {
 
     /**
      * Stubs mocked data in test abstraction {@link org.apilytic.currency.api
-     * .DirectDealExchangeApiTest#exchangeSingleRate(org.apilytic.currency.api.model.ExchangeRate)}.
+     * .DirectDealExchangeApiTest#exchangeSingleCurrency(org.apilytic.currency.api.model.ExchangeRate)}.
      */
     before(DirectDealExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
-            exchangeSingleRate(CurrencyRate)) {
+            exchangeSingleCurrency(CurrencyRate)) {
 
         when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
         doReturn(rates).when(p.financialProvider).provideRate();
@@ -56,14 +56,14 @@ privileged aspect DirectDealExchangeApiTestMock {
     }
 
     after(DirectDealExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
-            exchangeSingleRate(CurrencyRate)) {
+            exchangeSingleCurrency(CurrencyRate)) {
 
         verify(p.queryRateBuilder).createQueryRate("USD", "EUR");
     }
 
     before(DirectDealExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate,
     rate1) && execution(void
-            exchangeMultipleRates(CurrencyRate, CurrencyRate)) {
+            exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
         when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
         doReturn(rates).when(p.financialProvider).provideRate();
 
@@ -77,7 +77,7 @@ privileged aspect DirectDealExchangeApiTestMock {
 
     after(DirectDealExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate,
     rate1) && execution(void
-            exchangeMultipleRates(CurrencyRate, CurrencyRate)) {
+            exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
         verify(p.queryRateBuilder, times(2)).createQueryRate("USD", "EUR");
     }
 }

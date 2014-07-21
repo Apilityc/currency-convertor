@@ -25,7 +25,7 @@ privileged aspect ProvisionExchangeApi {
         rate.setFromCurrency("USD");
         rate.setToCurrency("EUR");
 
-        if (method.getName().equals("exchangeSingleRate")) {
+        if (method.getName().equals("exchangeSingleCurrency")) {
             return new Object[][]{{usd}};
         }
 

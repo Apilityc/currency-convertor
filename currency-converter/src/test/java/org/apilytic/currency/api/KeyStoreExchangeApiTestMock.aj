@@ -36,10 +36,10 @@ privileged aspect KeyStoreExchangeApiTestMock {
 
     /**
      * Stubs mocked data in test abstraction {@link org.apilytic.currency.api
-     * .KeyStoreExchangeApiTest#exchangeSingleRate(org.apilytic.currency.api.model.ExchangeRate)}.
+     * .KeyStoreExchangeApiTest#exchangeSingleCurrency(org.apilytic.currency.api.model.ExchangeRate)}.
      */
     before(KeyStoreExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
-            exchangeSingleRate(CurrencyRate)) {
+            exchangeSingleCurrency(CurrencyRate)) {
         String key = Rate.key(rate.getFromCurrency());
 
         Rate rateEntity = mock(Rate.class);
@@ -53,18 +53,18 @@ privileged aspect KeyStoreExchangeApiTestMock {
      * Verifies execution of the flow {@link org.apilytic.currency.api.KeyStoreExchangeApiTest#exchangeSingleRate(org
      * .apilytic.currency.api.model.ExchangeRate)}
      */
-    after(KeyStoreExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void exchangeSingleRate
+    after(KeyStoreExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void exchangeSingleCurrency
             (CurrencyRate)) {
         verifyExchangeSingleAndMultipleRates(p.rateRepo, 1, rate);
     }
 
     /**
      * Stubs mocked data in test abstraction in {@link org.apilytic.currency.api
-     * .KeyStoreExchangeApiTest#exchangeMultipleRates(org.apilytic.currency.api.model.ExchangeRate,
+     * .KeyStoreExchangeApiTest#exchangeMultipleCurrencies(org.apilytic.currency.api.model.ExchangeRate,
      * org.apilytic.currency.api.model.ExchangeRate)}
      */
     before(KeyStoreExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate, rate1)
-            && execution(void exchangeMultipleRates(CurrencyRate, CurrencyRate)) {
+            && execution(void exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
         String key = Rate.key(rate.getFromCurrency());
 
         Rate rateEntity = mock(Rate.class);
@@ -77,11 +77,11 @@ privileged aspect KeyStoreExchangeApiTestMock {
 
     /**
      * Verifies execution of the flow in {@link org.apilytic.currency.api
-     * .KeyStoreExchangeApiTest#exchangeMultipleRates(org.apilytic.currency.api.model.ExchangeRate,
+     * .KeyStoreExchangeApiTest#exchangeMultipleCurrencies(org.apilytic.currency.api.model.ExchangeRate,
      * org.apilytic.currency.api.model.ExchangeRate)}.
      */
     after(KeyStoreExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate, rate1)
-            && execution(void exchangeMultipleRates(CurrencyRate, CurrencyRate)) {
+            && execution(void exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
         verifyExchangeSingleAndMultipleRates(p.rateRepo, 2, rate);
     }
 
