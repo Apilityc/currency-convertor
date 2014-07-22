@@ -2,6 +2,7 @@ package org.apilytic.currency.api;
 
 import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.api.model.CurrencyRate;
+import org.apilytic.currency.ingestion.rate.provider.ExchangeRate;
 import org.apilytic.currency.ingestion.rate.provider.FinancialProvider;
 import org.apilytic.currency.ingestion.rate.query.QueryRateBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class DirectDealExchangeApi implements CurrencyExchangeApi {
     public ExchangeCurrency exchangeSingleCurrency(CurrencyRate currencyRate) {
         financialProvider.setExchangeQuery(queryRateBuilder.createQueryRate(currencyRate.getFromCurrency(),
                 currencyRate.getToCurrency()));
-        List<? extends org.apilytic.currency.ingestion.rate.provider.ExchangeRate> providedRates = financialProvider
+        List<? extends ExchangeRate> providedRates = financialProvider
                 .provideRate();
 
         String rawRatio = providedRates.get(0).rate();
