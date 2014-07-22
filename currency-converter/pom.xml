@@ -229,6 +229,7 @@
 							<excludes>
 								<exclude>**/*_Roo_*</exclude>
 							</excludes>
+                            <parallel>none</parallel>
 						</configuration>
 					</plugin>
 				</plugins>
