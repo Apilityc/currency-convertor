@@ -27,18 +27,6 @@ public class RateIntegrationTest {
 	@Autowired
 	private RateDataOnDemand dod;
 
-	private boolean runOnce = false;
-
-	@Before
-	public void init() {
-		if (runOnce == true) {
-			return;
-		}
-
-		// template.getConnectionFactory().getConnection().flushDb();
-		runOnce = true;
-	}
-
 	@Test
 	public void testSave() {
 		assertNotNull(

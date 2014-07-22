@@ -21,23 +21,7 @@ public class CurrencyExchangeIntegrationTest {
 	private CurrencyExchangeRepository currencyExchangeRepo;
 
 	@Autowired
-	private RedisTemplate<String, CurrencyExchange> template;
-	@Autowired
 	private CurrencyExchangeDataOnDemand dod;
-	private boolean runOnce = false;
-
-	@Before
-	public void init() {
-		template.getConnectionFactory().getConnection().flushDb();
-		
-		if (runOnce == true) {
-			return;
-		}
-		// TODO proper database manage when integration test and continues
-		// integration tests are running - database should be not modified with
-		// flushdb
-		runOnce = true;
-	}
 
 	@Test
 	public void testSave() {

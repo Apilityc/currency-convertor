@@ -24,18 +24,6 @@ public class RateTimeTrackIntegrationTest {
 	@Autowired
 	private RedisTemplate<String, RateTimeTrack> template;
 
-	private boolean runOnce = false;
-
-	@Before
-	public void init() {
-		if (runOnce) {
-			return;
-		}
-
-		runOnce = true;
-		// template.getConnectionFactory().getConnection().flushDb();
-	}
-
 	@Before
 	public void initMethod() {
 		template.setValueSerializer(new JacksonJsonRedisSerializer<RateTimeTrack>(
