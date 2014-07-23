@@ -31,4 +31,9 @@ public class CurrencyRate {
      */
     private String title;
 
+    /**
+     * Currency local output format.
+     */
+    private String locale;
+
 }

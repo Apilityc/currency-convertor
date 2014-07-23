@@ -38,5 +38,13 @@ privileged aspect CurrencyRate_Roo_JavaBean {
     public void CurrencyRate.setTitle(String title) {
         this.title = title;
     }
+
+    public String CurrencyRate.getLocale() {
+        return this.locale;
+    }
+
+    public void CurrencyRate.setLocale(String locale) {
+        this.locale = locale;
+    }
     
 }
