@@ -261,5 +261,27 @@
 				</plugins>
 			</build>
 		</profile>
+        <profile>
+            <id>apiUnitTest</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <printSummary>false</printSummary>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <parallel>methods</parallel>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/resources/testng-unit.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <excludes>
+                                <exclude>**/*_Roo_*</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 	</profiles>
 </project>

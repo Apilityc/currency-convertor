@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite verbose="1" name="CurrencyConverterIntegration-Suite"
+       annotations="JDK">
+
+    <test name="api">
+        <packages>
+            <package name="org.apilytic.currency.api.*"/>
+        </packages>
+
+    </test>
+</suite>
