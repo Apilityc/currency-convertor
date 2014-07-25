@@ -31,6 +31,13 @@ public class ConvertRateFormatTest {
     public void cleanNumberOfDecimalUs() {
         java.text.NumberFormat format = java.text.NumberFormat.getCurrencyInstance(new Locale("en", "US"));
         assertThat(convertRateFormat.cleanNumber(format.format(100.12)), equalTo("100.12"));
+        assertThat(convertRateFormat.cleanNumber(format.format(100010100.12)), equalTo("100010100.12"));
+    }
+    
+    @Test
+    public void cleanNumberOfDecimalEuro() {
+    	assertThat(convertRateFormat.cleanNumber("100.12EUR"), equalTo("100.12"));
+    	assertThat(convertRateFormat.cleanNumber("100.12 EUR"), equalTo("100.12"));
     }
 
     @Test

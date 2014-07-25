@@ -15,6 +15,13 @@ public class ConvertRateFormat {
      * @return
      */
     public String cleanNumber(String number) {
-        return number.replaceAll("[^\\d\\.,]|[\\s*-]", "").replaceAll(",(?!.*,)", ".").replaceAll(",+?", "");
+    	String charsAndWhiteSpaces = "[^\\d\\.,]|[\\s*-]";
+    	String commas = ",+?";
+    	
+    	if(number.matches(".*\\.\\d+$")) {
+    		return number.replaceAll(charsAndWhiteSpaces, "").replaceAll(commas, "");
+    	}
+    	
+        return number.replaceAll(charsAndWhiteSpaces, "").replaceAll(",(?!.*,)", ".").replaceAll(commas, "");
     }
 }
