@@ -26,6 +26,9 @@ privileged aspect DirectDealExchangeApiTestMock {
     @Mock
     QueryRateBuilder DirectDealExchangeApiTest.queryRateBuilder;
 
+    @Mock
+    RateFormat DirectDealExchangeApiTest.rateFormat;
+
     private Map<String, String> exchangeRate = spy(new HashMap<>());
     private List<? extends ExchangeRate> rates = spy(new ArrayList<>());
 
@@ -35,6 +38,7 @@ privileged aspect DirectDealExchangeApiTestMock {
 
         ReflectionTestUtils.setField(exchangeApi, "financialProvider", financialProvider);
         ReflectionTestUtils.setField(exchangeApi, "queryRateBuilder", queryRateBuilder);
+        ReflectionTestUtils.setField(exchangeApi, "rateFormat", rateFormat);
     }
 
     /**
@@ -45,6 +49,7 @@ privileged aspect DirectDealExchangeApiTestMock {
             exchangeSingleCurrency(CurrencyRate)) {
 
         when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
+        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
         doReturn(rates).when(p.financialProvider).provideRate();
 
         ExchangeRate mock = mock(org.apilytic.currency.ingestion.rate
@@ -62,9 +67,11 @@ privileged aspect DirectDealExchangeApiTestMock {
     }
 
     before(DirectDealExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate,
-    rate1) && execution(void
+            rate1) && execution(void
             exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
         when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
+        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
+        when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
         doReturn(rates).when(p.financialProvider).provideRate();
 
         ExchangeRate mock = mock(org.apilytic.currency.ingestion.rate
@@ -76,7 +83,7 @@ privileged aspect DirectDealExchangeApiTestMock {
     }
 
     after(DirectDealExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate,
-    rate1) && execution(void
+            rate1) && execution(void
             exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
         verify(p.queryRateBuilder, times(2)).createQueryRate("USD", "EUR");
     }

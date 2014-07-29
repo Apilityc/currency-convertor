@@ -8,13 +8,13 @@ import java.util.Locale;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ConvertRateFormatTest {
+public class RateFormatTest {
 
-    private ConvertRateFormat convertRateFormat;
+    private RateFormat convertRateFormat;
 
     @BeforeClass
     public void init() {
-        convertRateFormat = new ConvertRateFormat();
+        convertRateFormat = new RateFormat();
     }
 
     @Test

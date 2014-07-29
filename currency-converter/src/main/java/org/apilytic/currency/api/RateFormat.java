@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
  * Created by g on 7/24/14.
  */
 @Service
-public class ConvertRateFormat {
+public class RateFormat {
 
     /**
      * Cleanups provided currency for calculation.

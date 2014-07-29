@@ -23,6 +23,7 @@ public class CurrencyRate {
     /**
      * Desired amount that we want to be exchanged.
      */
+    //TODO create annotation that uses Rate format to override setter
     private String amount;
 
     /**

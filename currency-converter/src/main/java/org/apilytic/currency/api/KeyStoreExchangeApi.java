@@ -29,14 +29,18 @@ public class KeyStoreExchangeApi implements CurrencyExchangeApi {
     @Autowired
     private RateRepository rateRepo;
 
+    @Autowired
+    private RateFormat rateFormat;
+
     @Override
     public ExchangeCurrency exchangeSingleCurrency(CurrencyRate currencyRate) {
         Rate rate = rateRepo.findOne(Rate.key(currencyRate.getFromCurrency()));
 
         String rawRatio = rate.getValue().get(currencyRate.getToCurrency());
 
+        String amount = rateFormat.cleanNumber(currencyRate.getAmount());
         BigDecimal ratio = new BigDecimal(rawRatio);
-        BigDecimal convertedAmount = ratio.multiply(new BigDecimal(currencyRate.getAmount()));
+        BigDecimal convertedAmount = ratio.multiply(new BigDecimal(amount));
 
         String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
 

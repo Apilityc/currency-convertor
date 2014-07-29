@@ -23,6 +23,8 @@ privileged aspect KeyStoreExchangeApiTestMock {
 
     @Mock
     RateRepository KeyStoreExchangeApiTest.rateRepo;
+    @Mock
+    RateFormat KeyStoreExchangeApiTest.rateFormat;
 
     private Map<String, String> exchangeRate = spy(new HashMap<>());
 
@@ -30,6 +32,7 @@ privileged aspect KeyStoreExchangeApiTestMock {
     public void KeyStoreExchangeApiTest.initMethod() {
         MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(exchangeApi, "rateRepo", rateRepo);
+        ReflectionTestUtils.setField(exchangeApi, "rateFormat", rateFormat);
     }
 
     //TODO create with method name and if statement there in one aspect.
@@ -46,6 +49,7 @@ privileged aspect KeyStoreExchangeApiTestMock {
 
         when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
         when(rateEntity.getValue()).thenReturn(exchangeRate);
+        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
 
         doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
     }
@@ -71,6 +75,8 @@ privileged aspect KeyStoreExchangeApiTestMock {
 
         when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
         when(rateEntity.getValue()).thenReturn(exchangeRate);
+        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
+        when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
 
         doReturn("0.73").doReturn("0.55").when(exchangeRate).get(rate.getToCurrency());
     }
