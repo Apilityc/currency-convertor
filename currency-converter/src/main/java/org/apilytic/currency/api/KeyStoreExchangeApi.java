@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -44,6 +46,17 @@ public class KeyStoreExchangeApi implements CurrencyExchangeApi {
 
         String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
 
+        //FIXME validation of the correct locale
+        //FIXME pass client locale and remove hardcoded Locale.US
+        // if format is not supports - do not format currency at all
+        // cover with unit tests
+        
+        //TODO remove code duplicate with aspects.
+        if(currencyRate.getLocale().isEmpty() == false) {
+        	NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        	exchange = currencyFormat.format(exchange);
+        }
+        
         ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
         exchangeCurrency.setExchange(exchange);
         return exchangeCurrency;

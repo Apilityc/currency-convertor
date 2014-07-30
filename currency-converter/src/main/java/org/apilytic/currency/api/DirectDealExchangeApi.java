@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -53,6 +55,11 @@ public class DirectDealExchangeApi implements CurrencyExchangeApi {
         String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
 
         ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
+        
+        if(currencyRate.getLocale().isEmpty() == false) {
+        	NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        	exchange = currencyFormat.format(exchange);
+        }
         exchangeCurrency.setExchange(exchange);
 
         return exchangeCurrency;
