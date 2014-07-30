@@ -35,27 +35,12 @@ privileged aspect KeyStoreExchangeApiTestMock {
         ReflectionTestUtils.setField(exchangeApi, "rateFormat", rateFormat);
     }
 
-    //TODO create with method name and if statement there in one aspect.
-
     /**
      * Stubs mocked data in test abstraction {@link org.apilytic.currency.api
      * .KeyStoreExchangeApiTest#exchangeSingleCurrency(org.apilytic.currency.api.model.ExchangeRate)}.
      */
     before(KeyStoreExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
-            exchangeSingleCurrency(CurrencyRate)) {
-        String key = Rate.key(rate.getFromCurrency());
-
-        Rate rateEntity = mock(Rate.class);
-
-        when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
-        when(rateEntity.getValue()).thenReturn(exchangeRate);
-        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
-
-        doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
-    }
-
-    before(KeyStoreExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
-            exchangeSingleCurrencyWithLocal(CurrencyRate)) {
+            exchangeSingleCurrency* (CurrencyRate)) {
         String key = Rate.key(rate.getFromCurrency());
 
         Rate rateEntity = mock(Rate.class);
@@ -71,8 +56,8 @@ privileged aspect KeyStoreExchangeApiTestMock {
      * Verifies execution of the flow {@link org.apilytic.currency.api.KeyStoreExchangeApiTest#exchangeSingleRate(org
      * .apilytic.currency.api.model.ExchangeRate)}
      */
-    after(KeyStoreExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void exchangeSingleCurrency
-            (CurrencyRate)) {
+    after(KeyStoreExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void exchange*
+            (..)) {
         verifyExchangeSingleAndMultipleRates(p.rateRepo, 1, rate);
     }
 
@@ -82,7 +67,7 @@ privileged aspect KeyStoreExchangeApiTestMock {
      * org.apilytic.currency.api.model.ExchangeRate)}
      */
     before(KeyStoreExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate, rate1)
-            && execution(void exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
+            && execution(void exchangeMultipleCurrencies* (CurrencyRate, CurrencyRate)) {
         String key = Rate.key(rate.getFromCurrency());
 
         Rate rateEntity = mock(Rate.class);
@@ -93,30 +78,6 @@ privileged aspect KeyStoreExchangeApiTestMock {
         when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
 
         doReturn("0.73").doReturn("0.55").when(exchangeRate).get(rate.getToCurrency());
-    }
-
-    before(KeyStoreExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate, rate1)
-            && execution(void exchangeMultipleCurrenciesWithLocal(CurrencyRate, CurrencyRate)) {
-        String key = Rate.key(rate.getFromCurrency());
-
-        Rate rateEntity = mock(Rate.class);
-
-        when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
-        when(rateEntity.getValue()).thenReturn(exchangeRate);
-        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
-        when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
-
-        doReturn("0.73").doReturn("0.55").when(exchangeRate).get(rate.getToCurrency());
-    }
-
-    /**
-     * Verifies execution of the flow in {@link org.apilytic.currency.api
-     * .KeyStoreExchangeApiTest#exchangeMultipleCurrencies(org.apilytic.currency.api.model.ExchangeRate,
-     * org.apilytic.currency.api.model.ExchangeRate)}.
-     */
-    after(KeyStoreExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate, rate1)
-            && execution(void exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
-        verifyExchangeSingleAndMultipleRates(p.rateRepo, 2, rate);
     }
 
     /**
@@ -126,8 +87,6 @@ privileged aspect KeyStoreExchangeApiTestMock {
     public void resetAopMocks(JoinPoint joinPoint) {
         exchangeRate = spy(new HashMap<>());
     }
-
-    //TODO create in aspect by method name in one if statement there.
 
     /**
      * Verifies execution of mocks.
