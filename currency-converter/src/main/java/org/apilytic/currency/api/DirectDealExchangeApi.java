@@ -1,7 +1,7 @@
 package org.apilytic.currency.api;
 
-import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.api.model.CurrencyRate;
+import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.ingestion.rate.provider.ExchangeRate;
 import org.apilytic.currency.ingestion.rate.provider.FinancialProvider;
 import org.apilytic.currency.ingestion.rate.query.QueryRateBuilder;
@@ -52,15 +52,14 @@ public class DirectDealExchangeApi implements CurrencyExchangeApi {
         BigDecimal ratio = new BigDecimal(rawRatio);
         BigDecimal convertedAmount = ratio.multiply(new BigDecimal(amount));
 
-        String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
-
+        BigDecimal exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN);
         ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
-        
-        if(currencyRate.getLocale().isEmpty() == false) {
-        	NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        	exchange = currencyFormat.format(exchange);
+        exchangeCurrency.setExchange(exchange.toString());
+
+        if (currencyRate.getLocale() != null) {
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+            exchangeCurrency.setExchange(currencyFormat.format(exchange));
         }
-        exchangeCurrency.setExchange(exchange);
 
         return exchangeCurrency;
     }

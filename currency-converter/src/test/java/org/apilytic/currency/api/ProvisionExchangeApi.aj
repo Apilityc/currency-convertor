@@ -4,6 +4,7 @@ import org.apilytic.currency.api.model.CurrencyRate;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
+import java.util.Locale;
 
 /**
  * Provision test data.
@@ -12,24 +13,55 @@ import java.lang.reflect.Method;
  */
 privileged aspect ProvisionExchangeApi {
 
-    @DataProvider
-    public Object[][] CurrencyExchangeApiTest.exchangeRates(Method method) {
-
+    static CurrencyRate usd() {
         CurrencyRate usd = new CurrencyRate();
         usd.setAmount("12.33");
         usd.setFromCurrency("USD");
         usd.setToCurrency("EUR");
 
+        return usd;
+    }
+
+    static CurrencyRate usd(String local) {
+        CurrencyRate usd = usd();
+        usd.setLocale(local);
+
+        return usd;
+    }
+
+    static CurrencyRate eur() {
         CurrencyRate rate = new CurrencyRate();
         rate.setAmount("55.44");
         rate.setFromCurrency("USD");
         rate.setToCurrency("EUR");
 
+        return rate;
+    }
+
+    static CurrencyRate eur(String local) {
+        CurrencyRate eur = eur();
+        eur.setLocale(local);
+        return eur;
+    }
+
+    @DataProvider
+    public Object[][] CurrencyExchangeApiTest.exchangeRates(Method method) {
+
         if (method.getName().equals("exchangeSingleCurrency")) {
-            return new Object[][]{{usd}};
+            return new Object[][]{{usd()}};
         }
 
-        return new Object[][]{{usd, rate}};
+        return new Object[][]{{usd(), eur()}};
+    }
+
+    @DataProvider
+    public Object[][] CurrencyExchangeApiTest.exchangeLocalRates(Method method) {
+
+        if (method.getName().equals("exchangeSingleCurrencyWithLocal")) {
+            return new Object[][]{{usd(Locale.US.toString())}};
+        }
+
+        return new Object[][]{{usd(Locale.US.toString()), eur(Locale.US.toString())}};
     }
 
 }

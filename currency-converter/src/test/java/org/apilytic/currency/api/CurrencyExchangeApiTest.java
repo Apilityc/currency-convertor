@@ -1,7 +1,7 @@
 package org.apilytic.currency.api;
 
-import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.api.model.CurrencyRate;
+import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -28,5 +28,19 @@ public abstract class CurrencyExchangeApiTest {
                 (currencyRate, rate));
         assertEquals("9.00", exchangeCurrencies.get(0).getExchange());
         assertEquals("30.49", exchangeCurrencies.get(1).getExchange());
+    }
+
+    @Test(dataProvider = "exchangeLocalRates")
+    public void exchangeSingleCurrencyWithLocal(CurrencyRate rate) {
+        ExchangeCurrency exchangeCurrency = exchangeApi.exchangeSingleCurrency(rate);
+        assertEquals("$9.00", exchangeCurrency.getExchange());
+    }
+
+    @Test(dataProvider = "exchangeLocalRates")
+    public void exchangeMultipleCurrenciesWithLocal(CurrencyRate usd, CurrencyRate eur) {
+        List<ExchangeCurrency> exchangeCurrencies = exchangeApi.exchangeMultipleCurrencies(Arrays.asList
+                (usd, eur));
+        assertEquals("$9.00", exchangeCurrencies.get(0).getExchange());
+        assertEquals("$30.49", exchangeCurrencies.get(1).getExchange());
     }
 }

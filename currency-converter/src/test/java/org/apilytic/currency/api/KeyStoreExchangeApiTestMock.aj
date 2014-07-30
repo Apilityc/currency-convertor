@@ -53,6 +53,20 @@ privileged aspect KeyStoreExchangeApiTestMock {
 
         doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
     }
+
+    before(KeyStoreExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
+            exchangeSingleCurrencyWithLocal(CurrencyRate)) {
+        String key = Rate.key(rate.getFromCurrency());
+
+        Rate rateEntity = mock(Rate.class);
+
+        when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
+        when(rateEntity.getValue()).thenReturn(exchangeRate);
+        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
+
+        doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
+    }
+
     /**
      * Verifies execution of the flow {@link org.apilytic.currency.api.KeyStoreExchangeApiTest#exchangeSingleRate(org
      * .apilytic.currency.api.model.ExchangeRate)}
@@ -69,6 +83,20 @@ privileged aspect KeyStoreExchangeApiTestMock {
      */
     before(KeyStoreExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate, rate1)
             && execution(void exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
+        String key = Rate.key(rate.getFromCurrency());
+
+        Rate rateEntity = mock(Rate.class);
+
+        when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
+        when(rateEntity.getValue()).thenReturn(exchangeRate);
+        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
+        when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
+
+        doReturn("0.73").doReturn("0.55").when(exchangeRate).get(rate.getToCurrency());
+    }
+
+    before(KeyStoreExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate, rate1)
+            && execution(void exchangeMultipleCurrenciesWithLocal(CurrencyRate, CurrencyRate)) {
         String key = Rate.key(rate.getFromCurrency());
 
         Rate rateEntity = mock(Rate.class);

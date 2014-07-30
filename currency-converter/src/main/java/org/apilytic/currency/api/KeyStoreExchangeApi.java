@@ -1,7 +1,7 @@
 package org.apilytic.currency.api;
 
-import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.api.model.CurrencyRate;
+import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,21 +44,21 @@ public class KeyStoreExchangeApi implements CurrencyExchangeApi {
         BigDecimal ratio = new BigDecimal(rawRatio);
         BigDecimal convertedAmount = ratio.multiply(new BigDecimal(amount));
 
-        String exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN).toString();
+        BigDecimal exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN);
+        ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
+        exchangeCurrency.setExchange(exchange.toString());
 
         //FIXME validation of the correct locale
         //FIXME pass client locale and remove hardcoded Locale.US
         // if format is not supports - do not format currency at all
         // cover with unit tests
-        
+
         //TODO remove code duplicate with aspects.
-        if(currencyRate.getLocale().isEmpty() == false) {
-        	NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        	exchange = currencyFormat.format(exchange);
+        if (currencyRate.getLocale() != null) {
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+            exchangeCurrency.setExchange(currencyFormat.format(exchange));
         }
-        
-        ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
-        exchangeCurrency.setExchange(exchange);
+
         return exchangeCurrency;
     }
 

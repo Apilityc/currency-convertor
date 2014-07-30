@@ -66,9 +66,40 @@ privileged aspect DirectDealExchangeApiTestMock {
         verify(p.queryRateBuilder).createQueryRate("USD", "EUR");
     }
 
+    before(DirectDealExchangeApiTest p, CurrencyRate rate): target(p) && args(rate) && execution(void
+            exchangeSingleCurrencyWithLocal(CurrencyRate)) {
+
+        when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
+        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
+        doReturn(rates).when(p.financialProvider).provideRate();
+
+        ExchangeRate mock = mock(org.apilytic.currency.ingestion.rate
+                .provider.ExchangeRate.class);
+        when(mock.rate()).thenReturn("0.73");
+        doReturn(mock).when(rates).get(0);
+
+        doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
+    }
+
     before(DirectDealExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate,
             rate1) && execution(void
             exchangeMultipleCurrencies(CurrencyRate, CurrencyRate)) {
+        when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
+        when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
+        when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
+        doReturn(rates).when(p.financialProvider).provideRate();
+
+        ExchangeRate mock = mock(org.apilytic.currency.ingestion.rate
+                .provider.ExchangeRate.class);
+        when(mock.rate()).thenReturn("0.73").thenReturn("0.55");
+        doReturn(mock).when(rates).get(0);
+
+        doReturn("0.73").doReturn("0.55").when(exchangeRate).get(rate.getToCurrency());
+    }
+
+    before(DirectDealExchangeApiTest p, CurrencyRate rate, CurrencyRate rate1): target(p) && args(rate,
+            rate1) && execution(void
+            exchangeMultipleCurrenciesWithLocal(CurrencyRate, CurrencyRate)) {
         when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
         when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
         when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
