@@ -22,13 +22,6 @@ privileged aspect ProvisionExchangeApi {
         return usd;
     }
 
-    static CurrencyRate usd(String local) {
-        CurrencyRate usd = usd();
-        usd.setLocale(local);
-
-        return usd;
-    }
-
     static CurrencyRate eur() {
         CurrencyRate rate = new CurrencyRate();
         rate.setAmount("55.44");
@@ -36,12 +29,6 @@ privileged aspect ProvisionExchangeApi {
         rate.setToCurrency("EUR");
 
         return rate;
-    }
-
-    static CurrencyRate eur(String local) {
-        CurrencyRate eur = eur();
-        eur.setLocale(local);
-        return eur;
     }
 
     @DataProvider
@@ -56,12 +43,16 @@ privileged aspect ProvisionExchangeApi {
 
     @DataProvider
     public Object[][] CurrencyExchangeApiTest.exchangeLocalRates(Method method) {
+        CurrencyRate usd = usd();
+        usd.setLocale(Locale.US.toString());
 
         if (method.getName().equals("exchangeSingleCurrencyWithLocal")) {
-            return new Object[][]{{usd(Locale.US.toString())}};
+            return new Object[][]{{usd}};
         }
 
-        return new Object[][]{{usd(Locale.US.toString()), eur(Locale.US.toString())}};
+        CurrencyRate eur = eur();
+        eur.setLocale(Locale.US.toString());
+        return new Object[][]{{usd, eur}};
     }
 
 }
