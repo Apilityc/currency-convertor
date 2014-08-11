@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
@@ -54,12 +55,15 @@ privileged aspect DirectDealExchangeApiTestMock {
 
         when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
         when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
+        when(p.rateFormat.verifyLocale("en_US")).thenReturn(new Locale("en", "US"));
         doReturn(rates).when(p.financialProvider).provideRate();
 
         ExchangeRate mock = mock(org.apilytic.currency.ingestion.rate
                 .provider.ExchangeRate.class);
         when(mock.rate()).thenReturn("0.73");
         doReturn(mock).when(rates).get(0);
+        
+        
 
         doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
     }
@@ -70,6 +74,7 @@ privileged aspect DirectDealExchangeApiTestMock {
         when(p.queryRateBuilder.createQueryRate("USD", "EUR")).thenReturn("USD_TO_EUR");
         when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
         when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
+        when(p.rateFormat.verifyLocale("en_US")).thenReturn(new Locale("en", "US"));
         doReturn(rates).when(p.financialProvider).provideRate();
 
         ExchangeRate mock = mock(org.apilytic.currency.ingestion.rate

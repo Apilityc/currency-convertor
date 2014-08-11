@@ -44,14 +44,14 @@ privileged aspect ProvisionExchangeApi {
     @DataProvider
     public Object[][] CurrencyExchangeApiTest.exchangeLocalRates(Method method) {
         CurrencyRate usd = usd();
-        usd.setLocale(Locale.US.toString());
+        usd.setLocale("en_US");
 
         if (method.getName().equals("exchangeSingleCurrencyWithLocal")) {
             return new Object[][]{{usd}};
         }
 
         CurrencyRate eur = eur();
-        eur.setLocale(Locale.US.toString());
+        eur.setLocale("en_US");
         return new Object[][]{{usd, eur}};
     }
 

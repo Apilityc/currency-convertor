@@ -63,11 +63,21 @@ public class RateFormatTest {
 
     @Test
     public void verifiedLocale() {
-        assertNotNull(convertRateFormat.verifyLocale("en"));
+        assertNotNull(convertRateFormat.verifyLocale("en_US"));
     }
 
     @Test
     public void notVerifiedLocale() {
         assertNull(convertRateFormat.verifyLocale("us"));
+    }
+    
+    @Test
+    public void verifiedLocaleWithNullLocale() {
+    	assertNull(convertRateFormat.verifyLocale(null));
+    }
+
+    @Test
+    public void verifiedLocaleWithWrongLocale() {
+    	assertNull(convertRateFormat.verifyLocale("ff_UU"));
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.testng.annotations.BeforeMethod;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
@@ -48,6 +49,7 @@ privileged aspect KeyStoreExchangeApiTestMock {
         when(p.rateRepo.findOne(key)).thenReturn(rateEntity);
         when(rateEntity.getValue()).thenReturn(exchangeRate);
         when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
+        when(p.rateFormat.verifyLocale("en_US")).thenReturn(new Locale("en", "US"));
 
         doReturn("0.73").when(exchangeRate).get(rate.getToCurrency());
     }
@@ -76,6 +78,7 @@ privileged aspect KeyStoreExchangeApiTestMock {
         when(rateEntity.getValue()).thenReturn(exchangeRate);
         when(p.rateFormat.cleanNumber(rate.getAmount())).thenReturn(rate.getAmount());
         when(p.rateFormat.cleanNumber(rate1.getAmount())).thenReturn(rate1.getAmount());
+        when(p.rateFormat.verifyLocale("en_US")).thenReturn(new Locale("en", "US"));
 
         doReturn("0.73").doReturn("0.55").when(exchangeRate).get(rate.getToCurrency());
     }
