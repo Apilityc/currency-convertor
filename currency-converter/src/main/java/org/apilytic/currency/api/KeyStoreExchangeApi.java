@@ -48,14 +48,10 @@ public class KeyStoreExchangeApi implements CurrencyExchangeApi {
         ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
         exchangeCurrency.setExchange(exchange.toString());
 
-        //FIXME validation of the correct locale
-        //FIXME pass client locale and remove hardcoded Locale.US
-        // if format is not supports - do not format currency at all
-        // cover with unit tests
-
+        Locale locale = rateFormat.verifyLocale(currencyRate.getLocale());
         //TODO remove code duplicate with aspects.
-        if (currencyRate.getLocale() != null) {
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        if (locale != null) {
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
             exchangeCurrency.setExchange(currencyFormat.format(exchange));
         }
 

@@ -56,8 +56,9 @@ public class DirectDealExchangeApi implements CurrencyExchangeApi {
         ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
         exchangeCurrency.setExchange(exchange.toString());
 
-        if (currencyRate.getLocale() != null) {
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        Locale locale = rateFormat.verifyLocale(currencyRate.getLocale());
+        if (locale != null) {
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
             exchangeCurrency.setExchange(currencyFormat.format(exchange));
         }
 
