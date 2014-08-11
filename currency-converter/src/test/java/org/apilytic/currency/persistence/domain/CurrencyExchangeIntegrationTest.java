@@ -8,10 +8,8 @@ import java.util.List;
 
 import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.roo.addon.test.RooIntegrationTest;
 
 @RooIntegrationTest(entity = CurrencyExchange.class, transactional = false)

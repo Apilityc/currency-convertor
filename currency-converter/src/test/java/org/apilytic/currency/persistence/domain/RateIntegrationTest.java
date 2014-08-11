@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
