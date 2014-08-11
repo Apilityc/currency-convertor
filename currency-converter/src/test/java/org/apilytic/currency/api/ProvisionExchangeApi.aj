@@ -4,7 +4,6 @@ import org.apilytic.currency.api.model.CurrencyRate;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
-import java.util.Locale;
 
 /**
  * Provision test data.
