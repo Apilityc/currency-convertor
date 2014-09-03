@@ -86,6 +86,7 @@
             primary="true"/>
 
     <bean class="org.apilytic.currency.ingestion.rate.query.YahooQueryBuilder" primary="true"/>
+    <bean class="org.apilytic.currency.api.DirectDealExchangeApi" primary="true" />
 
     <bean id="csvReaderAdapter" class="org.apilytic.currency.csv.CsvReaderAdapter"
           scope="prototype"/>

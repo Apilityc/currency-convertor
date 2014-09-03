@@ -21,6 +21,10 @@ privileged aspect MarkIntegrationTests {
     declare @type: org.apilytic.currency.ingestion.rate.*IntegrationTest* :@ContextConfiguration(locations =
             "classpath*:/META-INF/spring/applicationContext*.xml");
 
+    declare @type: org.apilytic.currency.api.*IT :@ContextConfiguration(locations =
+            "classpath*:/META-INF/spring/applicationContext*.xml");
+    declare parents: org.apilytic.currency.api.*IT extends AbstractTestNGSpringContextTests;
+    
     /**
      * Provide query query String (cross-reference) for Yahoo finance service.
      */
