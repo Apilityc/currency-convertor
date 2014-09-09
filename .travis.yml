@@ -7,5 +7,5 @@ script:
   - mvn test -P unitTest -pl currency-converter
   - mvn test -P domainIntegrationTest -pl currency-converter
   - mvn test -P serviceIntegrationTest -pl currency-converter
-  - mvn test -P apiUnitTest -pl currency-converter
+  - mvn test -P apiTest -pl currency-converter
   - mvn test -pl currency-converter-sync

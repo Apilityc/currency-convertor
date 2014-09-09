@@ -262,7 +262,7 @@
 			</build>
 		</profile>
         <profile>
-            <id>apiUnitTest</id>
+            <id>apiTest</id>
             <build>
                 <plugins>
                     <plugin>
