@@ -24,6 +24,7 @@ public class DirectDealExchangeApiIT {
 	@Test
 	public void createInstanceByReflection() {
 		assertNotNull(directDealExchangeApi);
+		assertTrue(directDealExchangeApi instanceof DirectDealExchangeApi);
 	}
 	
 	@Test
