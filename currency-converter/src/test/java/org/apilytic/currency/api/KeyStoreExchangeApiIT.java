@@ -42,9 +42,10 @@ public class KeyStoreExchangeApiIT {
 	public void calculateExchange() {
 		CurrencyRate currencyRate = new CurrencyRate();
 		currencyRate.setAmount("5.45");
-		currencyRate.setFromCurrency("USD");
-		currencyRate.setToCurrency("EUR");
+		currencyRate.setFromCurrency("EUR");
+		currencyRate.setToCurrency("GBP");
 		
+		System.out.println(">>> " + keyStoreExchangeApi);
 		ExchangeCurrency exchange = keyStoreExchangeApi.exchangeSingleCurrency(currencyRate);
 		assertNotNull(exchange.getExchange());
 		assertTrue(exchange.getExchange().equals(0) == false);
