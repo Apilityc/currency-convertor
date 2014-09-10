@@ -45,11 +45,23 @@ public class KeyStoreExchangeApiIT {
 		currencyRate.setFromCurrency("EUR");
 		currencyRate.setToCurrency("GBP");
 		
-		System.out.println(">>> " + keyStoreExchangeApi);
 		ExchangeCurrency exchange = keyStoreExchangeApi.exchangeSingleCurrency(currencyRate);
 		assertNotNull(exchange.getExchange());
 		assertTrue(exchange.getExchange().equals(0) == false);
 		assertTrue(Double.valueOf(exchange.getExchange()) > 0);
+	}
+	
+	@Test
+	public void calculateExchangeWithLocaleFormat() {
+		CurrencyRate currencyRate = new CurrencyRate();
+		currencyRate.setAmount("5.45");
+		currencyRate.setFromCurrency("EUR");
+		currencyRate.setToCurrency("GBP");
+		currencyRate.setLocale("en_US");
+		
+		ExchangeCurrency exchange = keyStoreExchangeApi.exchangeSingleCurrency(currencyRate);
+		assertTrue(exchange.getExchange().startsWith("$"));
+		assertTrue(Double.valueOf(exchange.getExchange().replace("$","")) > 0);
 	}
 
 }
