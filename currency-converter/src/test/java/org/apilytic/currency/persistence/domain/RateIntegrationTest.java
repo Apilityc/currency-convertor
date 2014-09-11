@@ -14,6 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.roo.addon.test.RooIntegrationTest;
 
+/**
+ * 
+ * @author g
+ *
+ */
 @RooIntegrationTest(entity = Rate.class, transactional = false)
 public class RateIntegrationTest {
 
@@ -64,29 +69,32 @@ public class RateIntegrationTest {
 	@Test
 	public void testSaveMixedCurrencies() {
 		Rate usdGbp = new Rate();
-		usdGbp.setKey(Rate.key("USD"));
+		usdGbp.setKey(Rate.key("USD-1"));
 		Map<String, String> value = new HashMap<String, String>();
 		value.put("GBP", "12.10");
 		usdGbp.setValue(value);
 
 		Rate eurGbp = new Rate();
-		eurGbp.setKey(Rate.key("EUR"));
+		eurGbp.setKey(Rate.key("EUR-1"));
 		value = new HashMap<String, String>();
 		value.put("GBP", "11.23");
 		eurGbp.setValue(value);
 
 		Rate usdJpy = new Rate();
-		usdJpy.setKey(Rate.key("USD"));
+		usdJpy.setKey(Rate.key("USD-1"));
 		value = new HashMap<String, String>();
 		value.put("JPY", "1.44");
 		usdJpy.setValue(value);
 
 		rateRepo.save(Arrays.asList(usdGbp, eurGbp, usdJpy));
 
-		Rate actualUsdGbpRate = rateRepo.findOne(Rate.key("USD"));
+		Rate actualUsdGbpRate = rateRepo.findOne(Rate.key("USD-1"));
 		assertEquals(2, actualUsdGbpRate.getValue().values().size());
+		assertEquals("12.10", actualUsdGbpRate.getValue().get("GBP"));
+		assertEquals("1.44", actualUsdGbpRate.getValue().get("JPY"));
 
-		Rate actualEurRate = rateRepo.findOne(Rate.key("EUR"));
+		Rate actualEurRate = rateRepo.findOne(Rate.key("EUR-1"));
 		assertEquals(1, actualEurRate.getValue().values().size());
+		assertEquals("11.23", actualEurRate.getValue().get("GBP"));
 	}
 }
