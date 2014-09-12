@@ -4,7 +4,6 @@ import org.apilytic.currency.ingestion.vapor.VaporIngestion;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -27,11 +26,6 @@ public class YahooExchangeServiceIntegrationTest {
 	@Autowired
 	private VaporIngestion vaporIngestion;
 
-	@BeforeClass
-	public void init() {
-		// template.getConnectionFactory().getConnection().flushDb();
-	}
-
 	@BeforeMethod
 	public void initMethod() {
 		// ReflectionTestUtils.setField(rateIngestion, "queryRateBuilder",
@@ -41,7 +35,8 @@ public class YahooExchangeServiceIntegrationTest {
 	@Test(dataProvider = "queryRateProvider")
 	public void testSyncInBatch(String queryRate) throws InterruptedException {
 		// when(queryRateBuilder.createQueryRate()).thenReturn(queryRate);
-		// vaporIngestion.sync();
+		vaporIngestion.sync();
+		
 		rateIngestion.sync();
 		// rateRepository.findOne(Rate.key("USD"));
 		// verify(queryRateBuilder).createQueryRate();
