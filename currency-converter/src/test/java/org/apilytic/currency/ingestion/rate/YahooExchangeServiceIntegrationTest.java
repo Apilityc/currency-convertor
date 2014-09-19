@@ -35,7 +35,7 @@ public class YahooExchangeServiceIntegrationTest {
 	@Test(dataProvider = "queryRateProvider")
 	public void testSyncInBatch(String queryRate) throws InterruptedException {
 		// when(queryRateBuilder.createQueryRate()).thenReturn(queryRate);
-		vaporIngestion.sync();
+		//vaporIngestion.sync();
 		
 		rateIngestion.sync();
 		// rateRepository.findOne(Rate.key("USD"));
