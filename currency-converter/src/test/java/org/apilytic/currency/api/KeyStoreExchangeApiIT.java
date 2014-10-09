@@ -1,12 +1,18 @@
 package org.apilytic.currency.api;
 
-import static org.testng.AssertJUnit.assertTrue;
 import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertTrue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apilytic.currency.api.model.CurrencyRate;
 import org.apilytic.currency.api.model.ExchangeCurrency;
+import org.apilytic.currency.persistence.domain.Rate;
+import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
@@ -23,9 +29,23 @@ public class KeyStoreExchangeApiIT {
 	private CurrencyExchangeApi keyStoreExchangeApi;
 	
 	@Autowired
+	private RateRepository rateRepository;
+	
+	@Autowired
 	@Qualifier(EXCHANGE_API)
 	private CurrencyExchangeApi optionalCurrencyExchangeApi;
 
+	@BeforeClass
+	public void init() {
+		Map<String, String> value = new HashMap<String, String>();
+		value.put("GBP", "5.45");
+		
+		Rate rate = new Rate();
+		rate.setKey(Rate.key("EUR"));
+		rate.setValue(value);
+		rateRepository.save(rate);
+	}
+	
 	@Test
 	public void createInstanceByReflection() {
 		assertNotNull(keyStoreExchangeApi);
