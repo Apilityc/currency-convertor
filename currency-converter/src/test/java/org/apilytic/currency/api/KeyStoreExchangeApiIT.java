@@ -1,18 +1,12 @@
 package org.apilytic.currency.api;
 
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertTrue;
-
 import java.util.HashMap;
 
-import org.apilytic.currency.api.model.CurrencyRate;
-import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 /**
  * 
@@ -25,7 +19,7 @@ public class KeyStoreExchangeApiIT {
 
 	@Autowired
 	@Qualifier(EXCHANGE_API)
-	private CurrencyExchangeApi keyStoreExchangeApi;
+	private CurrencyExchangeApi currencyExchangeApi;
 
 	@Autowired
 	private RateRepository rateRepository;
@@ -45,46 +39,6 @@ public class KeyStoreExchangeApiIT {
 			}
 		});
 		rateRepository.save(rate);
-	}
-
-	@Test
-	public void createInstanceByReflection() {
-		assertNotNull(keyStoreExchangeApi);
-		assertTrue(keyStoreExchangeApi instanceof KeyStoreExchangeApi);
-	}
-
-	@Test
-	public void createOptionalInstance() {
-		assertNotNull(optionalCurrencyExchangeApi);
-		assertTrue(optionalCurrencyExchangeApi instanceof KeyStoreExchangeApi);
-	}
-
-	@Test
-	public void calculateExchange() {
-		CurrencyRate currencyRate = new CurrencyRate();
-		currencyRate.setAmount("5.45");
-		currencyRate.setFromCurrency("EUR");
-		currencyRate.setToCurrency("GBP");
-
-		ExchangeCurrency exchange = keyStoreExchangeApi
-				.exchangeSingleCurrency(currencyRate);
-		assertNotNull(exchange.getExchange());
-		assertTrue(exchange.getExchange().equals(0) == false);
-		assertTrue(Double.valueOf(exchange.getExchange()) > 0);
-	}
-
-	@Test
-	public void calculateExchangeWithLocaleFormat() {
-		CurrencyRate currencyRate = new CurrencyRate();
-		currencyRate.setAmount("5.45");
-		currencyRate.setFromCurrency("EUR");
-		currencyRate.setToCurrency("GBP");
-		currencyRate.setLocale("en_US");
-
-		ExchangeCurrency exchange = keyStoreExchangeApi
-				.exchangeSingleCurrency(currencyRate);
-		assertTrue(exchange.getExchange().startsWith("$"));
-		assertTrue(Double.valueOf(exchange.getExchange().replace("$", "")) > 0);
 	}
 
 }

@@ -29,6 +29,15 @@ privileged aspect ProvisionExchangeApi {
 
         return rate;
     }
+    
+    static CurrencyRate gbp() {
+    	CurrencyRate rate = new CurrencyRate();
+    	rate.setAmount("5.45");
+    	rate.setFromCurrency("EUR");
+    	rate.setToCurrency("GBP");
+    	
+    	return rate;
+    }
 
     @DataProvider
     public Object[][] CurrencyExchangeApiTest.exchangeRates(Method method) {
@@ -52,6 +61,30 @@ privileged aspect ProvisionExchangeApi {
         CurrencyRate eur = eur();
         eur.setLocale("en_US");
         return new Object[][]{{usd, eur}};
+    }
+    
+    @DataProvider
+    public Object[][] KeyStoreExchangeApiIT.exchangeLocalRates(Method method) {
+    	CurrencyRate gbp = gbp();
+
+        if (method.getName().equals("calculateExchange")) {
+            return new Object[][]{{gbp}};
+        }
+
+        gbp.setLocale("en_US");
+        return new Object[][]{{gbp}};
+    }
+    
+    @DataProvider
+    public Object[][] DirectDealExchangeApiIT.exchangeLocalRates(Method method) {
+    	CurrencyRate gbp = gbp();
+
+        if (method.getName().equals("calculateExchange")) {
+            return new Object[][]{{gbp}};
+        }
+
+        gbp.setLocale("en_US");
+        return new Object[][]{{gbp}};
     }
 
 }
