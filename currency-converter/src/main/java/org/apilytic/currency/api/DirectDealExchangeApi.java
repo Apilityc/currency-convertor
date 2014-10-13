@@ -1,5 +1,9 @@
 package org.apilytic.currency.api;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apilytic.currency.api.calc.ExchangeCalculator;
 import org.apilytic.currency.api.model.CurrencyRate;
 import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.ingestion.rate.provider.ExchangeRate;
@@ -7,13 +11,6 @@ import org.apilytic.currency.ingestion.rate.provider.FinancialProvider;
 import org.apilytic.currency.ingestion.rate.query.QueryRateBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 /**
  * Query currency exchange query directly from query provider.
@@ -48,21 +45,8 @@ public class DirectDealExchangeApi implements CurrencyExchangeApi {
 
         String rawRatio = providedRates.get(0).rate();
 
-        String amount = rateFormat.cleanNumber(currencyRate.getAmount());
-        BigDecimal ratio = new BigDecimal(rawRatio);
-        BigDecimal convertedAmount = ratio.multiply(new BigDecimal(amount));
-
-        BigDecimal exchange = convertedAmount.setScale(2, RoundingMode.HALF_EVEN);
-        ExchangeCurrency exchangeCurrency = new ExchangeCurrency();
-        exchangeCurrency.setExchange(exchange.toString());
-
-        Locale locale = rateFormat.verifyLocale(currencyRate.getLocale());
-        if (locale != null) {
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
-            exchangeCurrency.setExchange(currencyFormat.format(exchange));
-        }
-
-        return exchangeCurrency;
+        ExchangeCalculator exchangeCalc = new ExchangeCalculator();
+        return exchangeCalc.calc(currencyRate, rawRatio);
     }
 
     @Override
