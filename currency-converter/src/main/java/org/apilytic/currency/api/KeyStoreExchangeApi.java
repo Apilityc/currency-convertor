@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apilytic.currency.api.calc.ExchangeCalculator;
+import org.apilytic.currency.api.calc.RateFormat;
 import org.apilytic.currency.api.model.CurrencyRate;
 import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.apilytic.currency.persistence.domain.Rate;

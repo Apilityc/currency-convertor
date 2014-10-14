@@ -5,7 +5,6 @@ import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import org.apilytic.currency.api.RateFormat;
 import org.apilytic.currency.api.model.CurrencyRate;
 import org.apilytic.currency.api.model.ExchangeCurrency;
 import org.springframework.beans.factory.annotation.Autowired;

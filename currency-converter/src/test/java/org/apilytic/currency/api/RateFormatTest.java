@@ -1,5 +1,6 @@
 package org.apilytic.currency.api;
 
+import org.apilytic.currency.api.calc.RateFormat;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

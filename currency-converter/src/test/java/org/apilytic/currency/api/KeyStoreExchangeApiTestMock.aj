@@ -1,5 +1,6 @@
 package org.apilytic.currency.api;
 
+import org.apilytic.currency.api.calc.RateFormat;
 import org.apilytic.currency.api.model.CurrencyRate;
 import org.apilytic.currency.persistence.domain.Rate;
 import org.apilytic.currency.persistence.repository.RateRepository;

@@ -1,5 +1,6 @@
 package org.apilytic.currency.api;
 
+import org.apilytic.currency.api.calc.RateFormat;
 import org.apilytic.currency.api.model.CurrencyRate;
 import org.apilytic.currency.ingestion.rate.provider.ExchangeRate;
 import org.apilytic.currency.ingestion.rate.provider.FinancialProvider;

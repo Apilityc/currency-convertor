@@ -1,4 +1,4 @@
-package org.apilytic.currency.api;
+package org.apilytic.currency.api.calc;
 
 import java.util.Arrays;
 import java.util.Locale;
