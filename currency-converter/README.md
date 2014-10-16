@@ -19,3 +19,6 @@ Dependency is used as underlying artifact for other part of the projects.
 
 	mvn test -P serviceIntegrationTest
 
+## Running api layer unit and integration tests
+
+	mvn test -P apiTest -pl currency-converter
