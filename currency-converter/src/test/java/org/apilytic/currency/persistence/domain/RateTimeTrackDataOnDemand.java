@@ -25,7 +25,7 @@ public class RateTimeTrackDataOnDemand {
 
 	public RateTimeTrack getNewTransientRateTimeTrack(int index) {
 		RateTimeTrack obj = new RateTimeTrack();
-		obj.setKey(RateTimeTrack.KEY);
+		obj.setKey(RateTimeTrack.key());
 
 		final Calendar calendar = new GregorianCalendar();
 		calendar.setTime(new Date());
@@ -63,11 +63,11 @@ public class RateTimeTrackDataOnDemand {
 
 		// FIXME provide findAllImplementation
 		for (int i = from; i < to; i++) {
-			if (opsForValue.get(RateTimeTrack.KEY) == null) {
+			if (opsForValue.get(RateTimeTrack.key()) == null) {
 				continue;
 			}
 
-			data.add(opsForValue.get(RateTimeTrack.KEY));
+			data.add(opsForValue.get(RateTimeTrack.key()));
 		}
 
 		if (!data.isEmpty()) {

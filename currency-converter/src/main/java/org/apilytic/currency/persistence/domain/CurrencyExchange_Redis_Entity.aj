@@ -4,7 +4,8 @@ import org.springframework.data.annotation.Id;
 
 privileged aspect CurrencyExchange_Redis_Entity {
 
-	public static final String CurrencyExchange.KEY = "currency:list";
+	//FIXME why when this is public is not accessible?
+	private static final String CurrencyExchange.KEY = "currency:list";
 
 	public static final String CurrencyExchange.key() {
 		return KEY;

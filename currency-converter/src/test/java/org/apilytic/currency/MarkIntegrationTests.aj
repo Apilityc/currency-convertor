@@ -17,14 +17,15 @@ privileged aspect MarkIntegrationTests {
     declare @type: org.apilytic.currency.persistence.domain.*IntegrationTest* :@RunWith(SpringJUnit4ClassRunner.class);
     declare @type: org.apilytic.currency.persistence.domain.*IntegrationTest* :@ContextConfiguration(locations =
             "classpath*:/META-INF/spring/applicationContext*.xml");
+
     declare parents: org.apilytic.currency.ingestion.rate.*IntegrationTest* extends AbstractTestNGSpringContextTests;
     declare @type: org.apilytic.currency.ingestion.rate.*IntegrationTest* :@ContextConfiguration(locations =
             "classpath*:/META-INF/spring/applicationContext*.xml");
 
+    declare parents: org.apilytic.currency.api.*IT extends AbstractTestNGSpringContextTests;
     declare @type: org.apilytic.currency.api.*IT :@ContextConfiguration(locations =
             "classpath*:/META-INF/spring/applicationContext*.xml");
-    declare parents: org.apilytic.currency.api.*IT extends AbstractTestNGSpringContextTests;
-    
+
     /**
      * Provide query query String (cross-reference) for Yahoo finance service.
      */

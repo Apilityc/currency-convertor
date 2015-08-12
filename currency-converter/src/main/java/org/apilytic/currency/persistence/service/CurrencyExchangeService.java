@@ -53,7 +53,7 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 			// TODO create with annotation - postUpdate preUpdate kind of
 			if (entity.getKey() == null) {
 				// TODO: should we remove keystorage from DB.
-				entity.setKey(CurrencyExchange.KEY);
+				entity.setKey(CurrencyExchange.key());
 			}
 
 			CurrencyExchange[] updateValues = Arrays.copyOf(values,
@@ -63,7 +63,7 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 
 		}
 
-		setOps.add(CurrencyExchange.KEY, values);
+		setOps.add(CurrencyExchange.key(), values);
 
 		return (Iterable<S>) Arrays.asList(values);
 	}
@@ -131,7 +131,7 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 	 */
 	@Override
 	public Set<CurrencyExchange> findAllCurencyExchanges() {
-		return setOps.members(CurrencyExchange.KEY);
+		return setOps.members(CurrencyExchange.key());
 	}
 
 }

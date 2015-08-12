@@ -12,5 +12,5 @@ public interface VaporIngestion {
 	/**
 	 * Imports currency ISO codes.
 	 */
-	public void sync();
+	void sync();
 }
