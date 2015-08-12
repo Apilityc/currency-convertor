@@ -6,3 +6,4 @@ log.roo
 /target
 /.springBeans
 *.iml
+*.DS_Store
