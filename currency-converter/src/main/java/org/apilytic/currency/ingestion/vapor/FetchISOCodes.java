@@ -19,7 +19,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class FetchISOCodes {
 
-	public static final String ISO_CODES_URI = "http://www.currency-iso.org/dam/downloads/table_a1.xml";
+	//FIXME move to properties file
+	public static final String ISO_CODES_URI = "http://www.currency-iso.org/dam/downloads/lists/list_one.xml";
 
 	@Autowired
 	private RestTemplate restTemplate;

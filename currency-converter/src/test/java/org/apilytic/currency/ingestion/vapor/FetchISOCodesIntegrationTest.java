@@ -8,24 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
 /**
- * 
  * @author Georgi Lambov
- * 
  */
 public class FetchISOCodesIntegrationTest {
 
-	@Autowired
-	private FetchISOCodes fetchISOCodes;
+    @Autowired
+    private FetchISOCodes fetchISOCodes;
 
-	@Test
-	public void testFetch() {
-		ISO4217Bean isoCodes = fetchISOCodes.fetch();
+    @Test
+    public void testFetch() {
+        ISO4217Bean isoCodes = fetchISOCodes.fetch();
 
-		assertNotNull(isoCodes);
-		assertNotNull(isoCodes.getCurrencyTable());
-		assertEquals(179, isoCodes.getCurrencyTable().getCurrencyCodes().size());
-
-		System.out.println(isoCodes.getCurrencyTable().getCurrencyCodes()
-				.size());
-	}
+        assertNotNull(isoCodes);
+        assertNotNull(isoCodes.getCurrencyTable());
+        assertEquals(178, isoCodes.getCurrencyTable().getCurrencyCodes().size());
+    }
 }
