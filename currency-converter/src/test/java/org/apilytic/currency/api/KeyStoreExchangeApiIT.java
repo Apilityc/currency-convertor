@@ -9,36 +9,33 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.testng.annotations.BeforeClass;
 
 /**
- * 
  * @author g
- *
  */
 public class KeyStoreExchangeApiIT {
 
-	private static final String EXCHANGE_API = "keyStoreExchangeApi";
+    private static final String EXCHANGE_API = "keyStoreExchangeApi";
 
-	@Autowired
-	@Qualifier(EXCHANGE_API)
-	private CurrencyExchangeApi currencyExchangeApi;
+    @Autowired
+    @Qualifier(EXCHANGE_API)
+    private CurrencyExchangeApi currencyExchangeApi;
 
-	@Autowired
-	private RateRepository rateRepository;
+    @Autowired
+    private RateRepository rateRepository;
 
-	@Autowired
-	@Qualifier(EXCHANGE_API)
-	private CurrencyExchangeApi optionalCurrencyExchangeApi;
+    @Autowired
+    @Qualifier(EXCHANGE_API)
+    private CurrencyExchangeApi optionalCurrencyExchangeApi;
 
-	@BeforeClass
-	public void init() {
-		Rate rate = new Rate();
-		rate.setKey(Rate.key("EUR"));
-		rate.setValue(new HashMap<String, String>() {
-			private static final long serialVersionUID = 1L;
-			{
-				put("GBP", "5.45");
-			}
-		});
-		rateRepository.save(rate);
-	}
+    @BeforeClass
+    public void init() {
+        Rate rate = new Rate();
+        rate.setKey(Rate.key("EUR"));
+        rate.setValue(new HashMap<String, String>() {
+            {
+                put("GBP", "5.45");
+            }
+        });
+        rateRepository.save(rate);
+    }
 
 }
