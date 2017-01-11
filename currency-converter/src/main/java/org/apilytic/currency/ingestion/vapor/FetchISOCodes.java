@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 public class FetchISOCodes {
 
 	//FIXME move to properties file
-	public static final String ISO_CODES_URI = "http://www.currency-iso.org/dam/downloads/lists/list_one.xml";
+	public static final String ISO_CODES_URI = "https://www.currency-iso.org/dam/downloads/lists/list_one.xml";
 
 	@Autowired
 	private RestTemplate restTemplate;
