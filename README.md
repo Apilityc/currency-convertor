@@ -1,7 +1,7 @@
 currency-converter
 ===================
 
-[![Build Status](https://travis-ci.org/Apilytic/currency-converter.png?branch=master)](https://travis-ci.org/Apilytic/currency-converter)
+[![Build Status](https://travis-ci.org/Apilytic/currency-converter.svg?branch=master)](https://travis-ci.org/Apilytic/currency-converter)
 
 # Introduction
 
