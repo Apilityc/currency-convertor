@@ -18,7 +18,6 @@ public class ExchangeRateBuilder {
 
     @Autowired
     private CurrencyExchangeRepository currencyExchangeRepo;
-//    private Map<String, Set<CurrencyExchange>> rates;
 
     private ExchangeRate exchangeRate;
 
