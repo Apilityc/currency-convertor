@@ -1,9 +1,6 @@
 package org.apilytic.currency.exchange;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apilytic.currency.persistence.domain.CurrencyExchange;
@@ -21,7 +18,7 @@ public class ExchangeRateBuilder {
 
     @Autowired
     private CurrencyExchangeRepository currencyExchangeRepo;
-    private Map<String, Set<CurrencyExchange>> rates;
+//    private Map<String, Set<CurrencyExchange>> rates;
 
     private ExchangeRate exchangeRate;
 
@@ -33,15 +30,19 @@ public class ExchangeRateBuilder {
         Set<CurrencyExchange> currencies = currencyExchangeRepo
                 .findAllCurencyExchanges();
 
-        rates = new HashMap<>();
-        for (CurrencyExchange currency : currencies) {
-            Set<CurrencyExchange> providedCurrencies = currencies.stream().collect(Collectors.toSet());
-            providedCurrencies.remove(currency);
+        Map<String, Set<CurrencyExchange>> rates = new HashMap<>();
 
-            rates.put(currency.getTitle(), providedCurrencies);
-        }
+        currencies.stream().forEach(currency -> {
+            Set<CurrencyExchange> providedCurrencies = currencies.stream().filter(c -> !c.equals(currency)).
+                    collect(Collectors.toSet());
+
+            providedCurrencies.stream().forEach(o -> {
+                rates.put(currency.getTitle(), providedCurrencies);
+            });
+        });
 
         exchangeRate.setRates(rates);
+
     }
 
     /**
