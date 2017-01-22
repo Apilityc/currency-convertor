@@ -32,7 +32,7 @@ public class ExchangeRateBuilder {
         Map<String, Set<CurrencyExchange>> rates = new HashMap<>();
 
         currencies.stream().forEach(currency -> {
-            Set<CurrencyExchange> providedCurrencies = currencies.stream().filter(c -> !c.equals(currency)).
+            Set providedCurrencies = currencies.stream().filter(c -> !c.equals(currency)).
                     collect(Collectors.toSet());
 
             providedCurrencies.stream().forEach(o -> {
