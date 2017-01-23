@@ -6,7 +6,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.testng.annotations.DataProvider;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import sun.tools.jstat.OptionFormat;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ privileged aspect MarkIntegrationTests {
     declare @type: org.apilytic.currency.persistence.domain.*IntegrationTest* :@ContextConfiguration(locations =
             "classpath*:/META-INF/spring/applicationContext*.xml");
 
-    declare parents:org.apilytic.currency.ingestion.rate.*IntegrationTest*extends AbstractTestNGSpringContextTests;
+    declare parents:org.apilytic.currency.ingestion.rate.*IntegrationTest* extends AbstractTestNGSpringContextTests;
     declare @type: org.apilytic.currency.ingestion.rate.*IntegrationTest* :@ContextConfiguration(locations =
             "classpath*:/META-INF/spring/applicationContext*.xml");
 
