@@ -9,7 +9,6 @@ script:
   - mvn test -P domainIntegrationTest -pl currency-converter
   - mvn test -P serviceIntegrationTest -pl currency-converter
   - mvn test -P apiTest -pl currency-converter
-  - mvn test -pl currency-converter-sync
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
