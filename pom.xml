@@ -394,6 +394,5 @@
 	</build>
 	<modules>
 		<module>currency-converter</module>
-		<module>currency-converter-sync</module>
 	</modules>
 </project>
