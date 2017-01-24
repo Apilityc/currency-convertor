@@ -38,7 +38,7 @@ privileged aspect MarkIntegrationTests {
 
         String queryRate = Arrays.stream(currencies)
                 .map(c -> String.format(YahooQueryRateBuilder.queryRatePattern, "USD", c))
-                .collect(Collectors.joining(""));
+                .collect(Collectors.joining());
 
         return new Object[][]{{queryRate}};
     }
