@@ -53,27 +53,23 @@ public class YahooExchangeService implements RateIngestion {
 
 		List<Rate> rates = new ArrayList<Rate>();
 		for (final String rateQuery : rateQueryChunks) {
-			threadExecutor.execute(new Runnable() {
+			threadExecutor.execute(() -> {
+                yahooFinanaceManager.setExchangeQuery(rateQuery);
+                final List<? extends ExchangeRate> providedRates = yahooFinanaceManager
+                        .provideRate();
 
-				@Override
-				public void run() {
-					yahooFinanaceManager.setExchangeQuery(rateQuery);
-					final List<? extends ExchangeRate> providedRates = yahooFinanaceManager
-							.provideRate();
+                for (ExchangeRate exchangeRate : providedRates) {
 
-					for (ExchangeRate exchangeRate : providedRates) {
+                    Map<String, String> values = new HashMap<String, String>();
+                    values.put(exchangeRate.toCurrency(),
+                            exchangeRate.rate());
 
-						Map<String, String> values = new HashMap<String, String>();
-						values.put(exchangeRate.toCurrency(),
-								exchangeRate.rate());
-
-						Rate r = new Rate();
-						r.setKey(Rate.key(exchangeRate.fromCurrency()));
-						r.setValue(values);
-						rates.add(r);
-					}
-				}
-			});
+                    Rate r = new Rate();
+                    r.setKey(Rate.key(exchangeRate.fromCurrency()));
+                    r.setValue(values);
+                    rates.add(r);
+                }
+            });
 
 		}
 
