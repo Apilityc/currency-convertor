@@ -52,7 +52,8 @@ public class YahooExchangeService implements RateIngestion {
         ExecutorService threadExecutor = Executors.newFixedThreadPool(5);
 
         List<Rate> rates = new ArrayList<Rate>();
-        for (final String rateQuery : rateQueryChunks) {
+
+        rateQueryChunks.stream().forEach(rateQuery -> {
             threadExecutor.execute(() -> {
                 yahooFinanaceManager.setExchangeQuery(rateQuery);
                 final List<? extends ExchangeRate> providedRates = yahooFinanaceManager
@@ -68,8 +69,7 @@ public class YahooExchangeService implements RateIngestion {
                     return r;
                 }).collect(Collectors.toList()).addAll(rates);
             });
-
-        }
+        });
 
         threadExecutor.shutdown();
         threadExecutor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
