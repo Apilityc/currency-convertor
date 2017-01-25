@@ -1,11 +1,11 @@
 package org.apilytic.currency.ingestion.vapor;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
-
 import org.apilytic.currency.ingestion.vapor.model.ISO4217Bean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
+
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
 
 /**
  * @author Georgi Lambov
