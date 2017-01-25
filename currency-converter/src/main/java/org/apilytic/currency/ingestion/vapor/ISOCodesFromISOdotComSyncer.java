@@ -1,15 +1,13 @@
 package org.apilytic.currency.ingestion.vapor;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.apilytic.currency.ingestion.vapor.model.CurrencyCode;
 import org.apilytic.currency.ingestion.vapor.model.ISO4217Bean;
 import org.apilytic.currency.persistence.domain.CurrencyExchange;
 import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Sync ISO codes with database.
