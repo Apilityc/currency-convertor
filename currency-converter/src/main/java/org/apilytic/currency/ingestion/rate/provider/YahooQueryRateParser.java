@@ -95,8 +95,6 @@ public class YahooQueryRateParser {
                 rateChunks.add(rates.toString());
             }
         }
-        rates = new StringBuilder();
-        ;
 
         return rateChunks;
     }
