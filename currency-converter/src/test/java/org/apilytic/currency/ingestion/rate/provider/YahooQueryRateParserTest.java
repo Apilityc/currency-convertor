@@ -111,13 +111,15 @@ public class YahooQueryRateParserTest {
         String[] currencies = {"GBP", "EUR", "JPY"};
 
         StringBuilder queryRate = new StringBuilder();
-        for (String currency : currencies) {
-            queryRate.append(String.format(queryRatePattern, "USD", currency));
-            queryRate.append(String.format(queryRatePattern, "CHF", currency));
-            queryRate.append(String.format(queryRatePattern, "CAD", currency));
-            // queryRate.append(String.format(queryRatePattern, "MXN",
-            // currency));
-        }
+
+        String rate = Arrays.stream(currencies).map(currency -> {
+            return String.format(queryRatePattern, "USD", currency) +
+                    String.format(queryRatePattern, "CHF", currency) +
+                    String.format(queryRatePattern, "CAD", currency);
+
+        }).collect(Collectors.joining());
+
+        queryRate.append(rate);
 
         return queryRate;
     }
