@@ -12,7 +12,7 @@ You can find brainstorming, stories, ideas and specifications in project's [Apil
 
 # Version history
 
-## 01.0.M2
+## 0.1.0.M2
 
 * Native java API for currency conversion
 * Saving lists in Redis
