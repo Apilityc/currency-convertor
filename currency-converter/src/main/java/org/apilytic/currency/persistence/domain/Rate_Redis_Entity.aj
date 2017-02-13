@@ -1,6 +1,10 @@
 package org.apilytic.currency.persistence.domain;
 
+import org.springframework.data.redis.core.RedisHash;
+
 privileged aspect Rate_Redis_Entity {
+
+	declare @type: CurrencyExchange :@RedisHash;
 
 	private static final String Rate.KEY = "query:%s";
 

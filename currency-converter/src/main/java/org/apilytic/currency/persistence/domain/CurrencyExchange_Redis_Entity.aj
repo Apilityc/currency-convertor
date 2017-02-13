@@ -1,9 +1,11 @@
 package org.apilytic.currency.persistence.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
 privileged aspect CurrencyExchange_Redis_Entity {
 
+	declare @type: CurrencyExchange :@RedisHash("currency_list");
 	//FIXME why when this is public is not accessible?
 	private static final String CurrencyExchange.KEY = "currency:list";
 

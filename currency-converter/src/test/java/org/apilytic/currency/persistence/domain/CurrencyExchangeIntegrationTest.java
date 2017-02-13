@@ -1,16 +1,16 @@
 package org.apilytic.currency.persistence.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Arrays;
-import java.util.List;
-
 import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.test.RooIntegrationTest;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RooIntegrationTest(entity = CurrencyExchange.class, transactional = false)
 public class CurrencyExchangeIntegrationTest {
@@ -22,7 +22,7 @@ public class CurrencyExchangeIntegrationTest {
 	private CurrencyExchangeDataOnDemand dod;
 
 	@Test
-	public void testSave() {
+	public void save() {
 		assertNotNull(
 				"Data on demand for 'CurrencyExchange failed to initialize correctly",
 				dod.getRandomCurrencyExchange());
@@ -40,7 +40,7 @@ public class CurrencyExchangeIntegrationTest {
 	}
 
 	@Test
-	public void testSaveWithArray() {
+	public void saveWithArray() {
 		assertNotNull(
 				"Data on demand for 'CurrencyExchange failed to initialize correctly",
 				dod.getRandomCurrencyExchange());
@@ -67,7 +67,7 @@ public class CurrencyExchangeIntegrationTest {
 	}
 
 	@Test
-	public void testFindOne() {
+	public void findOne() {
 		CurrencyExchange obj = dod.getRandomCurrencyExchange();
 		assertNotNull(
 				"Data on demand for 'CurrencyExchange failed to initialize correctly",
@@ -83,5 +83,16 @@ public class CurrencyExchangeIntegrationTest {
 		assertEquals(
 				"Find method for 'CurrencyExchange returned the incorrect identifier",
 				key, obj.getKey());
+	}
+
+	@Test
+	public void repositorySave() {
+		CurrencyExchange e = new CurrencyExchange();
+		e.setTitle("repo title");
+		e.setKey("repo_key");
+
+		currencyExchangeRepo.save(e);
+
+		assertEquals("repo title", currencyExchangeRepo.findOne("repo_key").getTitle());
 	}
 }

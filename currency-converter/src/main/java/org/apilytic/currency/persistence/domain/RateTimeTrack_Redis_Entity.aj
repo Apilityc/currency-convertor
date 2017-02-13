@@ -1,6 +1,10 @@
 package org.apilytic.currency.persistence.domain;
 
+import org.springframework.data.redis.core.RedisHash;
+
 public privileged aspect RateTimeTrack_Redis_Entity {
+
+	declare @type: CurrencyExchange :@RedisHash;
 
 	private String RateTimeTrack.key;
 	

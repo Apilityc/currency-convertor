@@ -8,6 +8,6 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 public class CurrencyExchange {
 
-	private String title;
+    private String title;
 
 }
