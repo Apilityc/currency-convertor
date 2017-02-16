@@ -1,18 +1,14 @@
 package org.apilytic.currency.persistence.domain;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import javax.annotation.PostConstruct;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SetOperations;
-import org.springframework.data.redis.serializer.JacksonJsonRedisSerializer;
-import org.springframework.stereotype.Component;
 
 @Component
 public class CurrencyExchangeDataOnDemand {
@@ -21,17 +17,22 @@ public class CurrencyExchangeDataOnDemand {
 	private Random rnd = new SecureRandom();
 
 	@Autowired
-	private RedisTemplate<String, CurrencyExchange> template;
+	private CurrencyExchangeRepository currencyExchangeRepo;
 
-	@PostConstruct
-	public void wiring() {
-		template.setValueSerializer(new JacksonJsonRedisSerializer<CurrencyExchange>(
-				CurrencyExchange.class));
-	}
+//	@Autowired
+//	private RedisTemplate<String, CurrencyExchange> template;
+//
+//	@PostConstruct
+//	public void wiring() {
+//		template.setValueSerializer(new JacksonJsonRedisSerializer<CurrencyExchange>(
+//				CurrencyExchange.class));
+//	}
 
 	public CurrencyExchange getNewTransientCurrencyExchange(int index) {
 		CurrencyExchange obj = new CurrencyExchange();
-		obj.setKey(CurrencyExchange.key(String.valueOf(index)));
+
+		obj.setKey("currency:list");
+//		obj.setIndex(String.valueOf(index));
 		obj.setTitle(RandomStringUtils.randomAlphabetic(3));
 
 		return obj;
@@ -48,21 +49,15 @@ public class CurrencyExchangeDataOnDemand {
 		int from = 0;
 		int to = 10;
 
-		SetOperations<String, CurrencyExchange> opsForSet = template
-				.opsForSet();
+		data = new ArrayList<>();
 
-		data = new ArrayList<CurrencyExchange>();
-
-		// FIXME provide findAllImplementation
 		for (int i = from; i < to; i++) {
-			String key = CurrencyExchange.key(String.valueOf(i));
 
-			if (opsForSet.members(key).size() == 0) {
+			if (currencyExchangeRepo.count() == 0) {
 				continue;
 			}
 
-			// FIXME work with multiple
-			CurrencyExchange next = opsForSet.members(key).iterator().next();
+			CurrencyExchange next = currencyExchangeRepo.findAll().iterator().next();
 			data.add(next);
 		}
 
@@ -72,7 +67,7 @@ public class CurrencyExchangeDataOnDemand {
 
 		for (int i = from; i < to; i++) {
 			CurrencyExchange obj = getNewTransientCurrencyExchange(i);
-			opsForSet.add(CurrencyExchange.key(String.valueOf(i)), obj);
+			currencyExchangeRepo.save(obj);
 			data.add(obj);
 		}
 	}

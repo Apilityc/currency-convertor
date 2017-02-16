@@ -1,16 +1,16 @@
 package org.apilytic.currency.persistence.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.apilytic.currency.persistence.repository.RateTimeTrackRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JacksonJsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.roo.addon.test.RooIntegrationTest;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RooIntegrationTest(entity = RateTimeTrack.class, transactional = false)
 public class RateTimeTrackIntegrationTest {
@@ -26,7 +26,7 @@ public class RateTimeTrackIntegrationTest {
 
 	@Before
 	public void initMethod() {
-		template.setValueSerializer(new JacksonJsonRedisSerializer<RateTimeTrack>(
+		template.setValueSerializer(new Jackson2JsonRedisSerializer<RateTimeTrack>(
 				RateTimeTrack.class));
 	}
 
