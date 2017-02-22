@@ -18,6 +18,7 @@ import java.util.Set;
 
 /**
  * @author Georgi Lambov
+ * @deprecated temp deprecated to check possibility to work without this impl.
  */
 @Service
 @Primary
@@ -38,6 +39,7 @@ public class CurrencyExchangeService implements CurrencyExchangeRepository {
 
 	@Override
 	public <S extends CurrencyExchange> Iterable<S> save(Iterable<S> entities) {
+		template.setValueSerializer(new Jackson2JsonRedisSerializer<CurrencyExchange>(CurrencyExchange.class));
 		CurrencyExchange[] values = new CurrencyExchange[]{};
 
 		for (CurrencyExchange entity : entities) {

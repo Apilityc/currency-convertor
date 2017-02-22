@@ -31,7 +31,7 @@ public class ISOCodesFromISOdotComSyncerIntegrationTest {
 	private SetOperations<String, CurrencyExchange> setOps;
 
 	@Test
-	public void testSyncWithCorrectValues() {
+	public void syncWithCorrectValues() {
 		Integer initialSize = fetchISOCodes.fetch().getCurrencyTable()
 				.getCurrencyCodes().size();
 
