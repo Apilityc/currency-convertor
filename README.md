@@ -25,10 +25,5 @@ You can find brainstorming, stories, ideas and specifications in project's [Apil
 * Currency cross-references are imported async in threadpool with size 5
 * Support Yahoo Fianance provider
 
-# Running
-
-	mvn install
-	mvn jetty:run
-
 [Apilytic Wiki]: https://github.com/Apilytic/currency-converter/wiki
 
