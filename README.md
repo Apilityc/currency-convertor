@@ -12,6 +12,17 @@ You can find brainstorming, stories, ideas and specifications in project's [Apil
 
 # Version history
 
+## 0.1.0.M3
+
+* Java 8 streams
+* Update dependencies 
+  * spring-version 4.3.6.RELEASE 
+  * spring-data 1.8.0.RELEASE
+  * spring-roo 1.3.2.RELEASE
+  * JacksonJson2
+* Include spring-data-redis services
+* Remove spring-integration project
+
 ## 0.1.0.M2
 
 * Native java API for currency conversion
