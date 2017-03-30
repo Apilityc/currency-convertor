@@ -18,7 +18,6 @@ import java.util.Set;
 
 /**
  * @author Georgi Lambov
- * @deprecated temp deprecated to check possibility to work without this impl.
  */
 @Service
 @Primary
