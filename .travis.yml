@@ -4,11 +4,3 @@ jdk:
   - oraclejdk8
 services:
   - redis-server
-script:
-  - mvn test -P unitTest -pl currency-converter
-  - mvn test -P domainIntegrationTest -pl currency-converter
-  - mvn test -P serviceIntegrationTest -pl currency-converter
-  - mvn test -P apiTest -pl currency-converter
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)

@@ -1,9 +1,0 @@
-log.roo
-.classpath
-.project
-.idea
-/.settings
-/target
-/.springBeans
-/test-output
-*.iml
