@@ -3,6 +3,9 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'application'
+
+mainClassName = 'org.apilytic.currency.HelloWorld'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -11,7 +14,18 @@ repositories {
     mavenCentral()
 }
 
+ext.deps = [
+        springVersion    : '4.3.7.RELEASE',
+        springDataVersion: '1.8.0.RELEASE',
+        aspectjVersion   : '1.8.10'
+]
+
 dependencies {
+    compile 'org.aspectj:aspectjtools:' + deps.aspectjVersion
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+    compile 'org.springframework:spring-context:' + deps.springVersion
+    compile 'org.springframework:spring-aspects:' + deps.springVersion
+    compile 'org.springframework.data:spring-data-redis:' + deps.springDataVersion
+    compile 'redis.clients:jedis:2.9.0'
 }
