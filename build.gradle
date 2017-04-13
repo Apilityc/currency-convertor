@@ -1,14 +1,31 @@
 group 'org.apilytic'
 version '1.0-SNAPSHOT'
 
+project.ext {
+    aspectjVersion = '1.8.10'
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'aspectj'
 apply plugin: 'application'
 
 mainClassName = 'org.apilytic.currency.HelloWorld'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+buildscript {
+    repositories {
+        maven {
+            url "https://maven.eveoh.nl/content/repositories/releases"
+        }
+    }
+
+    dependencies {
+        classpath "nl.eveoh:gradle-aspectj:1.6"
+    }
+}
 
 repositories {
     mavenCentral()
@@ -20,13 +37,18 @@ ext.deps = [
         aspectjVersion   : '1.8.10'
 ]
 
+compileAspect {
+    xlint = 'warning'
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile 'org.springframework:spring-test:' + deps.springVersion
-    compile 'org.aspectj:aspectjtools:' + deps.aspectjVersion
+//    compile 'org.aspectj:aspectjtools:' + deps.aspectjVersion
     compile 'org.springframework:spring-context:' + deps.springVersion
-    compile 'org.springframework:spring-aspects:' + deps.springVersion
+    aspectpath 'org.springframework:spring-aspects:' + deps.springVersion
     compile 'org.springframework.data:spring-data-redis:' + deps.springDataVersion
     compile 'io.reactivex.rxjava2:rxjava:2.0.8'
     compile 'redis.clients:jedis:2.9.0'
 }
+
