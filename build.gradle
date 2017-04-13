@@ -29,6 +29,7 @@ buildscript {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 ext.deps = [
@@ -43,6 +44,7 @@ compileAspect {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "org.mockito:mockito-core:2.+"
     testCompile 'org.springframework:spring-test:' + deps.springVersion
 //    compile 'org.aspectj:aspectjtools:' + deps.aspectjVersion
     compile 'org.springframework:spring-context:' + deps.springVersion

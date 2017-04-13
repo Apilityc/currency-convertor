@@ -1,6 +1,7 @@
 package org.apilytic.currency;
 
 import io.reactivex.Flowable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -9,8 +10,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class HelloWorld {
 
+	@Autowired
+	private Service service;
+
 	public int sum(int a, int b) {
-		return a + b;
+		return service.output(a) + service.output(b);
 	}
 
 	public static void main(String[] args) {
