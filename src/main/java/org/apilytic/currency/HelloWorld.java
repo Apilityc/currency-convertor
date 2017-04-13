@@ -4,10 +4,12 @@ import io.reactivex.Flowable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by g on 4/2/17.
  */
+@Component
 public class HelloWorld {
 
 	@Autowired
