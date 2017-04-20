@@ -28,13 +28,12 @@ public class CurrencyExchangeIntegrationTest {
 
 	@Test
 	public void saveWithCustomId() {
-
 		CurrencyExchange e = new CurrencyExchange();
 		e.setId("usd");
 		e.setTitle("usd:gbp:12.01");
 
 		repo.save(e);
 
-		assertEquals("usd:gpb:12.01", repo.findOne("usd").getTitle());
+		assertEquals("usd:gbp:12.01", repo.findOne("usd").getTitle());
 	}
 }
