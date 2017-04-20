@@ -12,4 +12,8 @@ public aspect CurrencyExchange_Entity {
 	public String CurrencyExchange.getId() {
 		return id;
 	}
+
+	public void CurrencyExchange.setId(String id) {
+		this.id = id;
+	}
 }
