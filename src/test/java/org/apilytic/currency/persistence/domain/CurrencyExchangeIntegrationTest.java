@@ -5,6 +5,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -18,22 +22,27 @@ public class CurrencyExchangeIntegrationTest {
 
 	@Test
 	public void save() {
+		Set<String> h = new HashSet<String>(Arrays.asList("usd", "gbp"));
 		CurrencyExchange e = new CurrencyExchange();
-		e.setTitle("repo title");
+		e.setTitles(h);
 
 		repo.save(e);
 
-		assertEquals("repo title", repo.findOne(e.getId()).getTitle());
+		Set<String> title = repo.findOne(e.getId()).getTitles();
+		assertEquals(2, title.stream().count());
 	}
 
 	@Test
 	public void saveWithCustomId() {
+		Set<String> h = new HashSet<String>(Arrays.asList("jpy", "eur"));
+
 		CurrencyExchange e = new CurrencyExchange();
-		e.setId("usd");
-		e.setTitle("usd:gbp:12.01");
+		e.setId("custom-id");
+		e.setTitles(h);
 
 		repo.save(e);
 
-		assertEquals("usd:gbp:12.01", repo.findOne("usd").getTitle());
+		Set<String> title = repo.findOne("custom-id").getTitles();
+		assertEquals(2, title.stream().count());
 	}
 }

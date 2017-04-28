@@ -1,17 +1,19 @@
 package org.apilytic.currency.persistence.domain;
 
 
+import java.util.Set;
+
 /**
  * Created by g on 4/13/17.
  */
 public class CurrencyExchange {
-	String title;
+	private Set<String> titles;
 
-	public String getTitle() {
-		return title;
+	public Set<String> getTitles() {
+		return titles;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTitles(Set<String> titles) {
+		this.titles = titles;
 	}
 }
