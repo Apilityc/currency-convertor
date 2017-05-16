@@ -45,4 +45,12 @@ public class CurrencyExchangeIntegrationTest {
 		Set<String> title = repo.findOne("custom-id").getTitles();
 		assertEquals(2, title.stream().count());
 	}
+
+	@Test
+	public void findAll() {
+		Iterable<CurrencyExchange> all = repo.findAll();
+		all.forEach(currency -> {
+			assertEquals(2, currency.getTitles().stream().count());
+		});
+	}
 }
