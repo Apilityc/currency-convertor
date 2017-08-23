@@ -4,9 +4,10 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- //TODO: add port, host, database -->
     <bean id="jedisConnectionFactory"
-          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"/>
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:hostName="${redis.host}" p:password="${redis.password}" p:port="${redis.port}"
+          p:database="${redis.database}"/>
 
     <bean id="stringRedisSerializer"
           class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
