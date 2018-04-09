@@ -12,6 +12,7 @@
     <bean id="stringRedisSerializer"
           class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
 
+    <!--TODO check performane with different serializers -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
           p:connectionFactory-ref="jedisConnectionFactory" p:defaultSerializer-ref="stringRedisSerializer"/>
 </beans>
