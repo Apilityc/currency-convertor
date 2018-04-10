@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 /**
  * Created by g on 4/14/17.
  */
-public aspect CurrencyExchange_Entity {
+privileged aspect CurrencyExchange_Entity {
 	@Id
 	String CurrencyExchange.id;
 
