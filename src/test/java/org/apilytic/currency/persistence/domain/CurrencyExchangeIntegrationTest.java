@@ -49,8 +49,6 @@ public class CurrencyExchangeIntegrationTest {
 	@Test
 	public void findAll() {
 		Iterable<CurrencyExchange> all = repo.findAll();
-		all.forEach(currency -> {
-			assertEquals(2, currency.getTitles().size());
-		});
+		all.forEach(currency -> assertEquals(2, currency.getTitles().size()));
 	}
 }
