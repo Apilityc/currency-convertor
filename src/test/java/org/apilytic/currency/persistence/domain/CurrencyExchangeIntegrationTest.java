@@ -29,7 +29,7 @@ public class CurrencyExchangeIntegrationTest {
 		repo.save(e);
 
 		Set title = repo.findOne(e.getId()).getTitles();
-		assertEquals(2, title.stream().count());
+		assertEquals(2, title.size());
 	}
 
 	@Test
@@ -43,14 +43,14 @@ public class CurrencyExchangeIntegrationTest {
 		repo.save(e);
 
 		Set title = repo.findOne("custom-id").getTitles();
-		assertEquals(2, title.stream().count());
+		assertEquals(2, title.size());
 	}
 
 	@Test
 	public void findAll() {
 		Iterable<CurrencyExchange> all = repo.findAll();
 		all.forEach(currency -> {
-			assertEquals(2, currency.getTitles().stream().count());
+			assertEquals(2, currency.getTitles().size());
 		});
 	}
 }
