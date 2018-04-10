@@ -9,11 +9,11 @@ import java.util.Set;
 public class CurrencyExchange {
 	private Set<String> titles;
 
-	public Set<String> getTitles() {
+	public Set getTitles() {
 		return titles;
 	}
 
-	public void setTitles(Set<String> titles) {
+	public void setTitles(Set titles) {
 		this.titles = titles;
 	}
 }

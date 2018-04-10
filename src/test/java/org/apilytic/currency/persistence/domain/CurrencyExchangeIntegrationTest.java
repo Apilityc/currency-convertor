@@ -22,19 +22,19 @@ public class CurrencyExchangeIntegrationTest {
 
 	@Test
 	public void save() {
-		Set<String> h = new HashSet<String>(Arrays.asList("usd", "gbp"));
+		Set h = new HashSet<>(Arrays.asList("usd", "gbp"));
 		CurrencyExchange e = new CurrencyExchange();
 		e.setTitles(h);
 
 		repo.save(e);
 
-		Set<String> title = repo.findOne(e.getId()).getTitles();
+		Set title = repo.findOne(e.getId()).getTitles();
 		assertEquals(2, title.stream().count());
 	}
 
 	@Test
 	public void saveWithCustomId() {
-		Set<String> h = new HashSet<String>(Arrays.asList("jpy", "eur"));
+		Set h = new HashSet<>(Arrays.asList("jpy", "eur"));
 
 		CurrencyExchange e = new CurrencyExchange();
 		e.setId("custom-id");
@@ -42,7 +42,7 @@ public class CurrencyExchangeIntegrationTest {
 
 		repo.save(e);
 
-		Set<String> title = repo.findOne("custom-id").getTitles();
+		Set title = repo.findOne("custom-id").getTitles();
 		assertEquals(2, title.stream().count());
 	}
 
