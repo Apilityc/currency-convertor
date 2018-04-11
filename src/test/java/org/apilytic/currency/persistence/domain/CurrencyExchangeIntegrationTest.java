@@ -24,11 +24,11 @@ public class CurrencyExchangeIntegrationTest {
 	public void save() {
 		Set h = new HashSet<>(Arrays.asList("usd", "gbp"));
 		CurrencyExchange e = new CurrencyExchange();
-		e.setTitles(h);
+		e.setCodes(h);
 
 		repo.save(e);
 
-		Set title = repo.findOne(e.getId()).getTitles();
+		Set title = repo.findOne(e.getId()).getCodes();
 		assertEquals(2, title.size());
 	}
 
@@ -38,17 +38,17 @@ public class CurrencyExchangeIntegrationTest {
 
 		CurrencyExchange e = new CurrencyExchange();
 		e.setId("custom-id");
-		e.setTitles(h);
+		e.setCodes(h);
 
 		repo.save(e);
 
-		Set title = repo.findOne("custom-id").getTitles();
+		Set title = repo.findOne("custom-id").getCodes();
 		assertEquals(2, title.size());
 	}
 
 	@Test
 	public void findAll() {
 		Iterable<CurrencyExchange> all = repo.findAll();
-		all.forEach(currency -> assertEquals(2, currency.getTitles().size()));
+		all.forEach(currency -> assertEquals(2, currency.getCodes().size()));
 	}
 }

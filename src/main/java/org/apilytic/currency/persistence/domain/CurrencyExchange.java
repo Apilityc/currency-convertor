@@ -7,13 +7,13 @@ import java.util.Set;
  * Created by g on 4/13/17.
  */
 public class CurrencyExchange {
-	private Set<String> titles;
+	private Set<String> codes;
 
-	public Set getTitles() {
-		return titles;
+	public Set getCodes() {
+		return codes;
 	}
 
-	public void setTitles(Set titles) {
-		this.titles = titles;
+	public void setCodes(Set codes) {
+		this.codes = codes;
 	}
 }
