@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by g on 4/13/17.
- */
 public class HelloWorldIntegrationTest {
 
 	@Autowired
