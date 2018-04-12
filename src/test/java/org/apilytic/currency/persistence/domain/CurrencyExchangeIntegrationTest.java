@@ -11,9 +11,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by g on 4/13/17.
- */
 @Rollback
 public class CurrencyExchangeIntegrationTest {
 
