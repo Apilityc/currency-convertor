@@ -10,9 +10,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-/**
- * Created by g on 4/3/17.
- */
 public class HelloWorldTest {
 
 	@InjectMocks

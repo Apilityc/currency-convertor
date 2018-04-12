@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertSame;
 
-/**
- * Created by g on 4/13/17.
- */
 public class ServiceTest {
 
 	private Service service;
