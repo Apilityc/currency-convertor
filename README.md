@@ -14,4 +14,4 @@ You can find brainstorming, stories, ideas and specifications in project's [Apil
 # Version history
 
 
-[Apilytic Wiki]: https://github.com/Apilytic/currency-converter/wik
+[Apilytic Wiki]: https://github.com/Apilytic/currency-converter/wiki
