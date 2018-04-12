@@ -4,7 +4,7 @@ package org.apilytic.currency.persistence.domain;
 import java.util.Set;
 
 /**
- * Created by g on 4/13/17.
+ * Stores supported currencies.
  */
 public class CurrencyExchange {
 	private Set<String> codes;
