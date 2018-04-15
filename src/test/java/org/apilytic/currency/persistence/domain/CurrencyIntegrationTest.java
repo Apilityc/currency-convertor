@@ -1,6 +1,6 @@
 package org.apilytic.currency.persistence.domain;
 
-import org.apilytic.currency.persistence.repository.CurrencyExchangeRepository;
+import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -12,15 +12,15 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 
 @Rollback
-public class CurrencyExchangeIntegrationTest {
+public class CurrencyIntegrationTest {
 
 	@Autowired
-	private CurrencyExchangeRepository repo;
+	private CurrencyRepository repo;
 
 	@Test
 	public void save() {
 		Set h = new HashSet<>(Arrays.asList("usd", "gbp"));
-		CurrencyExchange e = new CurrencyExchange();
+		Currency e = new Currency();
 		e.setCodes(h);
 
 		repo.save(e);
@@ -33,7 +33,7 @@ public class CurrencyExchangeIntegrationTest {
 	public void saveWithCustomId() {
 		Set h = new HashSet<>(Arrays.asList("jpy", "eur"));
 
-		CurrencyExchange e = new CurrencyExchange();
+		Currency e = new Currency();
 		e.setId("custom-id");
 		e.setCodes(h);
 
@@ -45,7 +45,7 @@ public class CurrencyExchangeIntegrationTest {
 
 	@Test
 	public void findAll() {
-		Iterable<CurrencyExchange> all = repo.findAll();
+		Iterable<Currency> all = repo.findAll();
 		all.forEach(currency -> assertEquals(2, currency.getCodes().size()));
 	}
 }

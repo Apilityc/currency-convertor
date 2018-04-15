@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Stores supported currencies.
  */
-public class CurrencyExchange {
+public class Currency {
 	private Set<String> codes;
 
 	public Set getCodes() {
