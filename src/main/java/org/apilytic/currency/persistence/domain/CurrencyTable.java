@@ -13,4 +13,11 @@ public class CurrencyTable {
 	@XmlElement(name = "CcyNtry")
 	private Set<CurrencyEntry> currencyEntries;
 
+	public Set<CurrencyEntry> getCurrencyEntries() {
+		return currencyEntries;
+	}
+
+	public void setCurrencyEntries(Set<CurrencyEntry> currencyEntries) {
+		this.currencyEntries = currencyEntries;
+	}
 }

@@ -37,4 +37,7 @@ public class CurrencyEntry {
 		return true;
 	}
 
+	public String getIsoCode() {
+		return isoCode;
+	}
 }

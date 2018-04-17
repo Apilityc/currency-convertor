@@ -1,9 +1,13 @@
 package org.apilytic.currency.ingestion.code;
 
+import org.apilytic.currency.persistence.domain.CurrencyEntry;
 import org.apilytic.currency.persistence.domain.ISO4217;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class IsoCodesFetcher {
 
@@ -19,12 +23,13 @@ public class IsoCodesFetcher {
 
 		ISO4217 iso = restTemplate.getForObject(isoCodesUri, ISO4217.class);
 
-//		Set<CurrencyEntry> cleanCodes = iso.getCurrencyTable().getCurrencyCodes()
-//				.stream()
-//				.filter(c -> !StringUtils.isBlank(c.getIsoCode()))
-//				.collect(Collectors.toSet());
-//		iso.getCurrencyTable().setCurrencyCodes(cleanCodes);
-//
+		Set<CurrencyEntry> cleanCodes = iso.getCurrencyTable().getCurrencyEntries()
+				.stream()
+				.filter(c -> StringUtils.hasText(c.getIsoCode()))
+				.collect(Collectors.toSet());
+
+		iso.getCurrencyTable().setCurrencyEntries(cleanCodes);
+
 		return iso;
 	}
 

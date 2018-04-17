@@ -12,4 +12,8 @@ public class ISO4217 {
 	@XmlElement(name = "CcyTbl")
 	private CurrencyTable currencyTable;
 
+	public CurrencyTable getCurrencyTable() {
+		return currencyTable;
+	}
+
 }
