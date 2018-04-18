@@ -3,6 +3,7 @@ package org.apilytic.currency.ingestion.code;
 import io.reactivex.Observable;
 import org.apilytic.currency.persistence.domain.ISO4217;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -48,6 +49,7 @@ public class IsoCodesFetcher {
 		return iso;
 	}
 
+	@Required
 	public void setIsoCodesUri(String isoCodesUri) {
 		this.isoCodesUri = isoCodesUri;
 	}
