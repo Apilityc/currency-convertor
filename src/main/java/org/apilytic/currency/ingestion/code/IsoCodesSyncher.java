@@ -7,7 +7,6 @@ import org.apilytic.currency.persistence.domain.ISO4217;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +17,7 @@ class IsoCodesSyncher implements IngestionSync {
 	private IsoCodesFetcher fetcher;
 	@Autowired
 	private CurrencyRepository repo;
+
 	private Currency currency;
 
 	@Override
@@ -25,6 +25,13 @@ class IsoCodesSyncher implements IngestionSync {
 		ISO4217 iso = fetcher.fetch();
 
 		Set codes = new HashSet();
+
+		/*
+		iso.getCurrencyTable().getCurrencyEntries().stream()
+				.map(o -> codes.add(o.getIsoCode()))
+				.collect(Collectors.toSet());
+		*/
+
 		Observable.fromIterable(iso.getCurrencyTable().getCurrencyEntries())
 				.flatMap(c -> Observable.just(c.getIsoCode()))
 				.subscribe(c -> codes.add(c));
