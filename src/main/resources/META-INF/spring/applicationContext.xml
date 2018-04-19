@@ -62,14 +62,19 @@
         </property>
     </bean>
 
+    <bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+    <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" />
+
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">
             <list>
                 <ref bean="marshallingHttpMessageConverter"/>
+                <ref bean="stringHttpMessageConverter"/>
+                <ref bean="jsonHttpMessageConverter"/>
             </list>
         </property>
     </bean>
-    
+
     <bean class="org.apilytic.currency.ingestion.code.IsoCodesFetcher">
         <property name="isoCodesUri" value="https://www.currency-iso.org/dam/downloads/lists/list_one.xml" />
     </bean>
