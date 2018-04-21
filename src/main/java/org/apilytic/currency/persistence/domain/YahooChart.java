@@ -7,9 +7,9 @@ import java.util.List;
 @JsonRootName("chart")
 public class YahooChart {
 
-	private List<YahooResult> result;
+	private List<Result> result;
 
-	public List<YahooResult> getResult() {
+	public List<Result> getResult() {
 		return result;
 	}
 
@@ -18,6 +18,20 @@ public class YahooChart {
 
 		public YahooChart getChart() {
 			return chart;
+		}
+	}
+
+	public static class Result {
+
+		private YahooMeta meta;
+		private YahooIndicators indicators;
+
+		public YahooIndicators getIndicators() {
+			return indicators;
+		}
+
+		public YahooMeta getMeta() {
+			return meta;
 		}
 	}
 }
