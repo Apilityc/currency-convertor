@@ -22,11 +22,10 @@ public class YahooChart {
 	}
 
 	public static class Result {
-
 		private Meta meta;
-		private YahooIndicators indicators;
+		private Indicators indicators;
 
-		public YahooIndicators getIndicators() {
+		public Indicators getIndicators() {
 			return indicators;
 		}
 
@@ -35,13 +34,29 @@ public class YahooChart {
 		}
 
 		public static class Meta {
-
 			private String currency;
 
 			public String getCurrency() {
 				return currency;
 			}
 		}
+
+		public static class Indicators {
+			private List<AdjClose> adjclose;
+
+			public List<AdjClose> getAdjclose() {
+				return adjclose;
+			}
+
+			public static class AdjClose {
+				private List adjclose;
+
+				public List getAdjclose() {
+					return adjclose;
+				}
+			}
+		}
 	}
+
 }
 
