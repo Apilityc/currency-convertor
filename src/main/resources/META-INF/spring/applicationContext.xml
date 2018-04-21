@@ -12,7 +12,7 @@
         application context files in the form of ${propertyKey}. -->
     <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
 
-    <!-- Turn on AspectJ @Configurable support. As a result, any time you instantiate
+    <!-- Turn on AspectJ @Configurable support. As a results, any time you instantiate
         an object, Spring will attempt to perform dependency injection on that object.
         This occurs for instantiation via the "new" keyword, as well as via reflection.
         This is possible because AspectJ is used to "weave" Roo-based applications
