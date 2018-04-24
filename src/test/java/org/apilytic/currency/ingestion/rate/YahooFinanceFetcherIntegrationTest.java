@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class YahooFinanceFetcherIntegrationTest {
 
 	@Autowired
-	private YahooFinanceFetcher fetcher;
+	private RateFetch fetcher;
 
 	@Test
 	public void fetch() {

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class YahooFinanceFetcher {
+public class YahooFinanceFetcher implements RateFetch {
 
 	private static final String URL = "https://query1.finance.yahoo" +
 			".com/v8/finance/chart/EURUSD=X?region=US&lang=en-US&range=1d&includePrePost=false&interval=1d";
