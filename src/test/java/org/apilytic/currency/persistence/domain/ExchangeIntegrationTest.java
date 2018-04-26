@@ -19,7 +19,7 @@ public class ExchangeIntegrationTest {
 
 	@Test
 	public void save() {
-		Map h = new HashMap<String, String>() {{
+		Map h = new HashMap() {{
 			put("USD", "1.9");
 			put("EUR", "1.8");
 		}};
@@ -35,7 +35,7 @@ public class ExchangeIntegrationTest {
 
 	@Test
 	public void saveWithCustomId() {
-		Map h = new HashMap<String, String>() {{
+		Map h = new HashMap() {{
 			put("USD", "1.9");
 		}};
 
