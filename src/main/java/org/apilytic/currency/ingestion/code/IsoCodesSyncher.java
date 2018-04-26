@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Required;
 import java.util.HashSet;
 import java.util.Set;
 
-class IsoCodesSyncher implements IngestionSync {
+public class IsoCodesSyncher implements IngestionSync {
 
 	@Autowired
 	private IsoCodesFetcher fetcher;
