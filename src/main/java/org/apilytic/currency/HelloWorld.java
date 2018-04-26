@@ -2,6 +2,7 @@ package org.apilytic.currency;
 
 import io.reactivex.Flowable;
 import org.apilytic.currency.ingestion.code.IsoCodesSyncher;
+import org.apilytic.currency.ingestion.rate.RateSyncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -28,6 +29,9 @@ public class HelloWorld {
 		if (command[0].equals("ingestion")) {
 			if (command[1].equals("currency")) {
 				IsoCodesSyncher syncher = context.getBean(IsoCodesSyncher.class);
+				syncher.sync();
+			} else if (command[1].equals("exchange")) {
+				RateSyncher syncher = context.getBean(RateSyncher.class);
 				syncher.sync();
 			}
 		}
