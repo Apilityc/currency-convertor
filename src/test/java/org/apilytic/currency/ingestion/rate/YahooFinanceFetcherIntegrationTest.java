@@ -22,7 +22,9 @@ public class YahooFinanceFetcherIntegrationTest {
 	public void retrieveRate() {
 		YahooChart fetcher = this.fetcher.fetch();
 
-		String rate = fetcher.getResult().get(0).getIndicators().getAdjclose().get(0)
+		String rate = fetcher
+				.getResult().get(0)
+				.getIndicators().getAdjclose().get(0)
 				.getAdjclose().get(0);
 
 		assertNotNull(rate);
