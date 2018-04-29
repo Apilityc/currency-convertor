@@ -20,9 +20,14 @@ public class YahooFinanceFetcherIntegrationTest {
 
 	@Test
 	public void retrieveRate() {
-		YahooChart fetch = fetcher.fetch();
+		YahooChart fetcher = this.fetcher.fetch();
 
-		fetch.getResult().stream()
+		String rate = fetcher.getResult().get(0).getIndicators().getAdjclose().get(0)
+				.getAdjclose().get(0);
+
+		assertNotNull(rate);
+
+		fetcher.getResult().stream()
 				.findFirst().get().getIndicators().getAdjclose()
 				.stream().findFirst().get()
 				.getAdjclose().stream()
@@ -30,7 +35,7 @@ public class YahooFinanceFetcherIntegrationTest {
 				.findFirst();
 
 
-		fetch.getResult().stream()
+		fetcher.getResult().stream()
 				.peek(s -> s.getIndicators().getAdjclose()
 						.stream().peek(e -> e.getAdjclose().stream()
 								.peek(i -> assertNotNull(i))
