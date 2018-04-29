@@ -49,9 +49,9 @@ public class YahooChart {
 			}
 
 			public static class AdjClose {
-				private List adjclose;
+				private List<String> adjclose;
 
-				public List getAdjclose() {
+				public List<String> getAdjclose() {
 					return adjclose;
 				}
 			}
