@@ -26,7 +26,7 @@ public class YahooChartParserTest {
 		when(indicators.getAdjclose()).thenReturn(Arrays.asList(adjClose));
 		when(adjClose.getAdjclose()).thenReturn(Arrays.asList("1"));
 
-		YahooChartParser parser = new YahooChartParser();
+		RateParser parser = new YahooChartParser();
 
 		parser.parse(yahooChart);
 
