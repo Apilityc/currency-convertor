@@ -1,6 +1,7 @@
 package org.apilytic.currency.ingestion.rate;
 
 import org.apilytic.currency.ingestion.IngestionSync;
+import org.apilytic.currency.ingestion.rate.parser.RateParser;
 import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.Exchange;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
@@ -21,6 +22,10 @@ public class RateSyncher implements IngestionSync {
 	private ExchangeRepository exchangeRepo;
 	@Autowired
 	private CurrencyRepository currencyRepo;
+	@Autowired
+	private RateFetch rateFech;
+	@Autowired
+	private RateParser rateParser;
 
 	@Override
 	public void sync() {
@@ -29,13 +34,17 @@ public class RateSyncher implements IngestionSync {
 
 		currencies.peek(c -> {
 			Map<String, String> h = c.getCodes().stream()
-					.collect(Collectors.toMap(x -> x, x -> "1"));
+					.collect(Collectors.toMap(x -> x, x -> "0"));
 
 			List<Exchange> exchanges = c.getCodes().stream()
 					.map(code -> {
+
+						String rate = rateParser.parse(rateFech.fetch());
+
 						Map<String, String> filterCurrentCode = h.entrySet().stream()
 								.filter(x -> !x.getKey().equals(code))
-								.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+								.collect(Collectors.toMap(
+										Map.Entry::getKey, entry -> rate));
 
 						Exchange e = new Exchange();
 						e.setId(code);
