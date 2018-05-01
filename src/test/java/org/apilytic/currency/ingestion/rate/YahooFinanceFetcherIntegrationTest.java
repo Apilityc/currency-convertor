@@ -14,13 +14,13 @@ public class YahooFinanceFetcherIntegrationTest {
 
 	@Test
 	public void fetch() {
-		YahooChart fetch = fetcher.fetch();
+		YahooChart fetch = fetcher.fetch("EURUSD");
 		assertEquals(1, fetch.getResult().size());
 	}
 
 	@Test
 	public void retrieveRate() {
-		YahooChart fetcher = this.fetcher.fetch();
+		YahooChart fetcher = this.fetcher.fetch("EURUSD");
 
 		String rate = fetcher
 				.getResult().get(0)

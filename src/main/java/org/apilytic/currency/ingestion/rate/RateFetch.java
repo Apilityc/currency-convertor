@@ -9,5 +9,5 @@ public interface RateFetch {
 	 *
 	 * @return
 	 */
-	YahooChart fetch();
+	YahooChart fetch(String currencyPair);
 }
