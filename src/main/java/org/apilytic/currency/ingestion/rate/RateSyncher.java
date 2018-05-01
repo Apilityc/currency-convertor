@@ -36,23 +36,20 @@ public class RateSyncher implements IngestionSync {
 			Map<String, String> h = c.getCodes().stream()
 					.collect(Collectors.toMap(x -> x, x -> "0"));
 
-			List<Exchange> exchanges = c.getCodes().stream()
-					.map(code -> {
+			List<Exchange> exchanges = c.getCodes().stream().map(code -> {
+				String rate = rateParser.parse(rateFech.fetch());
 
-						String rate = rateParser.parse(rateFech.fetch());
+				Map<String, String> filterCurrentCode = h.entrySet().stream()
+						.filter(x -> !x.getKey().equals(code))
+						.collect(Collectors.toMap(
+								Map.Entry::getKey, entry -> rate));
 
-						Map<String, String> filterCurrentCode = h.entrySet().stream()
-								.filter(x -> !x.getKey().equals(code))
-								.collect(Collectors.toMap(
-										Map.Entry::getKey, entry -> rate));
+				Exchange e = new Exchange();
+				e.setId(code);
+				e.setRates(filterCurrentCode);
 
-						Exchange e = new Exchange();
-						e.setId(code);
-						e.setRates(filterCurrentCode);
-
-						return e;
-					})
-					.collect(Collectors.toList());
+				return e;
+			}).collect(Collectors.toList());
 
 			exchangeRepo.save(exchanges);
 		}).findFirst();
