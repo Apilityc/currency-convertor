@@ -29,7 +29,6 @@ public class RateSyncher implements IngestionSync {
 
 	@Override
 	public void sync() {
-
 		Stream<Currency> currencies = StreamSupport.stream(currencyRepo.findAll().spliterator(), false);
 
 		currencies.peek(c -> {
