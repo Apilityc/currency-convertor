@@ -23,9 +23,12 @@ public class RateSyncher implements IngestionSync {
 	@Autowired
 	private CurrencyRepository currencyRepo;
 	@Autowired
-	private RateFetch rateFech;
+	private RateFetch rateFecher;
 	@Autowired
 	private RateParser rateParser;
+
+	@Autowired
+	private Exchange exchange;
 
 	@Override
 	public void sync() {
@@ -40,14 +43,13 @@ public class RateSyncher implements IngestionSync {
 						.filter(x -> !x.getKey().equals(code))
 						.collect(Collectors.toMap(
 								Map.Entry::getKey, entry -> rateParser.parse(
-										rateFech.fetch(code + entry.getKey()))
+										rateFecher.fetch(code + entry.getKey()))
 						));
 
-				Exchange e = new Exchange();
-				e.setId(code);
-				e.setRates(filterCurrentCode);
+				exchange.setId(code);
+				exchange.setRates(filterCurrentCode);
 
-				return e;
+				return exchange;
 			}).collect(Collectors.toList());
 
 			exchangeRepo.save(exchanges);
