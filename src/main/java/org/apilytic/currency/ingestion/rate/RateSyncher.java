@@ -23,7 +23,7 @@ public class RateSyncher implements IngestionSync {
 	@Autowired
 	private CurrencyRepository currencyRepo;
 	@Autowired
-	private RateFetch rateFecher;
+	private RateFetch rateFetcher;
 	@Autowired
 	private RateParser rateParser;
 
@@ -43,7 +43,7 @@ public class RateSyncher implements IngestionSync {
 						.filter(x -> !x.getKey().equals(code))
 						.collect(Collectors.toMap(
 								Map.Entry::getKey, entry -> rateParser.parse(
-										rateFecher.fetch(code + entry.getKey()))
+										rateFetcher.fetch(code + entry.getKey()))
 						));
 
 				exchange.setId(code);
