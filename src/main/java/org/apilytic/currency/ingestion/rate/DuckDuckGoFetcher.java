@@ -35,14 +35,14 @@ public class DuckDuckGoFetcher {
 				.replace(");", "");
 
 		ObjectMapper mapper = new ObjectMapper();
-		DuckDuckGoChart holder = null;
+		DuckDuckGoChart chart = null;
 
 		try {
-			holder = mapper.readValue(jsonString, DuckDuckGoChart.class);
+			chart = mapper.readValue(jsonString, DuckDuckGoChart.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return holder;
+		return chart;
 	}
 }
