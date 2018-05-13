@@ -85,4 +85,6 @@
     <bean class="org.apilytic.currency.ingestion.code.IsoCodesSyncher">
         <property name="currency" ref="currency"/>
     </bean>
+
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
 </beans>

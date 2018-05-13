@@ -22,6 +22,9 @@ public class DuckDuckGoFetcher {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Autowired
+	private ObjectMapper mapper;
+
 	public DuckDuckGoChart fetch(String currencyPair) {
 
 		HttpHeaders requestHeaders = new HttpHeaders();
@@ -34,7 +37,6 @@ public class DuckDuckGoFetcher {
 				.replace("ddg_spice_currency(", "")
 				.replace(");", "");
 
-		ObjectMapper mapper = new ObjectMapper();
 		DuckDuckGoChart chart = null;
 
 		try {
