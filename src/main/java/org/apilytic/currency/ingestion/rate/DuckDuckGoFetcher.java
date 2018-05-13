@@ -5,7 +5,6 @@ import org.apilytic.currency.persistence.domain.DuckDuckGoChart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,11 +24,10 @@ public class DuckDuckGoFetcher {
 	@Autowired
 	private ObjectMapper mapper;
 
-	public DuckDuckGoChart fetch(String currencyPair) {
+	@Autowired
+	private HttpEntity requestEntity;
 
-		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.add("User-Agent", "curl");
-		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
+	public DuckDuckGoChart fetch(String currencyPair) {
 
 		ResponseEntity<String> r = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
 

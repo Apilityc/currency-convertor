@@ -87,4 +87,22 @@
     </bean>
 
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+
+    <bean id="httpHeaders" class="org.springframework.http.HttpHeaders"/>
+    <bean id="requestEntity" class="org.springframework.http.HttpEntity">
+        <constructor-arg ref="httpHeaders"/>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="httpHeaders"/>
+        <property name="targetMethod">
+            <value>add</value>
+        </property>
+        <property name="arguments">
+            <list>
+                <value>User-Agent</value>
+                <value>curl</value>
+            </list>
+        </property>
+    </bean>
 </beans>
