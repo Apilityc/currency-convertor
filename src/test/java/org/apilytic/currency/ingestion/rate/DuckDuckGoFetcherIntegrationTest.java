@@ -1,5 +1,6 @@
 package org.apilytic.currency.ingestion.rate;
 
+import org.apilytic.currency.persistence.domain.DuckDuckGoChart;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,7 +13,7 @@ public class DuckDuckGoFetcherIntegrationTest {
 
 	@Test
 	public void fetch() {
-		String fetch = fetcher.fetch("EURUSD");
+		DuckDuckGoChart fetch = fetcher.fetch("EURUSD");
 		assertNotNull(fetch);
 	}
 }

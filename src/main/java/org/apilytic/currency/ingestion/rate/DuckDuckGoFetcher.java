@@ -1,5 +1,7 @@
 package org.apilytic.currency.ingestion.rate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apilytic.currency.persistence.domain.DuckDuckGoChart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -8,6 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 
 @Service
 public class DuckDuckGoFetcher {
@@ -18,7 +22,7 @@ public class DuckDuckGoFetcher {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	public String fetch(String currencyPair) {
+	public DuckDuckGoChart fetch(String currencyPair) {
 
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.add("User-Agent", "curl");
@@ -26,8 +30,19 @@ public class DuckDuckGoFetcher {
 
 		ResponseEntity<String> r = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
 
+		String jsonString = r.getBody()
+				.replace("ddg_spice_currency(", "")
+				.replace(");", "");
 
-		return r.getBody();
+		ObjectMapper mapper = new ObjectMapper();
+		DuckDuckGoChart holder = null;
 
+		try {
+			holder = mapper.readValue(jsonString, DuckDuckGoChart.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return holder;
 	}
 }
