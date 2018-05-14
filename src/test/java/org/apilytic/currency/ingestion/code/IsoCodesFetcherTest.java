@@ -48,7 +48,7 @@ public class IsoCodesFetcherTest {
 		when(currencyEntry.getIsoCode()).thenReturn("EUR");
 		when(currencyTable.getCurrencyEntries()).thenReturn(new HashSet<>(Arrays.asList(currencyEntry)));
 
-		fetcher.setIsoCodesUri("https://uri");
+		fetcher.setIsoCodesUrl("https://uri");
 		fetcher.fetch();
 
 		verify(restTemplate).getForObject("https://uri", ISO4217.class);
@@ -63,7 +63,7 @@ public class IsoCodesFetcherTest {
 
 		when(currencyTable.getCurrencyEntries()).thenReturn(new HashSet<>(Arrays.asList(currencyEntry, currencyEntry)));
 
-		fetcher.setIsoCodesUri("https://uri");
+		fetcher.setIsoCodesUrl("https://uri");
 		fetcher.fetch();
 
 		verify(restTemplate).getForObject("https://uri", ISO4217.class);

@@ -4,25 +4,29 @@ import io.reactivex.Observable;
 import org.apilytic.currency.persistence.domain.ISO4217;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 public class IsoCodesFetcher {
 
 	@Autowired
 	private RestTemplate restTemplate;
 
-	private String isoCodesUri;
+	@Value("${iso.codes.url}")
+	private String isoCodesUrl;
 
 	public ISO4217 fetch() {
-		if (isoCodesUri == null) {
+		if (isoCodesUrl == null) {
 			throw new IllegalArgumentException("missing currency iso codes uri");
 		}
 
-		ISO4217 iso = restTemplate.getForObject(isoCodesUri, ISO4217.class);
+		ISO4217 iso = restTemplate.getForObject(isoCodesUrl, ISO4217.class);
 		Set cleanCodes = new HashSet();
 
 		/* streams
@@ -49,8 +53,7 @@ public class IsoCodesFetcher {
 		return iso;
 	}
 
-	@Required
-	public void setIsoCodesUri(String isoCodesUri) {
-		this.isoCodesUri = isoCodesUri;
+	public void setIsoCodesUrl(String isoCodesUrl) {
+		this.isoCodesUrl = isoCodesUrl;
 	}
 }
