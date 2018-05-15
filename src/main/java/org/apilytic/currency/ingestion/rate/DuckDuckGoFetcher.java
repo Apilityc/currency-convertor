@@ -29,7 +29,8 @@ public class DuckDuckGoFetcher {
 
 	public DuckDuckGoChart fetch(String currencyPair) {
 
-		ResponseEntity<String> r = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+		ResponseEntity<String> r = restTemplate.exchange(url.replace("EURUSD", currencyPair), HttpMethod.GET,
+				requestEntity, String.class);
 
 		String jsonString = r.getBody()
 				.replace("ddg_spice_currency(", "")
