@@ -1,19 +1,17 @@
 package org.apilytic.currency.ingestion.code;
 
 import io.reactivex.Observable;
-import org.apilytic.currency.ingestion.IngestionSync;
 import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.ISO4217;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class IsoCodesSyncher implements IngestionSync {
+public class IsoCodesSyncher {
 
 	@Autowired
 	private IsoCodesFetcher fetcher;
@@ -22,7 +20,6 @@ public class IsoCodesSyncher implements IngestionSync {
 	@Autowired
 	private Currency currency;
 
-	@Override
 	public void sync() {
 		ISO4217 iso = fetcher.fetch();
 

@@ -1,6 +1,5 @@
 package org.apilytic.currency.ingestion.rate;
 
-import org.apilytic.currency.ingestion.IngestionSync;
 import org.apilytic.currency.ingestion.rate.parser.RateParser;
 import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.Exchange;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
-public class RateSyncher implements IngestionSync {
+public class RateSyncher {
 
 	@Autowired
 	private ExchangeRepository exchangeRepo;
@@ -29,7 +28,6 @@ public class RateSyncher implements IngestionSync {
 	@Autowired
 	private Exchange exchange;
 
-	@Override
 	public void sync() {
 		Stream<Currency> currencies = StreamSupport.stream(currencyRepo.findAll().spliterator(), false);
 

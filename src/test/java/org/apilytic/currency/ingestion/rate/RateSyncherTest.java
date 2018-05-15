@@ -1,6 +1,5 @@
 package org.apilytic.currency.ingestion.rate;
 
-import org.apilytic.currency.ingestion.IngestionSync;
 import org.apilytic.currency.ingestion.rate.parser.RateParser;
 import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.Exchange;
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 public class RateSyncherTest {
 
-	private IngestionSync syncher;
+	private RateSyncher syncher;
 
 	@Mock
 	private ExchangeRepository exchangeRepo;
@@ -59,7 +58,7 @@ public class RateSyncherTest {
 
 		syncher.sync();
 
-		assertTrue(syncher instanceof IngestionSync);
+		assertTrue(syncher instanceof RateSyncher);
 		verify(exchangeRepo).save(Arrays.asList(exchange));
 	}
 }
