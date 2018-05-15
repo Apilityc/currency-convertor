@@ -56,8 +56,7 @@
     <bean id="jaxbIsoCodeMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
         <property name="classesToBeBound">
             <list>
-                <value>org.apilytic.currency.persistence.domain.ISO4217
-                </value>
+                <value>org.apilytic.currency.persistence.domain.ISO4217</value>
             </list>
         </property>
     </bean>
@@ -78,11 +77,6 @@
 
     <bean id="currency" class="org.apilytic.currency.persistence.domain.Currency" scope="prototype"/>
     <bean id="exchange" class="org.apilytic.currency.persistence.domain.Exchange" scope="prototype"/>
-
-
-    <bean class="org.apilytic.currency.ingestion.code.IsoCodesSyncher">
-        <property name="currency" ref="currency"/>
-    </bean>
 
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
 

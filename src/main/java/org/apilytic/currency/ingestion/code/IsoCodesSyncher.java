@@ -7,17 +7,19 @@ import org.apilytic.currency.persistence.domain.ISO4217;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 public class IsoCodesSyncher implements IngestionSync {
 
 	@Autowired
 	private IsoCodesFetcher fetcher;
 	@Autowired
 	private CurrencyRepository repo;
-
+	@Autowired
 	private Currency currency;
 
 	@Override
