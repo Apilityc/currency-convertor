@@ -43,7 +43,6 @@ public class IsoCodesSyncher implements IngestionSync {
 		repo.save(currency);
 	}
 
-	@Required
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
