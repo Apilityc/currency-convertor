@@ -1,13 +1,11 @@
 package org.apilytic.currency.ingestion.rate;
 
-import org.apilytic.currency.persistence.domain.YahooChart;
-
-public interface RateFetch {
+public interface RateFetch<T> {
 
 	/**
 	 * Fetches rates from Yahoo provier.
 	 *
 	 * @return
 	 */
-	YahooChart fetch(String currencyPair);
+	T fetch(String currencyPair);
 }

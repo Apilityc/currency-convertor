@@ -10,7 +10,7 @@ import static org.junit.Assert.assertNotNull;
 public class YahooFinanceFetcherIntegrationTest {
 
 	@Autowired
-	private RateFetch fetcher;
+	private RateFetch<YahooChart> fetcher;
 
 	@Test
 	public void fetch() {

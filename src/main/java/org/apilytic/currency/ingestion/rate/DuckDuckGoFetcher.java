@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 
 @Service
-public class DuckDuckGoFetcher {
+public class DuckDuckGoFetcher implements RateFetch<DuckDuckGoChart> {
 
 	@Value("${duckduckgo.fetch.url}")
 	private String url;
