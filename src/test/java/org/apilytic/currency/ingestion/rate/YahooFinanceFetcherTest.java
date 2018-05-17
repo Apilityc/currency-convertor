@@ -1,5 +1,6 @@
 package org.apilytic.currency.ingestion.rate;
 
+import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.YahooChart;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,8 @@ public class YahooFinanceFetcherTest {
 	private RestTemplate restTemplate;
 	@Mock
 	private YahooChart.Holder holder;
+	@Mock
+	private CurrencyPair pair;
 
 	private RateFetch rateFetch;
 	private static final String URL = "https://yahoo?EURUSD=x";
@@ -35,19 +38,26 @@ public class YahooFinanceFetcherTest {
 	@Test
 	public void fetchDefaultCurrency() {
 		when(restTemplate.getForObject(URL, YahooChart.Holder.class)).thenReturn(holder);
+		when(pair.getFrom()).thenReturn("EUR");
+		when(pair.getTo()).thenReturn("USD");
 
-		rateFetch.fetch("EURUSD");
+		rateFetch.fetch(pair);
 
 		verify(restTemplate).getForObject(URL, YahooChart.Holder.class);
+		verify(pair).getFrom();
+		verify(pair).getTo();
 	}
 
 	@Test
 	public void fetch() {
 		when(restTemplate.getForObject(URL_JPY, YahooChart.Holder.class)).thenReturn(holder);
+		when(pair.getFrom()).thenReturn("JPY");
+		when(pair.getTo()).thenReturn("USD");
 
-		rateFetch.fetch("JPYUSD");
+		rateFetch.fetch(pair);
 
 		verify(restTemplate).getForObject(URL_JPY, YahooChart.Holder.class);
-
+		verify(pair).getFrom();
+		verify(pair).getTo();
 	}
 }
