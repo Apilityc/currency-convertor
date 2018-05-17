@@ -2,6 +2,7 @@ package org.apilytic.currency.ingestion.rate;
 
 import org.apilytic.currency.ingestion.rate.parser.RateParser;
 import org.apilytic.currency.persistence.domain.Currency;
+import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.Exchange;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.apilytic.currency.persistence.repository.ExchangeRepository;
@@ -27,6 +28,8 @@ public class RateSyncher {
 	private RateParser rateParser;
 	@Autowired
 	private Exchange exchange;
+	@Autowired
+	private CurrencyPair pair;
 
 	public void sync() {
 		Stream<Currency> currencies = StreamSupport.stream(currencyRepo.findAll().spliterator(), false);
@@ -40,8 +43,13 @@ public class RateSyncher {
 				Map<String, String> filterCurrentCode = h.entrySet().stream()
 						.filter(x -> !x.getKey().equals(code))
 						.collect(Collectors.toMap(
-								Map.Entry::getKey, entry -> rateParser.parse(
-										rateFetcher.fetch(code + entry.getKey()))
+								Map.Entry::getKey, entry -> {
+
+									pair.setFrom(code);
+									pair.setTo(entry.getKey());
+
+									return rateParser.parse(rateFetcher.fetch(pair));
+								}
 						));
 
 				exchange.setId(code);

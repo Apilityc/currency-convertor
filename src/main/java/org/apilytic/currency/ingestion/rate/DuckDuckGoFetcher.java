@@ -1,6 +1,7 @@
 package org.apilytic.currency.ingestion.rate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.DuckDuckGoChart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +28,12 @@ public class DuckDuckGoFetcher implements RateFetch<DuckDuckGoChart> {
 	@Autowired
 	private HttpEntity requestEntity;
 
-	public DuckDuckGoChart fetch(String currencyPair) {
+	public DuckDuckGoChart fetch(CurrencyPair pair) {
 
-		ResponseEntity<String> r = restTemplate.exchange(url.replace("EURUSD", currencyPair), HttpMethod.GET,
+		url.replace("EUR", pair.getFrom())
+				.replace("USD", pair.getTo());
+
+		ResponseEntity<String> r = restTemplate.exchange(url, HttpMethod.GET,
 				requestEntity, String.class);
 
 		String jsonString = r.getBody()

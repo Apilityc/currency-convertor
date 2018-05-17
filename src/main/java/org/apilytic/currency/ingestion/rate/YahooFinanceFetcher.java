@@ -1,5 +1,6 @@
 package org.apilytic.currency.ingestion.rate;
 
+import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.YahooChart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +19,11 @@ class YahooFinanceFetcher implements RateFetch<YahooChart> {
 	private RestTemplate restTemplate;
 
 	@Override
-	public YahooChart fetch(String currencyPair) {
+	public YahooChart fetch(CurrencyPair pair) {
 
 		YahooChart.Holder r = restTemplate.getForObject(
-				url.replace("EURUSD", currencyPair),
+				url.replace("EUR", pair.getFrom().toUpperCase())
+						.replace("USD", pair.getTo().toUpperCase()),
 				YahooChart.Holder.class);
 
 		return r.getChart();
