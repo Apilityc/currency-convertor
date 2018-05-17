@@ -1,6 +1,8 @@
 package org.apilytic.currency.ingestion.rate;
 
+import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.YahooChart;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,15 +14,24 @@ public class YahooFinanceFetcherIntegrationTest {
 	@Autowired
 	private RateFetch<YahooChart> fetcher;
 
+	@Autowired
+	private CurrencyPair pair;
+
+	@Before
+	public void init() {
+		pair.setFrom("EUR");
+		pair.setTo("USD");
+	}
+
 	@Test
 	public void fetch() {
-		YahooChart fetch = fetcher.fetch("EURUSD");
+		YahooChart fetch = fetcher.fetch(pair);
 		assertEquals(1, fetch.getResult().size());
 	}
 
 	@Test
 	public void retrieveRate() {
-		YahooChart fetcher = this.fetcher.fetch("EURUSD");
+		YahooChart fetcher = this.fetcher.fetch(pair);
 
 		String rate = fetcher
 				.getResult().get(0)
