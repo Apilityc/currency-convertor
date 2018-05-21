@@ -1,11 +1,13 @@
 package org.apilytic.currency.ingestion.rate.parser;
 
 import org.apilytic.currency.persistence.domain.YahooChart;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
+@Primary
 public class YahooChartParser implements RateParser<YahooChart> {
 
 	public String parse(YahooChart chart) {
