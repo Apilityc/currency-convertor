@@ -38,26 +38,26 @@ public class YahooFinanceFetcherTest {
 	@Test
 	public void fetchDefaultCurrency() {
 		when(restTemplate.getForObject(URL, YahooChart.Holder.class)).thenReturn(holder);
-		when(pair.getFrom()).thenReturn("EUR");
-		when(pair.getTo()).thenReturn("USD");
+		when(pair.from()).thenReturn("EUR");
+		when(pair.to()).thenReturn("USD");
 
 		rateFetch.fetch(pair);
 
 		verify(restTemplate).getForObject(URL, YahooChart.Holder.class);
-		verify(pair).getFrom();
-		verify(pair).getTo();
+		verify(pair).from();
+		verify(pair).to();
 	}
 
 	@Test
 	public void fetch() {
 		when(restTemplate.getForObject(URL_JPY, YahooChart.Holder.class)).thenReturn(holder);
-		when(pair.getFrom()).thenReturn("JPY");
-		when(pair.getTo()).thenReturn("USD");
+		when(pair.from()).thenReturn("JPY");
+		when(pair.to()).thenReturn("USD");
 
 		rateFetch.fetch(pair);
 
 		verify(restTemplate).getForObject(URL_JPY, YahooChart.Holder.class);
-		verify(pair).getFrom();
-		verify(pair).getTo();
+		verify(pair).from();
+		verify(pair).to();
 	}
 }

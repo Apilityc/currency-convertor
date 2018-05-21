@@ -6,7 +6,7 @@ public class CurrencyPair {
 
 	private String to;
 
-	public String getFrom() {
+	public String from() {
 		return from;
 	}
 
@@ -14,7 +14,7 @@ public class CurrencyPair {
 		this.from = from;
 	}
 
-	public String getTo() {
+	public String to() {
 		return to;
 	}
 

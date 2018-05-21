@@ -21,8 +21,8 @@ class YahooFinanceFetcher implements RateFetch<YahooChart> {
 	@Override
 	public YahooChart fetch(CurrencyPair pair) {
 
-		url = url.replace("EUR", pair.getFrom().toUpperCase())
-				.replace("USD", pair.getTo().toUpperCase());
+		url = url.replace("EUR", pair.from().toUpperCase())
+				.replace("USD", pair.to().toUpperCase());
 
 		YahooChart.Holder r = restTemplate.getForObject(url, YahooChart.Holder.class);
 
