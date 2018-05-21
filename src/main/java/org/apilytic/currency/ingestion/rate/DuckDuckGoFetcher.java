@@ -30,8 +30,8 @@ public class DuckDuckGoFetcher implements RateFetch<DuckDuckGoChart> {
 
 	public DuckDuckGoChart fetch(CurrencyPair pair) {
 
-		url.replace("EUR", pair.from())
-				.replace("USD", pair.to());
+		url = url.replace("eur", pair.to())
+				.replace("usd", pair.from());
 
 		ResponseEntity<String> r = restTemplate.exchange(url, HttpMethod.GET,
 				requestEntity, String.class);
