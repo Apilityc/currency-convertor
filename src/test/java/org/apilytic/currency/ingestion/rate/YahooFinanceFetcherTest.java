@@ -21,7 +21,8 @@ public class YahooFinanceFetcherTest {
 	@Mock
 	private CurrencyPair pair;
 
-	private RateFetch rateFetch;
+	private RateFetch fetcher;
+
 	private static final String URL = "https://yahoo?EURUSD=x";
 	private static final String URL_JPY = "https://yahoo?JPYUSD=x";
 
@@ -29,10 +30,10 @@ public class YahooFinanceFetcherTest {
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 
-		rateFetch = new YahooFinanceFetcher();
+		fetcher = new YahooFinanceFetcher();
 
-		ReflectionTestUtils.setField(rateFetch, "restTemplate", restTemplate);
-		ReflectionTestUtils.setField(rateFetch, "url", URL);
+		ReflectionTestUtils.setField(fetcher, "restTemplate", restTemplate);
+		ReflectionTestUtils.setField(fetcher, "url", URL);
 	}
 
 	@Test
@@ -41,7 +42,7 @@ public class YahooFinanceFetcherTest {
 		when(pair.from()).thenReturn("EUR");
 		when(pair.to()).thenReturn("USD");
 
-		rateFetch.fetch(pair);
+		fetcher.fetch(pair);
 
 		verify(restTemplate).getForObject(URL, YahooChart.Holder.class);
 		verify(pair).from();
@@ -54,7 +55,7 @@ public class YahooFinanceFetcherTest {
 		when(pair.from()).thenReturn("JPY");
 		when(pair.to()).thenReturn("USD");
 
-		rateFetch.fetch(pair);
+		fetcher.fetch(pair);
 
 		verify(restTemplate).getForObject(URL_JPY, YahooChart.Holder.class);
 		verify(pair).from();
