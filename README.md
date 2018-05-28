@@ -13,5 +13,13 @@ You can find brainstorming, stories, ideas and specifications in project's [Apil
 
 # Version history
 
+## 0.2.0.M1
+
+* Complete rewriting
+* Integrate new rate exchang services
+  * yahoo finance
+  * duckduckgo
+* RxJava instead of Java8 streams
+
 
 [Apilytic Wiki]: https://github.com/Apilytic/currency-converter/wiki
