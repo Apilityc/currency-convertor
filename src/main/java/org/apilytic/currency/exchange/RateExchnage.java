@@ -11,6 +11,6 @@ public interface RateExchnage {
 	 * @param pair
 	 * @return
 	 */
-	String exchnage(CurrencyPair pair);
+	String exchange(CurrencyPair pair);
 
 }
