@@ -11,6 +11,11 @@ There is an option to fetch rates directly from Yanoo Fianance services or Googl
 
 You can find brainstorming, stories, ideas and specifications in project's [Apilytic Wiki][].
 
+# Operations
+
+* Download currency iso codes to Redis
+* Ingestion rate exchanges
+
 # Version history
 
 ## 0.2.0.M1
