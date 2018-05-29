@@ -1,18 +1,40 @@
 package org.apilytic.currency.exchange;
 
 import org.apilytic.currency.persistence.domain.CurrencyPair;
+import org.apilytic.currency.persistence.domain.Exchange;
+import org.apilytic.currency.persistence.repository.ExchangeRepository;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.springframework.test.util.ReflectionTestUtils;
 
-import static org.junit.Assert.assertNull;
+import java.util.HashMap;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ExchangerTest {
 
 	@Test
 	public void exchange() {
-
-		CurrencyPair pair = Mockito.mock(CurrencyPair.class);
 		Exchanger exchanger = new Exchanger();
-		assertNull(exchanger.exchange(pair));
+
+		ExchangeRepository exchangeRepository = mock(ExchangeRepository.class);
+		Exchange exchange = mock(Exchange.class);
+		CurrencyPair pair = mock(CurrencyPair.class);
+
+		ReflectionTestUtils.setField(exchanger, "exchangeRepository", exchangeRepository);
+
+		when(pair.to()).thenReturn("EUR");
+		when(pair.from()).thenReturn("USD");
+		when(exchangeRepository.findOne("USD")).thenReturn(exchange);
+
+		when(exchange.getRates()).thenReturn(new HashMap() {{
+												 put("USD", "1.9");
+												 put("EUR", "1.8");
+											 }}
+		);
+
+		System.out.println(exchanger.exchange(pair));
+		assertEquals("1.8", exchanger.exchange(pair));
 	}
 }
