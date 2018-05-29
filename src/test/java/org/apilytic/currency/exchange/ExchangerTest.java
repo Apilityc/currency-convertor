@@ -9,7 +9,7 @@ import static org.junit.Assert.assertNull;
 public class ExchangerTest {
 
 	@Test
-	public void exchanger() {
+	public void exchange() {
 
 		CurrencyPair pair = Mockito.mock(CurrencyPair.class);
 		Exchanger exchanger = new Exchanger();
