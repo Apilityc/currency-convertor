@@ -5,7 +5,7 @@ import org.apilytic.currency.persistence.domain.CurrencyPair;
 /**
  * Internal API for exchange rate based on @see {@link CurrencyPair}
  */
-public interface RateExchnage {
+public interface RateExchange {
 
 	/**
 	 * @param pair
