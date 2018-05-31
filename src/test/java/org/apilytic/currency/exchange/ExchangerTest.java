@@ -36,7 +36,6 @@ public class ExchangerTest {
 
 		when(exchange.getRates()).thenReturn(rates);
 
-		System.out.println(exchanger.exchange(pair));
 		assertEquals("1.8", exchanger.exchange(pair));
 	}
 }
