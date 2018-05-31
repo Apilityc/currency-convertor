@@ -3,11 +3,9 @@ package org.apilytic.currency.ingestion.code;
 import org.apilytic.currency.persistence.domain.CurrencyEntry;
 import org.apilytic.currency.persistence.domain.CurrencyTable;
 import org.apilytic.currency.persistence.domain.ISO4217;
-import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -27,14 +25,8 @@ public class IsoCodesFetcherTest {
 	@Mock
 	private ISO4217 iso;
 
+	@InjectMocks
 	private IsoCodesFetcher fetcher;
-
-	@Before
-	public void init() {
-		MockitoAnnotations.initMocks(this);
-		fetcher = new IsoCodesFetcher();
-		ReflectionTestUtils.setField(fetcher, "restTemplate", restTemplate);
-	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void missingUri() {
@@ -61,7 +53,8 @@ public class IsoCodesFetcherTest {
 		when(iso.getCurrencyTable()).thenReturn(currencyTable);
 		when(currencyEntry.getIsoCode()).thenReturn(null, "");
 
-		when(currencyTable.getCurrencyEntries()).thenReturn(new HashSet<>(Arrays.asList(currencyEntry, currencyEntry)));
+		when(currencyTable.getCurrencyEntries()).thenReturn(new HashSet<>(Arrays.asList(currencyEntry,
+				currencyEntry)));
 
 		fetcher.setIsoCodesUrl("https://uri");
 		fetcher.fetch();
