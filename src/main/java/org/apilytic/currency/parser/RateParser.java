@@ -1,4 +1,4 @@
-package org.apilytic.currency.ingestion.rate.parser;
+package org.apilytic.currency.parser;
 
 public interface RateParser<T> {
 

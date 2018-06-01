@@ -1,16 +1,13 @@
 package org.apilytic.currency.ingestion.rate;
 
-import org.apilytic.currency.ingestion.rate.parser.RateParser;
+import org.apilytic.currency.parser.RateParser;
 import org.apilytic.currency.persistence.domain.Currency;
 import org.apilytic.currency.persistence.domain.Exchange;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.apilytic.currency.persistence.repository.ExchangeRepository;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -1,6 +1,6 @@
 package org.apilytic.currency.ingestion.rate;
 
-import org.apilytic.currency.ingestion.rate.parser.RateParser;
+import org.apilytic.currency.parser.RateParser;
 import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.DuckDuckGoChart;
 import org.junit.Test;

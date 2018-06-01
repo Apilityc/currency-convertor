@@ -1,4 +1,4 @@
-package org.apilytic.currency.ingestion.rate.parser;
+package org.apilytic.currency.parser;
 
 import org.apilytic.currency.persistence.domain.YahooChart;
 import org.springframework.context.annotation.Primary;
