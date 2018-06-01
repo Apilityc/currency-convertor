@@ -6,7 +6,8 @@ import org.apilytic.currency.persistence.domain.CurrencyTable;
 import org.apilytic.currency.persistence.domain.ISO4217;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
 import org.junit.Test;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -16,15 +17,15 @@ import static org.mockito.Mockito.*;
 
 public class IsoCodesSyncherTest {
 
+	@InjectMocks
+	private IsoCodesSyncher syncher;
+	@Mock
+	private IsoCodesFetcher fetcher;
+	@Mock
+	private CurrencyRepository repo;
+
 	@Test
 	public void sync() {
-		IsoCodesSyncher syncher = new IsoCodesSyncher();
-		IsoCodesFetcher fetcher = mock(IsoCodesFetcher.class);
-		CurrencyRepository repo = mock(CurrencyRepository.class);
-
-		ReflectionTestUtils.setField(syncher, "fetcher", fetcher);
-		ReflectionTestUtils.setField(syncher, "repo", repo);
-
 		CurrencyTable currencyTable = mock(CurrencyTable.class);
 		ISO4217 iso = mock(ISO4217.class);
 		CurrencyEntry currencyEntry = mock(CurrencyEntry.class);

@@ -4,8 +4,8 @@ import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.YahooChart;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,6 +21,7 @@ public class YahooFinanceFetcherTest {
 	@Mock
 	private CurrencyPair pair;
 
+	@InjectMocks
 	private RateFetch fetcher;
 
 	private static final String URL = "https://yahoo?EURUSD=x";
@@ -28,11 +29,6 @@ public class YahooFinanceFetcherTest {
 
 	@Before
 	public void init() {
-		MockitoAnnotations.initMocks(this);
-
-		fetcher = new YahooFinanceFetcher();
-
-		ReflectionTestUtils.setField(fetcher, "restTemplate", restTemplate);
 		ReflectionTestUtils.setField(fetcher, "url", URL);
 	}
 

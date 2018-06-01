@@ -4,6 +4,8 @@ import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.Exchange;
 import org.apilytic.currency.persistence.repository.ExchangeRepository;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.HashMap;
@@ -15,15 +17,15 @@ import static org.mockito.Mockito.when;
 
 public class ExchangerTest {
 
+	@InjectMocks
+	private Exchanger exchanger;
+	@Mock
+	private ExchangeRepository exchangeRepository;
+
 	@Test
 	public void exchange() {
-		Exchanger exchanger = new Exchanger();
-
-		ExchangeRepository exchangeRepository = mock(ExchangeRepository.class);
 		Exchange exchange = mock(Exchange.class);
 		CurrencyPair pair = mock(CurrencyPair.class);
-
-		ReflectionTestUtils.setField(exchanger, "exchangeRepository", exchangeRepository);
 
 		when(pair.to()).thenReturn("EUR");
 		when(pair.from()).thenReturn("USD");
