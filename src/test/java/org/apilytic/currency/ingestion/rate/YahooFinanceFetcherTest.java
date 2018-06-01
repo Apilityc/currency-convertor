@@ -22,7 +22,7 @@ public class YahooFinanceFetcherTest {
 	private CurrencyPair pair;
 
 	@InjectMocks
-	private RateFetch fetcher;
+	private YahooFinanceFetcher fetcher;
 
 	private static final String URL = "https://yahoo?EURUSD=x";
 	private static final String URL_JPY = "https://yahoo?JPYUSD=x";
