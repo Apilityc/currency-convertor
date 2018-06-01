@@ -6,15 +6,18 @@ currency-converter
 
 # Introduction
 
-Application to fetch currency rates from Yahoo Finance service, cache to database and provide API to accesss corss-rates.
-There is an option to fetch rates directly from Yanoo Fianance services or Google Currency calculator and use this library as a adaper.
+Backend that fetches country ISO codes and currency exchange rates and stores data to Redis.
+There are options to query the backend via cli for following [operations](#Operations).
 
-You can find brainstorming, stories, ideas and specifications in project's [Apilytic Wiki][].
+Exchange rates are fetched from Yahoo Finance and duckduckgo.com that uses xe.com API.
+
+Obsolute wiki page: [Apilytic Wiki][].
 
 # Operations
 
 * Download currency iso codes to Redis
 * Ingestion rate exchanges
+* Query for exchange rate
 
 # Version history
 
@@ -23,8 +26,12 @@ You can find brainstorming, stories, ideas and specifications in project's [Apil
 * Complete rewriting
 * Integrate new rate exchang services
   * yahoo finance
-  * duckduckgo
-* RxJava instead of Java8 streams
+  * duckduckgo xe.com API
+* RxJava with Java8 streams
+* Spring 5 and Junit 5
 
+# TODO
+
+Organize micro services for different layers that communicates with message bus.
 
 [Apilytic Wiki]: https://github.com/Apilytic/currency-converter/wiki
