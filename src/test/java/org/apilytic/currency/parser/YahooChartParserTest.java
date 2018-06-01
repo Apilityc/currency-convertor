@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,10 +17,10 @@ public class YahooChartParserTest {
 
 	@Test
 	public void parse() {
-		YahooChart yahooChart = Mockito.mock(YahooChart.class);
-		Result result = Mockito.mock(Result.class);
-		Indicators indicators = Mockito.mock(Indicators.class);
-		AdjClose adjClose = Mockito.mock(AdjClose.class);
+		YahooChart yahooChart = mock(YahooChart.class);
+		Result result = mock(Result.class);
+		Indicators indicators = mock(Indicators.class);
+		AdjClose adjClose = mock(AdjClose.class);
 
 		when(yahooChart.getResult()).thenReturn(Arrays.asList(result));
 		when(result.getIndicators()).thenReturn(indicators);
