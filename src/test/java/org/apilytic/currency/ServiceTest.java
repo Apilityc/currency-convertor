@@ -1,15 +1,15 @@
 package org.apilytic.currency;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ServiceTest {
 
 	private Service service;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		service = new Service();
 	}

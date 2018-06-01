@@ -33,9 +33,10 @@ repositories {
 }
 
 ext.deps = [
-        springVersion    : '4.3.7.RELEASE',
+        springVersion    : '5.0.6.RELEASE',
         springDataVersion: '1.8.0.RELEASE',
-        jackson2Version  : '2.9.0.pr3'
+        jackson2Version  : '2.9.0.pr3',
+        junitVersion     : '5.2.0',
 ]
 
 compileAspect {
@@ -43,8 +44,10 @@ compileAspect {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile "org.mockito:mockito-core:2.+"
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:' + deps.junitVersion
+    testCompile 'org.junit.jupiter:junit-jupiter-api:' + deps.junitVersion
+    testCompile 'org.mockito:mockito-core:2.+'
+    testCompile 'org.mockito:mockito-junit-jupiter:2.+'
     testCompile 'org.springframework:spring-test:' + deps.springVersion
     compile 'org.springframework:spring-context:' + deps.springVersion
     compile 'org.springframework:spring-aspects:' + deps.springVersion

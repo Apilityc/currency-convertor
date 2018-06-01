@@ -3,7 +3,7 @@ package org.apilytic.currency.ingestion.code;
 import org.apilytic.currency.persistence.domain.CurrencyEntry;
 import org.apilytic.currency.persistence.domain.CurrencyTable;
 import org.apilytic.currency.persistence.domain.ISO4217;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.web.client.RestTemplate;
@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -28,9 +29,9 @@ public class IsoCodesFetcherTest {
 	@InjectMocks
 	private IsoCodesFetcher fetcher;
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void missingUri() {
-		fetcher.fetch();
+		assertThrows(IllegalArgumentException.class, () -> fetcher.fetch());
 	}
 
 	@Test

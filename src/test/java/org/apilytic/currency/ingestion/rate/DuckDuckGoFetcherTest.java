@@ -3,8 +3,8 @@ package org.apilytic.currency.ingestion.rate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.DuckDuckGoChart;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.HttpEntity;
@@ -15,8 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 public class DuckDuckGoFetcherTest {
@@ -37,7 +37,7 @@ public class DuckDuckGoFetcherTest {
 
 	private static final String URL = "https://duckduckgo/1/usd/eur";
 
-	@Before
+	@BeforeEach
 	public void init() {
 		ReflectionTestUtils.setField(fetcher, "url", URL);
 	}

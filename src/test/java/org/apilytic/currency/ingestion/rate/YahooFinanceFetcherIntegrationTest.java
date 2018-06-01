@@ -2,12 +2,12 @@ package org.apilytic.currency.ingestion.rate;
 
 import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.YahooChart;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class YahooFinanceFetcherIntegrationTest {
 
@@ -17,7 +17,7 @@ public class YahooFinanceFetcherIntegrationTest {
 	@Autowired
 	private CurrencyPair pair;
 
-	@Before
+	@BeforeEach
 	public void init() {
 		pair.setFrom("EUR");
 		pair.setTo("USD");

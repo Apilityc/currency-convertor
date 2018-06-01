@@ -2,8 +2,8 @@ package org.apilytic.currency.ingestion.rate;
 
 import org.apilytic.currency.persistence.domain.CurrencyPair;
 import org.apilytic.currency.persistence.domain.YahooChart;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -27,7 +27,7 @@ public class YahooFinanceFetcherTest {
 	private static final String URL = "https://yahoo?EURUSD=x";
 	private static final String URL_JPY = "https://yahoo?JPYUSD=x";
 
-	@Before
+	@BeforeEach
 	public void init() {
 		ReflectionTestUtils.setField(fetcher, "url", URL);
 	}

@@ -1,7 +1,7 @@
 package org.apilytic.currency.persistence.domain;
 
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Rollback
 public class CurrencyIntegrationTest {

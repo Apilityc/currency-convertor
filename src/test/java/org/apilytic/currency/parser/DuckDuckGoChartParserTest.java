@@ -1,13 +1,10 @@
 package org.apilytic.currency.parser;
 
 import org.apilytic.currency.persistence.domain.DuckDuckGoChart;
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class DuckDuckGoChartParserTest {
 
@@ -23,7 +20,7 @@ public class DuckDuckGoChartParserTest {
 
 		String rate = parser.parse(chart);
 
-		Assert.assertEquals("1.4", rate);
+		assertEquals("1.4", rate);
 
 		verify(chart).getConversion();
 		verify(conversion).getConvertedAmount();

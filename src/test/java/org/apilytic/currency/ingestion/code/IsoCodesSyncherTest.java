@@ -5,7 +5,7 @@ import org.apilytic.currency.persistence.domain.CurrencyEntry;
 import org.apilytic.currency.persistence.domain.CurrencyTable;
 import org.apilytic.currency.persistence.domain.ISO4217;
 import org.apilytic.currency.persistence.repository.CurrencyRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 

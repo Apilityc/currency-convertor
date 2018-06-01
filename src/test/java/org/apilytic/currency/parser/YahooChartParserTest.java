@@ -4,14 +4,11 @@ import org.apilytic.currency.persistence.domain.YahooChart;
 import org.apilytic.currency.persistence.domain.YahooChart.Result;
 import org.apilytic.currency.persistence.domain.YahooChart.Result.Indicators;
 import org.apilytic.currency.persistence.domain.YahooChart.Result.Indicators.AdjClose;
-import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class YahooChartParserTest {
 
