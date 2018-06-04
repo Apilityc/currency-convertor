@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DuckDuckGoFetcherTest {
 
@@ -44,31 +43,51 @@ public class DuckDuckGoFetcherTest {
 
 	@Test
 	public void fetch() {
-		DuckDuckGoChart chart = mock(DuckDuckGoChart.class);
-		DuckDuckGoChart.Conversion conversion = mock(DuckDuckGoChart.Conversion.class);
+		DuckDuckGoChart chart = Mockito.mock(DuckDuckGoChart.class);
+		DuckDuckGoChart.Conversion conversion = Mockito.mock(DuckDuckGoChart.Conversion.class);
 
-		when(pair.from()).thenReturn("usd");
-		when(pair.to()).thenReturn("eur");
-		when(restTemplate.exchange(URL, HttpMethod.GET, requestEntity, String.class)).thenReturn(responseEntity);
-		when(responseEntity.getBody()).thenReturn("ddg_spice_currency(response);");
+		Mockito.when(pair.from()).thenReturn("usd");
+		Mockito.when(pair.to()).thenReturn("eur");
+		Mockito.when(restTemplate.exchange(URL, HttpMethod.GET, requestEntity, String.class)).thenReturn
+				(responseEntity);
+		Mockito.when(responseEntity.getBody()).thenReturn("ddg_spice_currency(response);");
 
 		try {
-			when(mapper.readValue("response", DuckDuckGoChart.class)).thenReturn(chart);
+			Mockito.when(mapper.readValue("response", DuckDuckGoChart.class)).thenReturn(chart);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		when(chart.getConversion()).thenReturn(conversion);
-		when(conversion.getConvertedAmount()).thenReturn("1.1");
+		Mockito.when(chart.getConversion()).thenReturn(conversion);
+		Mockito.when(conversion.getConvertedAmount()).thenReturn("1.1");
 
 		DuckDuckGoChart fetch = fetcher.fetch(pair);
 
 		assertNotNull(fetch);
 		assertEquals("1.1", fetch.getConversion().getConvertedAmount());
 
-		verify(pair).from();
-		verify(pair).to();
-		verify(restTemplate).exchange(URL, HttpMethod.GET, requestEntity, String.class);
-		verify(responseEntity).getBody();
+		Mockito.verify(pair).from();
+		Mockito.verify(pair).to();
+		Mockito.verify(restTemplate).exchange(URL, HttpMethod.GET, requestEntity, String.class);
+		Mockito.verify(responseEntity).getBody();
+	}
+
+	@Test
+	public void fetchWrongResponse() throws IOException {
+		Mockito.when(pair.from()).thenReturn("usd");
+		Mockito.when(pair.to()).thenReturn("eur");
+		Mockito.when(restTemplate.exchange(URL, HttpMethod.GET, requestEntity, String.class)).thenReturn
+				(responseEntity);
+		Mockito.when(responseEntity.getBody()).thenReturn("wrong;");
+
+		Mockito.when(mapper.readValue("wrong;", DuckDuckGoChart.class)).thenThrow(new IOException());
+		DuckDuckGoChart fetch = fetcher.fetch(pair);
+
+		assertThrows(NullPointerException.class, () -> fetch.getConversion());
+
+		Mockito.verify(restTemplate).exchange(URL, HttpMethod.GET, requestEntity, String.class);
+		Mockito.verify(responseEntity).getBody();
+		Mockito.verify(pair).from();
+		Mockito.verify(pair).to();
 	}
 }
