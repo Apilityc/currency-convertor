@@ -4,3 +4,5 @@ jdk:
   - oraclejdk8
 services:
   - redis-server
+after_success:
+  - ./gradlew cobertura coveralls
