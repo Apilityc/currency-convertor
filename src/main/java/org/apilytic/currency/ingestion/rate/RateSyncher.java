@@ -34,6 +34,7 @@ public class RateSyncher {
 	public void sync() {
 		Stream<Currency> currencies = StreamSupport.stream(currencyRepo.findAll().spliterator(), false);
 
+		//FIXME only one currency exchange is synced.
 		currencies.peek(c -> {
 			Map<String, String> defaultRates = c.getCodes().stream()
 					.collect(Collectors.toMap(x -> x, x -> "0"));
