@@ -35,16 +35,14 @@ public class RateSyncher {
 		Stream<Currency> currencies = StreamSupport.stream(currencyRepo.findAll().spliterator(), false);
 
 		currencies.peek(c -> {
-			Map<String, String> h = c.getCodes().stream()
+			Map<String, String> defaultRates = c.getCodes().stream()
 					.collect(Collectors.toMap(x -> x, x -> "0"));
 
 			List<Exchange> exchanges = c.getCodes().stream().map(code -> {
-
-				Map<String, String> filterCurrentCode = h.entrySet().stream()
+				Map<String, String> filterCurrentCode = defaultRates.entrySet().stream()
 						.filter(x -> !x.getKey().equals(code))
 						.collect(Collectors.toMap(
 								Map.Entry::getKey, entry -> {
-
 									pair.setFrom(code);
 									pair.setTo(entry.getKey());
 
