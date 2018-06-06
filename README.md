@@ -33,5 +33,6 @@ Obsolute wiki page: [Apilytic Wiki][].
 # TODO
 
 Organize micro services for different layers that communicates with message bus.
+Code coverarage tool integration
 
 [Apilytic Wiki]: https://github.com/Apilytic/currency-converter/wiki
