@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://maven.eveoh.nl/content/repositories/releases"
+        }
+    }
+
+    dependencies {
+        classpath "nl.eveoh:gradle-aspectj:2.0"
+    }
+}
+
 group 'org.apilytic'
 version '1.0-SNAPSHOT'
 
@@ -21,18 +33,6 @@ repositories {
     jcenter()
 }
 
-buildscript {
-    repositories {
-        maven {
-            url "https://maven.eveoh.nl/content/repositories/releases"
-        }
-    }
-
-    dependencies {
-        classpath "nl.eveoh:gradle-aspectj:1.6"
-    }
-}
-
 ext.deps = [
         springVersion    : '5.0.6.RELEASE',
         springDataVersion: '1.8.0.RELEASE',
@@ -45,8 +45,8 @@ compileAspect {
 }
 
 dependencies {
-    testCompile 'org.junit.jupiter:junit-jupiter-engine:' + deps.junitVersion
-    testCompile 'org.junit.jupiter:junit-jupiter-api:' + deps.junitVersion
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:' + deps.junitVersion
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:' + deps.junitVersion
     testCompile 'org.mockito:mockito-core:2.+'
     testCompile 'org.mockito:mockito-junit-jupiter:2.+'
     testCompile 'org.springframework:spring-test:' + deps.springVersion
@@ -58,6 +58,19 @@ dependencies {
     compile 'redis.clients:jedis:2.9.0'
     compile 'com.fasterxml.jackson.core:jackson-core:' + deps.jackson2Version
     compile 'com.fasterxml.jackson.core:jackson-databind:' + deps.jackson2Version
+}
+
+test {
+    // Enable JUnit 5 (Gradle 4.6+).
+    useJUnitPlatform()
+
+    // Always run tests, even when nothing changed.
+    dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
 jacocoTestReport {
