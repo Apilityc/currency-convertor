@@ -9,8 +9,8 @@ import org.apilytic.currency.persistence.repository.ExchangeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -35,6 +35,34 @@ public class RateSyncher {
 		Stream<Currency> currencies = StreamSupport.stream(currencyRepo.findAll().spliterator(), false);
 
 		//FIXME only one currency exchange is synced.
+
+		Set<String> codes = currencies.findFirst().get().getCodes();
+		Map<String, String> defaultRates = codes.stream()
+				.collect(Collectors.toMap(c -> c, c -> "0"));
+
+		codes.stream().map(code -> {
+			Map<String, String> rates = defaultRates.entrySet().stream()
+					.filter(x -> !x.getKey().equals(code))
+					.collect(Collectors.toMap(
+							Map.Entry::getKey,
+							rate -> {
+								pair.setFrom(code);
+								pair.setTo(rate.getKey());
+
+								return "1";
+							}
+					));
+
+			exchange.setId(code);
+			exchange.setRates(rates);
+
+			exchangeRepo.save(exchange);
+
+			return code;
+		});
+
+
+	/*
 		currencies.peek(c -> {
 			Map<String, String> defaultRates = c.getCodes().stream()
 					.collect(Collectors.toMap(x -> x, x -> "0"));
@@ -58,6 +86,7 @@ public class RateSyncher {
 			}).collect(Collectors.toList());
 
 			exchangeRepo.save(exchanges);
-		}).findFirst();
+		});
+		*/
 	}
 }
