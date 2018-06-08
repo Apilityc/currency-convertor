@@ -9,8 +9,6 @@ import org.apilytic.currency.persistence.repository.ExchangeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,9 +33,8 @@ public class RateSyncher {
 
 	public void sync() {
 		Stream<Currency> currencies = StreamSupport.stream(currencyRepo.findAll().spliterator(), false);
+		Set<String> codes = currencies.findFirst().get().getCodes();
 
-
-		Set<String> codes = new HashSet<>(Arrays.asList("USD", "BGN"));
 		Map<String, String> defaultRates = codes.stream()
 				.collect(Collectors.toMap(c -> c, c -> "0"));
 

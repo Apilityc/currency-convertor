@@ -12,11 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class RateSyncherTest {
@@ -46,12 +43,18 @@ public class RateSyncherTest {
 		String usd = "USD";
 		String eur = "EUR";
 
+		YahooChart chart = mock(YahooChart.class);
+
 		when(currencyRepo.findAll()).thenReturn(i);
 		when(currency.getCodes()).thenReturn(new HashSet<>(Arrays.asList(usd, eur)));
+		when(rateFetcher.fetch(pair)).thenReturn(chart);
+		when(rateParser.parse(chart)).thenReturn("1.2");
 
 		syncher.sync();
 
 		verify(currencyRepo).findAll();
 		verify(currency).getCodes();
+		verify(pair).setFrom(usd);
+		verify(pair).setTo(eur);
 	}
 }
