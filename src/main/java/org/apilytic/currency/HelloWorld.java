@@ -30,7 +30,7 @@ public class HelloWorld {
 
 		// format is command:option e.g. ingestion:currency
 		if (command[0].equals("ingestion")) {
-			if (command[1].equals("currency")) {
+			if (command[1].equals("isocodes")) {
 				IsoCodesSyncher syncher = context.getBean(IsoCodesSyncher.class);
 				syncher.sync();
 			} else if (command[1].equals("exchange")) {
