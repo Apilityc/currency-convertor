@@ -30,6 +30,7 @@ public class DuckDuckGoFetcher implements RateFetch<DuckDuckGoChart> {
 
 	public DuckDuckGoChart fetch(CurrencyPair pair) {
 
+		//FIXME replace url params on multiple calls
 		url = url.replace("eur", pair.to())
 				.replace("usd", pair.from());
 

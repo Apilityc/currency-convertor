@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Primary
 public class YahooChartParser implements RateParser<YahooChart> {
 
+	//FIXME remove peek
 	public String parse(YahooChart chart) {
 		AtomicReference<String> rate = new AtomicReference<>();
 

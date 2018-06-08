@@ -9,8 +9,7 @@ import org.mockito.Mock;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class YahooFinanceFetcherTest {
 
@@ -26,6 +25,7 @@ public class YahooFinanceFetcherTest {
 
 	private static final String URL = "https://yahoo?EURUSD=x";
 	private static final String URL_JPY = "https://yahoo?JPYUSD=x";
+	private static final String URL_USD = "https://yahoo?USDEUR=x";
 
 	@BeforeEach
 	public void init() {
@@ -56,5 +56,23 @@ public class YahooFinanceFetcherTest {
 		verify(restTemplate).getForObject(URL_JPY, YahooChart.Holder.class);
 		verify(pair).from();
 		verify(pair).to();
+	}
+
+	@Test
+	public void fetchSingleInstanceMultiplePairs() {
+		YahooChart chart = mock(YahooChart.class);
+
+		when(restTemplate.getForObject(anyString(), eq(YahooChart.Holder.class))).thenReturn(holder);
+		when(holder.getChart()).thenReturn(chart);
+		when(pair.from()).thenReturn("JPY", "USD");
+		when(pair.to()).thenReturn("USD", "EUR");
+
+		fetcher.fetch(pair);
+		fetcher.fetch(pair);
+
+		verify(restTemplate).getForObject(URL_JPY, YahooChart.Holder.class);
+		verify(restTemplate).getForObject(URL_USD, YahooChart.Holder.class);
+		verify(pair, times(2)).from();
+		verify(pair, times(2)).to();
 	}
 }
