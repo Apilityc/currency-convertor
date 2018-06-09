@@ -22,23 +22,10 @@ public class YahooChart {
 	}
 
 	public static class Result {
-		private Meta meta;
 		private Indicators indicators;
 
 		public Indicators getIndicators() {
 			return indicators;
-		}
-
-		public Meta getMeta() {
-			return meta;
-		}
-
-		public static class Meta {
-			private String currency;
-
-			public String getCurrency() {
-				return currency;
-			}
 		}
 
 		public static class Indicators {
