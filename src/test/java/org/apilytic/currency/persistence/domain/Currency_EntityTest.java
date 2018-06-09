@@ -5,7 +5,7 @@ import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class Currency_EntRityTest {
+class Currency_EntityTest {
 
 	@Test
 	public void testId() {
