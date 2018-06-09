@@ -20,23 +20,6 @@ public class CurrencyEntry {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CurrencyEntry other = (CurrencyEntry) obj;
-		if (isoCode == null) {
-			if (other.isoCode != null)
-				return false;
-		} else if (!isoCode.equals(other.isoCode))
-			return false;
-		return true;
-	}
-
 	public String getIsoCode() {
 		return isoCode;
 	}
