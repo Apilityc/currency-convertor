@@ -29,7 +29,7 @@ apply plugin: 'jacoco'
 
 mainClassName = 'org.apilytic.currency.HelloWorld'
 
-sourceCompatibility = 1.9
+//sourceCompatibility = 1.9
 targetCompatibility = 1.8
 
 repositories {
