@@ -29,7 +29,7 @@ public class ExchangeIntegrationTest {
 		repo.save(e);
 
 
-		Map rates = repo.findOne(e.getId()).getRates();
+		Map rates = repo.findById(e.getId()).get().getRates();
 		assertEquals(2, rates.size());
 	}
 
@@ -45,7 +45,7 @@ public class ExchangeIntegrationTest {
 
 		repo.save(e);
 
-		Map rates = repo.findOne(e.getId()).getRates();
+		Map rates = repo.findById(e.getId()).get().getRates();
 		assertEquals(1, rates.size());
 	}
 

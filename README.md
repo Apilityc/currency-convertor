@@ -27,6 +27,14 @@ Obsolute wiki page: [Apilytic Wiki][].
 
 # Version history
 
+## 0.2.1.M1
+
+* Spring-data version 2.1.0.M3
+* Spring version 5.1.0.BUILD-SNAPSHOT
+* Aspectj version 1.9.1
+* Replace 3rd party gradle aspectj plugin with official
+* Fixed ingestion of only one currency
+
 ## 0.2.0.M1
 
 * Complete rewriting

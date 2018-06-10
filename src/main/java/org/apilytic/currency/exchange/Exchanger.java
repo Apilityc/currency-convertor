@@ -18,9 +18,11 @@ public class Exchanger implements RateExchange {
 	@Override
 	public String exchange(CurrencyPair pair) {
 
-		Exchange exchange = exchangeRepository.findOne(pair.from());
+		Optional<Exchange> exchange = exchangeRepository.findById(pair.from());
 
-		Optional<Map.Entry<String, String>> first = exchange.getRates().entrySet().stream()
+		Map<String, String> rates = exchange.get().getRates();
+
+		Optional<Map.Entry<String, String>> first = rates.entrySet().stream()
 				.filter(x -> x.getKey().equals(pair.to()))
 				.findFirst();
 

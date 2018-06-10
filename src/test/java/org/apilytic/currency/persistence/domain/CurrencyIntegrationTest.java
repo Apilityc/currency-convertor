@@ -25,7 +25,7 @@ public class CurrencyIntegrationTest {
 
 		repo.save(e);
 
-		Set title = repo.findOne(e.getId()).getCodes();
+		Set title = repo.findById(e.getId()).get().getCodes();
 		assertEquals(2, title.size());
 	}
 
@@ -39,7 +39,7 @@ public class CurrencyIntegrationTest {
 
 		repo.save(e);
 
-		Set title = repo.findOne("custom-id").getCodes();
+		Set title = repo.findById("custom-id").get().getCodes();
 		assertEquals(2, title.size());
 	}
 

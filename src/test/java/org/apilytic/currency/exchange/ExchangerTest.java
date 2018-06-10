@@ -9,6 +9,7 @@ import org.mockito.Mock;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -28,7 +29,7 @@ public class ExchangerTest {
 
 		when(pair.to()).thenReturn("EUR");
 		when(pair.from()).thenReturn("USD");
-		when(exchangeRepository.findOne("USD")).thenReturn(exchange);
+		when(exchangeRepository.findById("USD")).thenReturn(Optional.of(exchange));
 
 		Map rates = new HashMap() {{
 			put("USD", "1.9");
