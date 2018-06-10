@@ -60,10 +60,11 @@ public class HelloWorldTest {
 		doReturn(pair).when(context).getBean(CurrencyPair.class);
 		doReturn(exchanger).when(context).getBean(Exchanger.class);
 
+		when(exchanger.exchange(pair)).thenReturn("1.2");
 		calc.execute(new String[]{"exchange:USDEUR"}, context);
 
-//		verify(pair).setFrom("USD");
-//		verify(pair).setTo("EUR");
+		verify(pair).setFrom("USD");
+		verify(pair).setTo("EUR");
 		verify(exchanger).exchange(pair);
 	}
 }
