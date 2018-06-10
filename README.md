@@ -17,7 +17,7 @@ There are options to query the backend via cli for following [operations](#Opera
 
 Exchange rates are fetched from Yahoo Finance and duckduckgo.com that uses xe.com API.
 
-Obsolute wiki page: [Apilytic Wiki][].
+Obsolete wiki page: [Apilytic Wiki][].
 
 # Operations
 
