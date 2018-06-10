@@ -1,7 +1,8 @@
 sudo: false
 language: java
 jdk:
-  - oraclejdk9
+  - oraclejdk8
+  - openjdk8
 services:
   - redis-server
 after_success:
