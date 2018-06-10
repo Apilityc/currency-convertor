@@ -20,15 +20,10 @@ public class HelloWorld {
 		return service.output(a) + service.output(b);
 	}
 
-	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext
-				("classpath*:/META-INF/spring/applicationContext*.xml");
-		Service s = context.getBean(Service.class);
-		Flowable.just(s.output("Hello World!")).subscribe(System.out::println);
-
+	public void execute(String[] args, ApplicationContext context) {
 		String[] command = args[0].split(":");
 
-		// format is command:option e.g. ingestion:currency
+		// format is command:option e.g. task:operation
 		if (command[0].equals("ingestion")) {
 			if (command[1].equals("isocodes")) {
 				IsoCodesSyncher syncher = context.getBean(IsoCodesSyncher.class);
@@ -47,6 +42,16 @@ public class HelloWorld {
 
 			Flowable.just(exchanger.exchange(pair)).subscribe(System.out::println);
 		}
+	}
+
+	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext
+				("classpath*:/META-INF/spring/applicationContext*.xml");
+		Service s = context.getBean(Service.class);
+		Flowable.just(s.output("Hello World!")).subscribe(System.out::println);
+
+		HelloWorld w = new HelloWorld();
+		w.execute(args, context);
 
 	}
 }
