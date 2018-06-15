@@ -6,11 +6,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Set;
 
-@XmlRootElement(name = "HstrcCcyTbl")
+@XmlRootElement(name = "CcyTbl")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CurrencyTable {
 
-	@XmlElement(name = "HstrcCcyNtry")
+	@XmlElement(name = "CcyNtry")
 	private Set<CurrencyEntry> currencyEntries;
 
 	public Set<CurrencyEntry> getCurrencyEntries() {

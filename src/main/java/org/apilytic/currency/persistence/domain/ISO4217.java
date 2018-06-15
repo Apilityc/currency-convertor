@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ISO4217 {
 
-	@XmlElement(name = "HstrcCcyTbl")
+	@XmlElement(name = "CcyTbl")
 	private CurrencyTable currencyTable;
 
 	public CurrencyTable getCurrencyTable() {
