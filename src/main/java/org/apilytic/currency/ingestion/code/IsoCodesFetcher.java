@@ -3,13 +3,13 @@ package org.apilytic.currency.ingestion.code;
 import io.reactivex.Observable;
 import org.apilytic.currency.persistence.domain.ISO4217;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,11 +22,10 @@ public class IsoCodesFetcher {
 	private String isoCodesUrl;
 
 	public ISO4217 fetch() {
-		if (isoCodesUrl == null) {
-			throw new IllegalArgumentException("missing currency iso codes uri");
-		}
+		Optional.ofNullable(this.isoCodesUrl).orElseThrow(() -> new IllegalArgumentException("missing currency iso " +
+				"codes uri"));
 
-		ISO4217 iso = restTemplate.getForObject(isoCodesUrl, ISO4217.class);
+		ISO4217 iso = restTemplate.getForObject(this.isoCodesUrl, ISO4217.class);
 		Set cleanCodes = new HashSet();
 
 		/* streams
