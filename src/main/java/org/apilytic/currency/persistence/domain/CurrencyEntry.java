@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @XmlRootElement(name = "CcyNtry")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -15,9 +17,16 @@ public class CurrencyEntry {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((isoCode == null) ? 0 : isoCode.hashCode());
-		return result;
+		AtomicInteger result = new AtomicInteger(1);
+		AtomicInteger code = new AtomicInteger();
+
+		if (Optional.ofNullable(isoCode).isPresent()) {
+			code.set(isoCode.hashCode());
+		}
+
+		result.set(prime * result.get() + code.get());
+
+		return result.get();
 	}
 
 	public String getIsoCode() {
