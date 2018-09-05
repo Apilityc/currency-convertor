@@ -18,7 +18,7 @@ public class CurrencyEntry {
 	public int hashCode() {
 		final int prime = 31;
 		AtomicInteger result = new AtomicInteger(1);
-		AtomicInteger code = new AtomicInteger();
+		AtomicInteger code = new AtomicInteger(0);
 
 		if (Optional.ofNullable(isoCode).isPresent()) {
 			code.set(isoCode.hashCode());
