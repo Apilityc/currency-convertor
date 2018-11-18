@@ -18,7 +18,7 @@ group 'org.apilytic'
 version '1.0-SNAPSHOT'
 
 project.ext {
-    aspectjVersion = '1.9.1'
+    aspectjVersion = '1.9.2'
 }
 
 apply plugin: 'java'
