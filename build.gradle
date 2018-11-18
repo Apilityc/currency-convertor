@@ -41,9 +41,9 @@ repositories {
 }
 
 ext.deps = [
-        springVersion    : '5.1.0.BUILD-SNAPSHOT',
-        springDataVersion: '2.1.0.M3',
-        jackson2Version  : '2.9.0.pr3',
+        springVersion    : '5.1.2.RELEASE',
+        springDataVersion: '2.1.2.RELEASE',
+        jackson2Version  : '2.9.7',
         junitVersion     : '5.2.0',
 ]
 
