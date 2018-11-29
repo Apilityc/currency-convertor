@@ -59,12 +59,15 @@ dependencies {
     testCompile 'org.springframework:spring-test:' + deps.springVersion
     compile 'org.springframework:spring-core:' + deps.springVersion
     compile 'org.springframework:spring-web:' + deps.springVersion
+    compile 'org.springframework:spring-oxm:' + deps.springVersion
     compile 'org.springframework:spring-aspects:' + deps.springVersion
     compile 'org.springframework.data:spring-data-redis:' + deps.springDataVersion
     compile 'io.reactivex.rxjava2:rxjava:2.0.8'
     compile 'redis.clients:jedis:2.9.0'
     compile 'com.fasterxml.jackson.core:jackson-core:' + deps.jackson2Version
     compile 'com.fasterxml.jackson.core:jackson-databind:' + deps.jackson2Version
+    runtime 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
+    runtime 'javax.activation:activation:1.1.1'
 }
 
 test {
@@ -78,6 +81,7 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+
 }
 
 jacocoTestReport {
