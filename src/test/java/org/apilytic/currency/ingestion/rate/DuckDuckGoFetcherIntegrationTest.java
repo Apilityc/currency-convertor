@@ -29,25 +29,24 @@ public class DuckDuckGoFetcherIntegrationTest {
 		assertNotNull(fetcher);
 
 		// retry to get result from server
-		fetcher = retry(fetcher, 3);
+		fetcher = retry(fetcher);
 
 		assertFalse(parser.parse(fetcher).isEmpty());
 	}
 
 	/**
-	 *
 	 * @param fetcher
-	 * @param numberOfRetries
 	 * @return
 	 */
-	private DuckDuckGoChart retry(DuckDuckGoChart fetcher, int numberOfRetries) {
+	private DuckDuckGoChart retry(DuckDuckGoChart fetcher) {
 		if (parser.parse(fetcher).isEmpty()) {
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			fetcher = this.fetcher.fetch(pair);
+
+			return this.fetcher.fetch(pair);
 		}
 
 		return fetcher;
