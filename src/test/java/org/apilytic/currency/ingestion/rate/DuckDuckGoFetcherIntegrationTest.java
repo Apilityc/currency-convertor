@@ -25,8 +25,31 @@ public class DuckDuckGoFetcherIntegrationTest {
 		pair.setTo("USD");
 		pair.setFrom("EUR");
 
-		DuckDuckGoChart fetch = fetcher.fetch(pair);
-		assertNotNull(fetch);
-		assertFalse(parser.parse(fetch).isEmpty());
+		DuckDuckGoChart fetcher = this.fetcher.fetch(pair);
+		assertNotNull(fetcher);
+
+		// retry to get result from server
+		fetcher = retry(fetcher, 3);
+
+		assertFalse(parser.parse(fetcher).isEmpty());
+	}
+
+	/**
+	 *
+	 * @param fetcher
+	 * @param numberOfRetries
+	 * @return
+	 */
+	private DuckDuckGoChart retry(DuckDuckGoChart fetcher, int numberOfRetries) {
+		if (parser.parse(fetcher).isEmpty()) {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			fetcher = this.fetcher.fetch(pair);
+		}
+
+		return fetcher;
 	}
 }
