@@ -49,7 +49,6 @@ public class RateSyncherTest {
 		when(currency.getCodes()).thenReturn(new HashSet<>(Arrays.asList(usd, eur)));
 		when(rateFetcher.fetch(pair)).thenReturn(chart);
 		when(rateParser.parse(chart)).thenReturn("1.2");
-		when(exchangeRepo.save(exchange));
 
 		syncher.sync();
 
