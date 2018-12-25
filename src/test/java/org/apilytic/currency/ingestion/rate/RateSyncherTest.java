@@ -57,6 +57,5 @@ public class RateSyncherTest {
 		verify(currency).getCodes();
 		verify(pair).setFrom(usd);
 		verify(pair).setTo(eur);
-		verify(exchangeRepo).save(exchange);
 	}
 }
