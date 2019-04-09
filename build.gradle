@@ -1,18 +1,19 @@
 plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
+    id "aspectj.gradle" version "0.1.6" apply false
 }
 
 group 'org.apilytic'
 version '1.0-SNAPSHOT'
 
 project.ext {
-    aspectjVersion = '1.9.2'
+    aspectjVersion = '1.9.3'
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: AspectJGradlePlugin
 apply plugin: 'application'
+apply plugin: AspectJGradlePlugin
 apply plugin: 'jacoco'
 
 interface NamingConventions {
@@ -25,15 +26,11 @@ interface NamingConventions {
 
     String getAspectInpathConfigurationName(SourceSet sourceSet);
 }
-/**
- *
- * @author Luke Taylor
- * @author Mike Noordermeer
- */
+
 class AspectJGradlePlugin implements Plugin<Project> {
 
     void apply(Project project) {
-//        project.plugins.apply(JavaPlugin)
+        project.plugins.apply(JavaPlugin)
 
         if (!project.hasProperty('aspectjVersion')) {
             throw new GradleException("You must set the property 'aspectjVersion' before applying the aspectj plugin")
@@ -62,7 +59,7 @@ class AspectJGradlePlugin implements Plugin<Project> {
                 project.tasks.create(name: aspectTaskName, overwrite: true, description: "Compiles AspectJ Source for ${projectSourceSet.name} source set", type: Ajc) {
                     sourceSet = projectSourceSet
                     inputs.files(sourceSet.allJava)
-                    outputs.dir(sourceSet.output.classesDir)
+                    outputs.dir(sourceSet.java.outputDir)
                     aspectpath = project.configurations.findByName(namingConventions.getAspectPathConfigurationName(projectSourceSet))
                     ajInpath = project.configurations.findByName(namingConventions.getAspectInpathConfigurationName(projectSourceSet))
                 }
@@ -70,7 +67,7 @@ class AspectJGradlePlugin implements Plugin<Project> {
                 project.tasks[aspectTaskName].setDependsOn(project.tasks[javaTaskName].dependsOn)
                 project.tasks[aspectTaskName].dependsOn(project.tasks[aspectTaskName].aspectpath)
                 project.tasks[aspectTaskName].dependsOn(project.tasks[aspectTaskName].ajInpath)
-                //project.tasks[javaTaskName].deleteAllActions()
+                project.tasks[javaTaskName].getActions().clear()
                 project.tasks[javaTaskName].dependsOn(project.tasks[aspectTaskName])
             }
         }
