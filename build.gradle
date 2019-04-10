@@ -218,6 +218,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:' + deps.jackson2Version
     compile 'com.fasterxml.jackson.core:jackson-databind:' + deps.jackson2Version
     compile 'javax.xml.bind:jaxb-api:2.3.1'
+    runtime 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
     runtime 'javax.activation:activation:1.1.1'
 }
 
