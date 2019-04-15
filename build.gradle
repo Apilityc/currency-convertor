@@ -1,6 +1,17 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://s3-eu-west-1.amazonaws.com/gskillz-maven-repo"
+        }
+    }
+
+    dependencies {
+        classpath "aspectjfork:gradle:1.1-SNAPSHOT"
+    }
+}
+
 plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
-    id "aspectj.gradle" version "0.1.6" apply false
 }
 
 group 'org.apilytic'
@@ -13,7 +24,8 @@ project.ext {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
-apply plugin: AspectJGradlePlugin
+apply plugin: 'gradle.aspectjfork'
+//apply plugin: AspectJGradlePlugin
 apply plugin: 'jacoco'
 
 interface NamingConventions {
