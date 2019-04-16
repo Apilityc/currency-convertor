@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://s3-eu-west-1.amazonaws.com/gskillz-maven-repo"
+        }
+    }
+
+    dependencies {
+        classpath "aspectjfork:gradle:1.1-SNAPSHOT"
+    }
+}
+
+plugins {
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
+
+group 'org.apilytic'
+version '1.0-SNAPSHOT'
+
+project.ext {
+    aspectjVersion = '1.9.3'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+apply plugin: 'gradle.aspectjfork'
+apply plugin: 'jacoco'
+
+mainClassName = 'org.apilytic.currency.HelloWorld'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+    maven { url "https://repo.spring.io/libs-milestone" }
+}
+
+ext.deps = [
+        springVersion    : '5.1.2.RELEASE',
+        springDataVersion: '2.1.2.RELEASE',
+        jackson2Version  : '2.9.7',
+        junitVersion     : '5.2.0',
+]
+
+compileAspect {
+    xlint = 'warning'
+}
+
+dependencies {
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:' + deps.junitVersion
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:' + deps.junitVersion
+    testCompile 'org.mockito:mockito-core:2.+'
+    testCompile 'org.mockito:mockito-junit-jupiter:2.+'
+    testCompile 'org.springframework:spring-test:' + deps.springVersion
+    compile 'org.springframework:spring-core:' + deps.springVersion
+    compile 'org.springframework:spring-web:' + deps.springVersion
+    compile 'org.springframework:spring-oxm:' + deps.springVersion
+    compile 'org.springframework:spring-aspects:' + deps.springVersion
+    compile 'org.springframework.data:spring-data-redis:' + deps.springDataVersion
+    compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+    compile 'redis.clients:jedis:2.9.0'
+    compile 'com.fasterxml.jackson.core:jackson-core:' + deps.jackson2Version
+    compile 'com.fasterxml.jackson.core:jackson-databind:' + deps.jackson2Version
+    compile 'javax.xml.bind:jaxb-api:2.3.1'
+    runtime 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
+    runtime 'javax.activation:activation:1.1.1'
+}
+
+test {
+    // Enable JUnit 5 (Gradle 4.6+).
+    useJUnitPlatform()
+
+    // Always run tests, even when nothing changed.
+    dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+}
+
+jacoco {
+    toolVersion = "0.8.3"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
